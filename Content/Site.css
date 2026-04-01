@@ -1,0 +1,39 @@
+﻿
+@font-face {
+    font-family: 'Al-Majeed-Quranic-AliHussain';
+    src: url('../fonts/Al Majeed Quranic Font Regular.ttf') format('truetype');
+}
+body {
+   
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+.al-quran {
+ font-family: 'Al-Majeed-Quranic-AliHussain', serif, Tahoma, Arial;
+}
+
+.al-quran-font-s-2 {
+    font-size: 2.5rem !important;
+    font-weight: 400;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 60%;
+}

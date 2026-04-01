@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Section 3 | Quran Learning Platform";
+    ViewBag.Description = "Explore Section 3 with guided Quran lessons, including recitation practice, understanding, and step-by-step learning to improve your Quran reading skills.";
+    ViewBag.KeyWords = "quran section, section 3, quran lessons, learn quran online, recitation practice, tajweed basics, islamic education";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="banner-wrapper">
+    <div id="banner" class="box container">
+        <div class="row">
+            <div class="col-md-12" style="width:100%;margin:0 auto;">
+                <div style="text-align:center;">
+                    <button class="alert-success" style="padding: 0;float: left;width: 18%;font-size: 16px;height: 40px;background: rgb(102, 34, 0);color: white;border-radius: unset;"><a style="color: white;" href="online_quran_teacher_section_2">Back</a></button>
+                    <span style="text-align:center;font-weight:900;font-size: 30px;">Section 3</span>
+                    <button class="alert-success" style="padding: 0;float: right;width: 18%;font-size: 16px;height: 40px;background: rgb(102, 34, 0);color: white;border-radius: unset;"><a style="color: white;" href="~/online_quran_teacher_section_4">Next</a></button>
+                </div>
+                <hr style="border-top:solid 1px #c60;width: 100%;">
+                <div class="col-md-3" style="display: inline;text-align: center;">
+                    <br />
+
+                    <a href="javascript:void(0)" id="1" onclick="changeLesson(7)">
+                        <span style="font-weight:bold;color:rgb(102, 34, 0);">Qurani Lesson 7</span>
+                        <img src="~/assets/LessonsIcons/7.png" style="border: 1px solid black;max-width: 170px;" />
+                        @*<iframe style="vertical-align:top;border: 5px solid #cc6600;" width="150" height="150" src="https://www.youtube.com/embed/rKTEATTzkvs" frameborder="0" allowfullscreen></iframe>*@
+                    </a>
+                    <hr style="margin-bottom: 0;" />
+
+                    <a href="javascript:void(0)" id="2" onclick="changeLesson(8)">
+                        <span style="font-weight:bold;color:rgb(102, 34, 0);">Qurani Lesson 8</span>
+                        <img src="~/assets/LessonsIcons/8.png" style="border: 1px solid black;max-width: 170px;" />
+                        @*<iframe style="vertical-align:top;border: 5px solid #cc6600;" width="150" height="150" src="https://www.youtube.com/embed/liMDu7IC-Ws" frameborder="0" allowfullscreen></iframe>*@
+                    </a>
+                    <hr style="margin-bottom: 0;" />
+
+                    <a href="javascript:void(0)" id="3" onclick="changeLesson(9)">
+                        <span style="font-weight:bold;color:rgb(102, 34, 0);">Qurani Lesson 9</span>
+                        <img src="~/assets/LessonsIcons/9.png" style="border: 1px solid black;max-width: 170px;" />
+                        @*<iframe style="vertical-align:top;border: 5px solid #cc6600;" width="150" height="150" src="https://www.youtube.com/embed/tV740J_8-xE" frameborder="0" allowfullscreen></iframe>*@
+                    </a>
+                    <hr style="margin-bottom: 0;" />
+                    <a href="javascript:void(0)" id="3" onclick="changeLesson(10)">
+                        <span style="font-weight:bold;color:rgb(102, 34, 0);">Qurani Lesson 10</span>
+                        @*<iframe style="vertical-align:top;border: 5px solid #cc6600;" width="150" height="150" src="https://www.youtube.com/embed/8vsUBp-SEkc" frameborder="0" allowfullscreen></iframe>*@
+                    </a>
+                    <hr style="margin-bottom: 0;" />
+                </div>
+                <div class="col-md-9" style="display: inline;">
+                    <div id="acivelesson">
+                        <h3 style="text-align: center;" id="lessonname">Listen Carefully Qurani Lesson 7</h3>
+                        <div id="videodiv">
+                            <div id="innerdiv">
+                                <video id="video" width="640" height="480" poster="sample-video.jpg" controls autoplay preload style="width: 100%;height:100%;border: 1px solid black;">
+                                    <source id="lessonurl" src="~/assets/VideoLessons/Lesson 7.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        @*<iframe id="lessonurl" style="width: 100%;border: 5px solid #cc6600;" width="100%" height="400" src="https://www.youtube.com/embed/rKTEATTzkvs?rel=0" frameborder="0" allowfullscreen></iframe>*@
+                    </div>
+                    <hr style="border-top:solid 1px #c60;width: 100%;">
+                    <div id="disqus_thread"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        /**
+        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+        var disqus_config = function () {
+            this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://learnfreequran-1.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+</div>
+
+
+
+
+

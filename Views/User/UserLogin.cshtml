@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "User Login | Quran Learning Platform";
+    ViewBag.Description = "Log in to your account to access Quran lessons, track your progress, and continue your learning journey.";
+    ViewBag.KeyWords = "user login, sign in, quran learning platform, student login, access account, online quran learning";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="rs-login pt-100 pb-100 md-pt-70 md-pb-70 contact-form text-center" style="padding-left:30%;padding-right:30%">
+    <div class="container">
+        <div class="noticed">
+            <div class="main-part">
+                <div class="method-account">
+                    <h2 class="login">Login</h2>
+                    <form action="/User/VerifyUser" method="post">
+                        <input type="email" name="email" placeholder="E-mail" class="form-control" required=""><br />
+                        <input type="password" name="password" placeholder="Password" class="form-control" required=""><br />
+                        <button type="submit" class="readon submit-btn btn-success form-control">login</button>
+                        <div class="last-password">
+                            <p>Not registered? <a href="/User/Registration">Create an account</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,113 @@
+﻿@model LearnFreeQuran.Library.StudentListDO
+@{
+    ViewBag.Title = "Unscheduled Students | Quran Learning Platform";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script>
+    function PopulateDataInBoxes(StudentID,Classes,Days,FeasibleTime) {
+        $('#studentid').val(StudentID);
+        $('#totalclasses').val(Classes);
+        $('#daysname').val(Days);
+        $('#time').val(FeasibleTime);
+        debugger;
+        setTimeout(popup, 3000);
+            function popup() {
+                $("#logindiv").css("display", "block");
+            }
+        $("#contactdiv").css("display", "block");
+        $("#contact #cancel").click(function() {
+        $(this).parent().parent().hide();
+        });
+    }
+</script>
+
+<link href="~/assets/css/ie8.css" rel="stylesheet" />
+<div id="banner-wrapper">
+    <div id="banner" class="box container" >
+        <div class="row">
+            <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
+                <h5 style="float:right;">Total Records:  <label style="color:red;padding-left: 5px;">  @Model.TotalRecords</label></h5>
+                <table class="rest" border="0" style="width: 100%;text-align: center;color: black;border: 1px solid black;font-size: 88%;">
+                    <thead style="font-weight: 600;background: darksalmon !important;">
+                        <tr style="color:white;">
+                            <td>Serial</td>
+                            <td>Student ID</td>
+                            <td>Name</td>
+                            <td>Gender </td>
+                            <td>Country </td>
+                            <td>Classes</td>
+                            <td>Days </td>
+                            <td>Feasible Time</td>
+                            <td>Registration Date</td>
+                            <td>Scheduled </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int count = 1; }
+                        @foreach (var Item in Model.StudentList)
+                        {
+                            <tr>
+                                <td>@count</td>
+                                <td><a href="/Admin/StudentPreview?StudentID=@Item.StudentID"> @Item.StudentID </a></td>
+                                <td>@Item.StudentName</td>
+                                <td>@Item.Gender</td>
+                                <td>@Item.Country</td>
+                                <td>@Item.Classes</td>
+                                <td style="width: 103px;">@Item.Days</td>
+                                <td>@Item.FeasibleTime</td>
+                                <td>@Item.RegistrationDate</td>
+                                <td><a href="#" onclick='PopulateDataInBoxes("@Item.StudentID","@Item.Classes","@Item.Days","@Item.FeasibleTime");'> Set</a></td>
+                                 @*<td><a href="#" id="onclick">Set</a></td>*@
+                            </tr>
+                             count++;
+                         }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Set Schedule Form -->
+<div id="contactdiv">
+    <form class="form" action="/Admin/SaveSchedule" method="post" id="contact" style="color: crimson;font-family: inherit;">
+        <img src="~/images/button_cancel.png" style="width: 27px;" class="img" id="cancel" />
+        <h3>Schedule Information</h3>
+        <hr />
+        <table>
+            <tr>
+                <td><label>Student ID: <span>*</span></label></td>
+                <td><input type="text" name="studentid" id="studentid" /><br /></td>
+            </tr>
+            <tr>
+                <td><label>Classes: <span>*</span></label></td>
+                <td><input type="text" name="totalclasses" id="totalclasses" /><br /></td>
+            </tr>
+            <tr>
+                <td><label>Days: <span>*</span></label></td>
+                <td><input type="text" name="daysname" id="daysname" /><br /></td>
+            </tr>
+            <tr>
+                <td><label>Feasible Time: <span>*</span></label></td>
+                <td><input type="text" name="time" id="time" /><br /></td>
+            </tr>
+            <tr>
+                <td><label>Set Class Time : <span>*</span></label></td>
+                <td><input type="text" name="classtime" id="classtime" /><br /></td>
+            </tr>
+            <tr>
+                <td><label>Tutor Name : <span>*</span></label></td>
+                <td><input type="text" name="tutorname" id="tutorname" /><br /></td>
+            </tr>
+            <tr>
+                <td><label>Description : <span>*</span></label></td>
+                <td><input type="text" name="description" id="description" /><br /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" class="btn-success" style="padding: 1px;" value="Submit" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+

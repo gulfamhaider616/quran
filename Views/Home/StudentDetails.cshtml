@@ -1,0 +1,99 @@
+﻿@model LearnFreeQuran.Library.RegistrationDO
+@{
+    ViewBag.Title = "Learn Quran Online | Quran Learning Platform";
+    ViewBag.Description = "Access your student profile, view your schedule, and manage your Quran learning journey بسهولة. Stay organized and track your progress through your personalized dashboard.";
+    ViewBag.KeyWords = "student dashboard, quran learning platform, student profile, class schedule, online quran learning, islamic education, learning progress";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Banner -->
+<div id="banner-wrapper">
+    <div id="banner" class="box container">
+        <div class="row">
+            <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
+                <h3 style="text-align:center">Student Information</h3>
+                <table border="0" style="width: 90%;">
+                    <tr>
+                        <td style="width: 26%;"><label>Student ID :</label></td>
+                        <td>@Model.StudentID<br /></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 26%;"><label>Student Name :</label></td>
+                        <td>@Model.StudentName<br /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Father's Name :</label></td>
+                        <td>@Model.FatherName<br /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Phone Number :</label></td>
+                        <td>@Model.PhoneNumber<br /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Email :</label></td>
+                        <td>@Model.Email <br /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Skype ID :</label></td>
+                        <td>@Model.SkypeID<br /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Gender :</label></td>
+                        <td>@Model.Gender <br /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Date of Birth :</label></td>
+                        <td>@Model.DateOfBirth <br /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Country :</label></td>
+                        <td>@Model.Country <br /></td>
+                    </tr>
+                    <tr>
+                        <td><label>City Name :</label></td>
+                        <td>@Model.City<br /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Language :</label></td>
+                        <td>@Model.FirstLanguage<br /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Classes :</label></td>
+                        <td>@Model.Classes<br /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Days Name :</label></td>
+                        <td>@Model.Days<br /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Feasible Time:</label></td>
+                        <td>@Model.FeasibleTime<br /></td>
+                    </tr>
+                </table>
+                @if (Model.Scheduled == 1)
+                {
+                    <h3 style="text-align:center">Tutor Information</h3>
+                    <table border="0" style="width: 90%;">
+                        <tr>
+                            <td style="width: 26%;"><label>Scheduled Days :</label></td>
+                            <td>@Model.ScheduledDays<br /></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 26%;"><label>Class Time :</label></td>
+                            <td>@Model.ClassTime<br /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Tutor Name :</label></td>
+                            <td>@Model.TutorName<br /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Description :</label></td>
+                            <td>@Model.Description<br /></td>
+                        </tr>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

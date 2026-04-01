@@ -1,0 +1,22 @@
+﻿
+@model LearnFreeQuran.Library.AskQuestionDO
+@{
+    ViewBag.Title = "Learn Quran Online | Free Quran Learning Platform";
+    ViewBag.Description = "Learn Quran online with interactive lessons, expert guidance, and a global Q&A community. Ask questions, share knowledge, and improve your understanding of Islamic teachings in a supportive environment.";
+    ViewBag.KeyWords = "learn quran online, quran learning platform, islamic learning, ask islamic questions, quran lessons, online quran study, islamic education, quran community";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="banner-wrapper">
+    <div id="banner" class="box container">
+        <div class="row">
+            <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
+                <div style="font-size: 159%;color: crimson;">@Model.Subject</div><br />
+                <div>@Model.Explanation</div>
+                <div style="float:right;">@Model.UserName | @Model.Country</div>
+            </div>
+        </div>
+        <hr style="border-top:solid 1px #c60;width: 657px;">
+        <a href="#" onclick='PublishQuestion("@Model.AskQuestionID")' style="text-decoration:none;">Publish</a> | <a href="#" onclick='DeleteQuestions("@Model.AskQuestionID")' style="text-decoration:none;">Delete</a>
+    </div>
+</div>

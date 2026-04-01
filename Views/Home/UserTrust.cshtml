@@ -1,0 +1,54 @@
+﻿@model IEnumerable<LearnFreeQuran.Library.FeedbackDO>
+@{
+    ViewBag.Title = "User Trust & Safety | Quran Learning Platform";
+    ViewBag.Description = "Learn how we ensure a safe, secure, and trustworthy environment for all users. We are committed to protecting your data, privacy, and learning experience.";
+    ViewBag.KeyWords = "user trust, platform safety, data privacy, secure learning platform, quran learning platform, user protection, online safety";
+}
+<div id="banner-wrapper">
+    <div id="banner" class="box container">
+        <div class="row">
+            <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
+                <h3 style="text-align:center">User Feedback</h3>
+                @foreach (var item in Model)
+                {
+                    <div>
+                        <label>@item.Name</label>
+                        <span>    |   @item.Country</span>
+                        <p style="font-size: 1.1em;">@item.Message</p>
+                    </div>
+                    <hr style="border-top:dotted 1px #c60;" />
+                }
+
+                <hr style="border-top:solid 1px #c60;" />
+                <h3 style="text-align:center">Send Your Feedback</h3>
+                <form action="#" method="post">
+                    <table border="0" style="width: 90%;">
+                        <tr>
+                            <td style="width: 25%;"><label>Name<label style="color:red">*</label> :</label></td>
+                            <td><input type="text" id="feedbackname" style="width: 100% !important;max-width: 100%;" placeholder="enter name" required /><br /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Country<label style="color:red">*</label> :</label></td>
+                            <td>
+                                <input type="text" id="feedbackcountry" style="width: 100% !important;max-width: 100%;" placeholder="enter your country" required /><br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Enter Message<label style="color:red">*</label> :</label></td>
+                            <td>
+                                <textarea id="feedbackmessage" style="width: 100% !important;max-width: 100%;height: 50%;" placeholder="type your message here" required></textarea><br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="button" id="feedbackbutton" class="btn-success" style="padding: 1px;width: 100%;" value="Send" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

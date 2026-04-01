@@ -1,0 +1,32 @@
+﻿@model IEnumerable<LearnFreeQuran.Library.AskQuestionDO>
+@{
+    ViewBag.Title = "Community Forum | Quran Learning Platform";
+    ViewBag.Description = "Join the Quran learning community to ask questions, share knowledge, and explore discussions on Islamic teachings. Connect with learners worldwide and grow your understanding together.";
+    ViewBag.KeyWords = "quran forum, islamic discussion, quran learning community, ask islamic questions, online islamic forum, quran help, islamic knowledge sharing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="banner-wrapper">
+    <div id="banner" class="box container">
+        <div class="row">
+            <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
+                <div style="text-align: right;">
+                    <a href="/Forum/AskQuestion"> <input type="button" class="btn-success" value="Ask Question" style="font-size: inherit;padding: 0;width: 20%;" /></a>
+                </div><br />
+                <table class="rest" border="0" style="width: 100%;color: black;font-size: 88%;">
+                    <tbody>
+                        @foreach (var Item in Model)
+                        {
+                            <tr>
+                                <td><img src="~/images/question.png" style="width: 40px;height: 40px;border-radius: 8px;" /></td>
+                                <td style="text-align: left;"><a href="/Forum/SingleQuestion?QuestionID=@Item.AskQuestionID" style="text-decoration: none;"> @Item.Subject</a></td>
+                                <td style="text-align:right;">@Item.UserName</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/Forum.js"></script>

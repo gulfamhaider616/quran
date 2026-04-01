@@ -1,0 +1,73 @@
+﻿@model IEnumerable<LearnFreeQuran.Library.BookDO>
+
+@{
+    ViewBag.Title = "All Books | Quran Learning Platform";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="banner-wrapper">
+    <div id="banner" class="box container">
+        <div class="row">
+            <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
+                <table class="rest" border="0" style="width: 100%;text-align: center;color: black;border: 1px solid black;font-size: 88%;">
+                    <thead style="font-weight: 600;background: darksalmon !important;">
+                        <tr style="color:white;">
+                            <td>Serial</td>
+                            <td>Image</td>
+                            <td>Title</td>
+                            <td>Author Name </td>
+                            <td>Description </td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var book in Model)
+                        {
+                            <tr>
+                                <td>@book.BookID</td>
+                                <td>
+                                    <img alt="Error" class="bookCover" itemprop="image" height="100" width="100"
+                                         src="~/assets/Books/Image/@book.ImageName" />
+                                </td>
+                                <td>@book.AutherName</td>
+                                <td>@book.BookTilte</td>
+                                <td>@book.Detail</td>
+                                <td>
+                                    <a  href="~/assets/Books/BookFile/@book.FileName"  id="readPdf" class="btn btn-success btn-sm">Download</a>
+                                    <a href="/Admin/DeleteBook?BookID=@book.BookID" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>
+                                    
+                                    <a href="/Admin/GetBookByID?BookID=@book.BookID" class="btn btn-info btn-sm"><i class="fa fa-edit"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    //$('#readPdf').click(function (e) {
+    //    debugger;
+    //    var url = $(this).attr('attr-url');
+
+    //    window.open(url, "_blank");
+    //    //e.preventDefault();
+    //    //window.location.href = '~/images/BooksImage/KirdarYazeed.PNG';
+    //});
+
+    //$("#readPdf").on("click", function () {
+    //    alert("hellloooo");
+    //});
+
+    function showPdf(url) {
+        debugger;
+        console.log(url);
+    }
+
+    //function GetClientReport() {
+    //    window.open('/Admin/GetFile?fileName=', "_blank");
+    //};
+</script>

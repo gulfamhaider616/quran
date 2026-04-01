@@ -1,0 +1,106 @@
+﻿@model LearnFreeQuran.Library.StudentListDO
+@{
+    ViewBag.Title = "Scheduled Students | Quran Learning Platform";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@*<script>
+        function PopulateDataInBoxes(StudentID,Classes,Days,FeasibleTime) {
+            $('#studentid').val(StudentID);
+            $('#totalclasses').val(Classes);
+            $('#daysname').val(Days);
+            $('#time').val(FeasibleTime);
+            debugger;
+            setTimeout(popup, 3000);
+                function popup() {
+                    $("#logindiv").css("display", "block");
+                }
+            $("#contactdiv").css("display", "block");
+            $("#contact #cancel").click(function() {
+            $(this).parent().parent().hide();
+            });
+        }
+    </script>*@
+
+<link href="~/assets/css/ie8.css" rel="stylesheet" />
+<div id="banner-wrapper">
+    <div id="banner" class="box container" >
+        <div class="row">
+            <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
+                <h5 style="float:right;">Total Records:  <label style="color:red;padding-left: 5px;">  @Model.TotalRecords</label></h5>
+                <table class="rest" border="0" style="width: 100%;text-align: center;color: black;border: 1px solid black;font-size: 88%;">
+                    <thead style="font-weight: 600;background: darksalmon !important;">
+                        <tr style="color:white;">
+                            <td>Serial</td>
+                            <td>Student ID</td>
+                            <td>Name</td>
+                            <td>SkypeID </td>
+                            <td>Class Time</td>
+                            <td>Tutor Name</td>
+                            <td>Description</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int count = 1; }
+                        @foreach (var Item in Model.StudentList)
+                        {
+                            <tr>
+                                <td>@count</td>
+                                <td><a href="/Admin/StudentPreview?StudentID=@Item.StudentID"> @Item.StudentID </a></td>
+                                <td>@Item.StudentName</td>
+                                <td>@Item.SkypeID</td>
+                                <td>@Item.ClassTime</td>
+                                <td>@Item.TutorName</td>
+                                <td>@Item.Description</td>
+                            </tr>
+                            count++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Set Schedule Form -->
+<div id="contactdiv">
+    <form class="form" action="#" method="post" id="contact" style="color: crimson;font-family: inherit;">
+        <img src="~/images/button_cancel.png" style="width: 27px;" class="img" id="cancel" />
+        <h3>Schedule Information</h3>
+        <hr />
+        <table>
+            <tr>
+                <td><label>Student ID: <span>*</span></label></td>
+                <td><input type="text" id="studentid" /><br /></td>
+            </tr>
+            <tr>
+                <td><label>Classes: <span>*</span></label></td>
+                <td><input type="text" id="totalclasses" /><br /></td>
+            </tr>
+            <tr>
+                <td><label>Days: <span>*</span></label></td>
+                <td><input type="text" id="daysname" /><br /></td>
+            </tr>
+            <tr>
+                <td><label>Feasible Time: <span>*</span></label></td>
+                <td><input type="text" id="time" /><br /></td>
+            </tr>
+            <tr>
+                <td><label>Set Class Time : <span>*</span></label></td>
+                <td><input type="text" id="classtime" /><br /></td>
+            </tr>
+            <tr>
+                <td><label>Tutor Name : <span>*</span></label></td>
+                <td><input type="text" id="tutorname" /><br /></td>
+            </tr>
+            <tr>
+                <td><label>Description : <span>*</span></label></td>
+                <td><input type="text" id="description" /><br /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="button" id="schedule" class="btn-success" style="padding: 1px;" value="Submit" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+

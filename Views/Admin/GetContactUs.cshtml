@@ -1,0 +1,40 @@
+﻿@model IEnumerable<LearnFreeQuran.Library.ContactUsDO>
+@{
+    ViewBag.Title = "Contact Us | Quran Learning Platform";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="banner-wrapper">
+    <div id="banner" class="box container">
+        <div class="row">
+            <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
+                <table class="rest" border="0" style="width: 100%;text-align: center;color: black;border: 1px solid black;font-size: 88%;">
+                    <thead style="font-weight: 600;background: darksalmon !important;">
+                        <tr style="color:white;">
+                            <td>Serial</td>
+                            <td>Email</td>
+                            <td>Topic</td>
+                            <td>Date </td>
+                            <td>Message</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int count = 1; }
+                        @foreach (var Item in Model)
+                        {
+                            <tr>
+                                <td>@count</td>
+                                <td>@Item.ContactEmail</td>
+                                <td>@Item.ContactTopic</td>
+                                <td>@Item.ContactDate</td>
+                                <td>@Item.ContactMessage</td>
+                            </tr>
+                            count++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

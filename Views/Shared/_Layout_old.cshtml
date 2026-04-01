@@ -1,0 +1,199 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    @*<title>Learn Free Quran</title>*@
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="google" content="notranslate">
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="@ViewBag.Description">
+    <meta name="keywords" content="@ViewBag.KeyWords">
+    @* @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/MainFile")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css") *@
+    <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link href="~/Content/sweetalert.css" rel="stylesheet" />
+
+
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-96555064-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4857861989214399"
+            crossorigin="anonymous"></script>
+    @*<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+              (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-4857861989214399",
+                enable_page_level_ads: true
+              });
+        </script>*@
+</head>
+<body class="homepage">
+    <div id="page-wrapper">
+
+        <!-- Header -->
+        <div id="header-wrapper">
+            <header id="header" class="container">
+
+                <!-- Logo -->
+                <div id="logo" style="text-align: center;">
+                    <a href="/" style="text-decoration: none;">
+                        <img src="~/images/Logo3.png" style="height: 60px;" />
+                        @*<div style="font-size:16px;color: rgb(72, 139, 65);font-weight: 600;margin-top: -18px;">Learn Free Quran</div>*@
+                    </a>
+                </div>
+
+                <!-- Nav -->
+                <nav id="nav" style="margin-top: 10px;">
+                    <ul>
+                        <li id="home"><a href="/">Home</a></li>
+                        <li id="teacher"><a href="/Quran_Teacher">Quran Teacher</a></li>
+                        <li id="reading"><a href="~/online_quran_reading">Read Quran</a></li>
+                        <li><a href="~/Books/AllBooks">Read Book</a></li>
+                        <li id="basic">
+                            <a href="#">Basic Islam</a>
+                            <ul id="sublst">
+                                @*<li><a href="/Quran_Teacher"><b>Online Quran Teacher<span style="color:red;border:1px solid green;"> New</span></b></a></li>*@
+                                <li><a href="/Six_Kalmas"><b>Read Kalmas</b></a></li>
+                                <li><a href="/Namaz"><b> Read Namaz</b></a></li>
+                                <li><a href="/Masnoon_Duain"><b>Learn Duain</b></a></li>
+                                <li><a href="/Darood"><b>Darood Sharif</b></a></li>
+                                @*<li><a href="/Home/Lesson_1_Noorani"><b>Noorani Qaida</b></a></li>*@
+                                <li><a href="/Namaz_e_Janaza"><b>Namaz Janaza</b></a></li>
+                                <li><a href="/Due_e_Qunoot"><b>Due_e_Qunoot</b></a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/Home/FeeStructure">Fee Structure</a></li>
+                        <li><a href="/Registration">Registration</a></li>
+                        <li><a href="/Forum">Forum</a></li>
+                        @*<li><a href="#">Registration</a></li>
+                            <li><a href="#">Forum</a></li>*@
+                    </ul>
+
+                </nav>
+                <div>
+                    @{
+                        // if (Session["name"] != null)
+                        // {
+                        //     <a href="#">Welcome @Session["name"].ToString()</a>
+                        //     <a href="/User/Logout" style="color: #ff5151; padding-left: 20px;">Logout</a>
+                        // }
+                        // else
+                        // {
+                        //     <a href="/User/UserLogin">Login</a>
+                        // }
+                    }
+                </div>
+            </header>
+        </div>
+
+        @RenderBody()
+        <!-- Footer -->
+        <div id="footer-wrapper">
+            <footer id="footer" class="container">
+                <div class="row">
+                    <div class="3u 6u(medium) 12u$(small)">
+                        <!-- Links -->
+                        <section class="widget links">
+                            <h3>Privacy Policy</h3>
+                            <ul class="style2">
+                                <li><a href="/Students_Terms">Terms For Students</a></li>
+                                <li><a href="/Students_Terms">Terms For Gardians/Parents</a></li>
+                                <li><a href="/Instructor_Terms">Terms For Instructors</a></li>
+                                <li><a href="/UserTrust">User Trust</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                    <div class="3u 6u$(medium) 12u$(small)">
+
+                        <!-- Links -->
+                        <section class="widget links">
+                            <h3>Online Stuff</h3>
+                            <ul class="style2">
+                                <li><a href="/Six_Kalmas">Six Kalmas</a></li>
+                                <li><a href="/Namaz">Learn Namaz</a></li>
+                                <li><a href="/Masnoon_Duain">Learn Duain</a></li>
+                                <li><a href="/Darood">Darood Sharif</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                    <div class="3u 6u(medium) 12u$(small)">
+                        <!-- Links -->
+                        <section class="widget links">
+                            <h3>Quick Links</h3>
+                            <ul class="style2">
+                                @*<li><a href="/Check_Schedule">Get Student Schedule</a></li>*@
+                                <li><a href="/registration">Free Registration</a></li>
+                                <li><a href="/forum">Questions & Answers</a></li>
+                                <li><a href="/contact">Contact Management Team</a></li>
+                                <li><a href="/about">About Us</a></li>
+
+                            </ul>
+                        </section>
+                    </div>
+                    <div class="3u 6u$(medium) 12u$(small)">
+
+                        <!-- Contact -->
+                        <section class="widget contact last">
+                            <h3>Get in Touch</h3>
+                            <ul>
+                                <li><a href="https://www.facebook.com/Learn-Free-Quran-1338414089559572/" target="_blank" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                            </ul>
+                            <p>
+                                <a href="https://play.google.com/store/apps/details?id=com.nativeapps" target="_blank" style="text-decoration:underline">Android App</a>
+                            </p>
+                        </section>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="12u">
+                        <div id="copyright">
+                            <ul class="menu">
+                                <li>&copy; @DateTime.Now.Year Learn Free Quran | All rights reserved. @*<a href="/Admin/Index" target="_blank">Go</a>*@</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/jquery.dropotron.min.js"></script>
+    <script src="/assets/js/skel.min.js"></script>
+    <script src="/assets/js/util.js"></script>
+    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+    <script src="/assets/js/main.js"></script>
+
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <script>
+    $(document).ready(function () {
+        //var myAudio = document.getElementById("myAudio");
+
+
+        //myAudio.onplaying = function () {
+        //    isPlaying = true;
+        //};
+        //myAudio.onpause = function () {
+        //    isPlaying = false;
+        //};
+    });
+    </script>
+
+</body>
+</html>

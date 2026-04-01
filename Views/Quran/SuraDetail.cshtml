@@ -1,0 +1,317 @@
+﻿@model LearnFreeQuran.SuraDetailContract
+@{
+    ViewBag.Title = "Surah Details | Quran Learning Platform";
+    ViewBag.Description = "Read and explore detailed information about the selected Surah, including its meaning, recitation, and learning guidance to support your Quran study journey.";
+    ViewBag.KeyWords = "surah details, quran surah, quran recitation, learn quran online, surah explanation, quran learning, islamic education";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    function togglePlay(id) {
+        $("audio").on("play", function () {
+            $("audio").not(this).each(function (index, audio) {
+                audio.pause();
+            });
+        });
+        var audioElement = document.getElementById(id);
+        debugger;
+        if (audioElement.paused) {
+            audioElement.play();
+        }
+        else {
+            audioElement.pause();
+        }
+    };
+</script>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+<style>
+    input[type=text], input[type=password] {
+        /*width: 20%;*/
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    button:hover {
+        opacity: 0.8;
+    }
+
+    /* Extra styles for the cancel button */
+    .cancelbtn {
+        width: auto;
+        padding: 10px 18px;
+        background-color: #f44336;
+    }
+
+    /* Center the image and position the close button */
+    .imgcontainer {
+        text-align: center;
+        /*margin: 24px 0 12px 0;*/
+        position: relative;
+    }
+
+    /*.container {
+        padding: 16px;
+    }*/
+
+    span.psw {
+        float: right;
+        padding-top: 16px;
+    }
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 40%; /* Full width */
+        height: 65%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        padding-top: 60px;
+        margin-left: 30%;
+        margin-right: 30%;
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button (x) */
+    .close {
+        position: absolute;
+        right: 25px;
+        top: 0;
+        color: #000;
+        font-size: 35px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: red;
+            cursor: pointer;
+        }
+
+    /* Add Zoom Animation */
+    .animate {
+        -webkit-animation: animatezoom 0.6s;
+        animation: animatezoom 0.6s
+    }
+</style>
+<div id="banner-wrapper">
+    @{
+        string suraName = "";
+        <div id="banner" class="box container">
+            <div class="row">
+                <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
+                    <div>
+                        <form action="~/quran_reading" method="post" style="text-align: center;">
+                            <span style="font-weight: bold;color: brown;"> Surah:</span>
+                            <select class="al-quran" name="ChapterID" style="font-size: 100%;height:40px;width: 20%;">
+                                @foreach (var Item in Model.SuraList)
+                                {
+                                    if (Model.SuraDetail.ChapterID == Item.ChapterID)
+                                    {
+                                        suraName = Item.ChapterID.ToString();
+                                        <option value="@Item.ChapterID" selected>@Item.ChapterID. &nbsp; @Item.SuraName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@Item.ChapterID">@Item.ChapterID. &nbsp; @Item.SuraName</option>
+                                    }
+                                }
+                            </select> &nbsp;&nbsp;
+                            <span style="font-weight: bold;color: brown;">Translation:</span>
+                            <select name="trans" style="font-size: 100%; height: 40px; vertical-align: top; width: 20%;" class="translations">
+                                @{
+                                    if (Model.trans == "Urdu")
+                                    {
+                                        <option value="Urdu" selected>Urdu</option>
+                                        <option value="English">English</option>
+                                        <option value="Indonesian">Indonesian</option>
+                                        <option value="both">Urdu & English</option>
+                                    }
+                                    else if (Model.trans == "English")
+                                    {
+                                        <option value="Urdu">Urdu</option>
+                                        <option value="English" selected>English</option>
+                                        <option value="Indonesian">Indonesian</option>
+                                        <option value="both">Urdu & English</option>
+                                    }
+                                    else if (Model.trans == "Indonesian")
+                                    {
+                                        <option value="Urdu">Urdu</option>
+                                        <option value="English">English</option>
+                                        <option value="Indonesian" selected>Indonesian</option>
+                                        <option value="both">Urdu & English</option>
+                                    }
+                                    else if (Model.trans == "both")
+                                    {
+                                        <option value="Urdu">Urdu</option>
+                                        <option value="English">English</option>
+                                        <option value="Indonesian">Indonesian</option>
+                                        <option value="both" selected>Urdu & English</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="Urdu" selected>Urdu</option>
+                                        <option value="English">English</option>
+                                        <option value="Indonesian">Indonesian</option>
+                                        <option value="both">Urdu & English</option>
+                                    }
+                                }
+                            </select>
+                            <input type="submit" value="GO" style="background: rgb(102, 34, 0);color: white;border-radius: unset;font-size: 100%;width: 12%;height: 40px !important;padding:0;vertical-align: top !important" />
+
+
+                        </form>
+                    </div>
+                    <div style="text-align:center">
+                        <div>
+                            <p style="display: inline-block;" class="al-quran">@Model.SuraDetail.SuraName</p>
+                            @*<div style="float:right;font-weight:700;"><span style="color: brown;"> Last Reading</span><br /><span> Surah<span style="color: brown;"> 55</span> of Ayat <span style="color: brown;">199</span></span></div>*@
+                        </div>
+                        <span>This chapter contains <span style="color: brown !important;font-weight: bold;">@Model.SuraDetail.TotalVerses</span> verses</span>
+                        @*<button id="userlog" onclick="document.getElementById('id01').style.display='block'" style="width: 167px;height: 30px;font-size: 12px;vertical-align: middle;padding: 0;float: right;">Log today lesson end</button>*@
+                    </div>
+                    <table class="rest" border="0" style="width: 100%;text-align: center;color: black;border: 1px solid black;font-size: 0.88em;">
+                        <tbody>
+                            @foreach (var Item in Model.AyatList)
+                            {
+
+                                string id = Item.ChapterID + "-" + Item.VerseID;
+                                string verseName = "";
+                                string originalName = Item.VerseID.ToString();
+
+                                if (originalName.Length == 1)
+                                {
+                                    verseName = "00" + originalName + ".mp3";
+                                }
+                                else if (originalName.Length == 2)
+                                {
+                                    verseName = "0" + originalName + ".mp3";
+                                }
+                                else
+                                {
+                                    verseName = originalName;
+                                }
+
+
+                                if (suraName.Length == 1)
+                                {
+                                    suraName = "00" + suraName;
+                                }
+                                else if (suraName.Length == 2)
+                                {
+                                    suraName = "0" + suraName;
+                                }
+
+                                string ayatLink = "/assets/AyatAudios/" + suraName + verseName;
+                                <tr>
+                                    <td colspan="15">
+                                        <div id='@id'>
+                                            <a style="float: right; color: white; padding: 10px; " class="thm-btn brd-rd5" onclick="Addookmark('@id')" title="">Add to Bookmark</a>
+                                            <span style="margin-left: 15%;">
+                                                (@Item.VerseID)
+                                            </span>
+                                            <div style="display: inline-block; padding-left: 5%; color: green;">
+
+                                                <a onclick="togglePlay('@verseName')">
+                                                    <i class='fa fa-volume-up fa-2x' style="vertical-align: middle;cursor: pointer;">
+                                                        <audio id=@verseName src=@ayatLink preload="auto">
+                                                        </audio>
+                                                    </i>
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="7">
+                                        <p class="al-quran al-quran-font-s-2" style="margin: 0;color:brown !important;">
+                                            @Item.AyatText
+                                        </p>
+                                    </td>
+                                </tr>
+                                if (Model.trans == "both")
+                                {
+                                    <tr>
+                                        <td colspan="7">
+                                            <p style="margin: 0;color: #696969;font-weight:500;">
+                                                @Item.EnglishTranslation
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <p style="margin: 0;color: green;font-weight:500;">
+                                                @Item.UrduTranslation
+                                            </p>
+                                            <hr style="border-top:solid 1px #c60; width: 100%;">
+                                        </td>
+                                    </tr>
+                                }
+                                else if (Model.trans == "Urdu")
+                                {
+                                    <tr>
+                                        <td colspan="7">
+                                            <p style="margin: 0;color: green;font-weight:500;">
+                                                @Item.UrduTranslation
+                                            </p>
+                                            <hr style="border-top:solid 1px #c60;width: 100%;">
+                                        </td>
+                                    </tr>
+                                }
+                                else if (Model.trans == "English")
+                                {
+                                    <tr>
+                                        <td colspan="7">
+                                            <p style="margin: 0;color: #696969;font-weight:500;">
+                                                @Item.EnglishTranslation
+                                            </p>
+                                            <hr style="border-top:solid 1px #c60;width: 100%;">
+                                        </td>
+                                    </tr>
+                                }
+                                else if (Model.trans == "Indonesian")
+                                {
+                                    <tr>
+                                        <td colspan="7">
+                                            <p style="margin: 0;color: #696969;font-weight:500;">
+                                                @Item.IndonasianTranslation
+                                            </p>
+                                            <hr style="border-top:solid 1px #c60;width: 100%;">
+                                        </td>
+                                    </tr>
+                                }
+                                else if (Model.trans == null)
+                                {
+                                    <tr>
+                                        <td colspan="7">
+                                            <p style="margin: 0;color: green;font-weight:500;">
+                                                @Item.UrduTranslation
+                                            </p>
+                                            <hr style="border-top:solid 1px #c60;width: 100%;">
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Learn Quran Online | Quran Learning Platform";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="banner-wrapper">
+    <div id="banner" class="box container" >
+        <div class="row">
+            <div class="col-md-12" style="width:120%;margin:0 auto;overflow-x:auto;">
+                <h3 style="text-align:center">Please Login As Administrator.</h3>
+                <form action="/Admin/VerifyAdmin" method="post">
+                    <table border="0" style="width: 90%;">
+                        <tr>
+                            <td><label>Admin Email<label style="color:red">*</label> :</label></td>
+                            <td><input type="text" name="adminname" placeholder="enter admin email" required /><br /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Admin Password<label style="color:red">*</label> :</label></td>
+                            <td><input type="password"  name="adminpassword" placeholder="enter admin password" required /><br /></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" id="adminlogin" name="adminlogin" class="btn-success" style="padding: 1px;" value="Submit" /></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Add Book | Quran Learning Portal";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<form method="post" action="~/Admin/SaveBook" enctype="multipart/form-data">
+
+    <div id="banner-wrapper">
+        <div id="banner" class="box container">
+            <div class="row">
+                <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
+                    <h4 style="text-align:center">Add New Book Detail</h4>
+
+                    <table border="0" style="width: 90%;">
+                        <tr>
+                            <td>
+                                <input type="text" name="BookID"  hidden />
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 26%;"><label>Book Title<label style="color:red">*</label> :</label></td>
+                            <td><input type="text" style="width: 100% !important;max-width: 100%;" name="BookTilte" placeholder="enter book name"    required /><br /></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 26%;"><label>Author Name<label style="color:red">*</label> :</label></td>
+                            <td><input type="text" style="width: 100% !important;max-width: 100%;" name="AuthorName" placeholder="enter book name"   required /><br /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Book Picture<label style="color:red">*</label> :</label></td>
+                            <td>
+                                <input type="file" placeholder="choose your book image" name="ImagePath"  />
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Book File<label style="color:red">*</label> :</label></td>
+                            <td>
+                                <input type="file" name="FilePath"   />
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 26%;"><label>Book Type<label style="color:red">*</label> :</label></td>
+                            <td><input type="text" style="width: 100% !important;max-width: 100%;" name="BookType" placeholder="enter book type"   required /><br /></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 26%;"><label>Detail:</label></td>
+                            <td><textarea style="width: 100% !important;max-width: 100%;height:150px;" name="Detail" placeholder="enter book detail"   required></textarea><br /></td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                        <tr>
+                            <td><input type="submit" id="SaveBook" name="SaveBook" class="btn-success" style="padding: 1px;" value="Submit" /></td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,365 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    var session = HttpContextAccessor.HttpContext?.Session;
+    var userName = session?.GetString("name");
+    var chapterId = session?.GetString("Chapterid");
+    var bookmarkId = session?.GetString("Bookmarkid");
+}
+
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" type="image/png">
+
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="@ViewBag.Description">
+    <meta name="keywords" content="@ViewBag.KeyWords">
+
+    <link rel="stylesheet" href="~//assets/css/icons.min.css">
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/animate.min.css">
+    <link rel="stylesheet" href="~/assets/css/fancybox.min.css">
+    <link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/assets/css/jquery.circliful.css">
+    <link rel="stylesheet" href="~/assets/css/main.css">
+    <link rel="stylesheet" href="~/assets/css/colors/color3.css">
+
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-253330618-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-253330618-1');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1488654337163312"
+            crossorigin="anonymous"></script>
+
+    <style>
+        #return-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgb(0, 0, 0);
+            background: rgba(0, 0, 0, 0.7);
+            width: 50px;
+            height: 50px;
+            display: block;
+            text-decoration: none;
+            -webkit-border-radius: 35px;
+            -moz-border-radius: 35px;
+            border-radius: 35px;
+            display: none;
+            -webkit-transition: all 0.3s linear;
+            -moz-transition: all 0.3s ease;
+            -ms-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+            #return-to-top i {
+                color: #fff;
+                margin: 0;
+                position: relative;
+                left: 16px;
+                top: 13px;
+                font-size: 19px;
+                -webkit-transition: all 0.3s ease;
+                -moz-transition: all 0.3s ease;
+                -ms-transition: all 0.3s ease;
+                -o-transition: all 0.3s ease;
+                transition: all 0.3s ease;
+            }
+
+            #return-to-top:hover {
+                background: rgba(0, 0, 0, 0.9);
+            }
+
+                #return-to-top:hover i {
+                    color: #fff;
+                    top: 5px;
+                }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="pageloader-wrap">
+            <div class="loader">
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__ball"></div>
+            </div>
+        </div>
+
+        <header class="style2">
+            <div class="container">
+                <div class="logo">
+                    <a href="/" title="Logo">
+                        <img src="/images/logo.png" alt="logo.png">
+                    </a>
+                </div>
+                <nav>
+                    <div>
+                        <a class="srch-btn" href="#" title=""><i class="fa fa-search"></i></a>
+
+                        @if (!string.IsNullOrEmpty(userName))
+                        {
+                            if (!string.IsNullOrEmpty(chapterId) && !string.IsNullOrEmpty(bookmarkId))
+                            {
+                                <a class="thm-btn brd-rd5" href="/quran_reading?ChapterID=@chapterId@bookmarkId" title="">Goto Bookmark</a>
+                            }
+                            else
+                            {
+                                <a class="thm-btn brd-rd5" href="#" title="">Goto Bookmark</a>
+                            }
+
+                            @* <span>Welcome @userName</span> *@
+                        }
+                        else
+                        {
+                            <a class="thm-btn brd-rd5" href="/User/UserLogin" title="">Login</a>
+                        }
+
+                        <ul>
+                            <li id="home"><a href="/">Home</a></li>
+                            <li id="teacher"><a href="/Quran_Teacher">Quran Teacher</a></li>
+                            <li id="reading"><a href="/online_quran_reading">Read Quran</a></li>
+                            <li><a href="/Books/AllBooks">Islamic Books</a></li>
+                            <li class="menu-item-has-children">
+                                <a href="#" title="">Basic Islam</a>
+                                <ul>
+                                    <li><a href="/Six_Kalmas"><b>Read Kalmas</b></a></li>
+                                    <li><a href="/Namaz"><b>Read Namaz</b></a></li>
+                                    <li><a href="/Masnoon_Duain"><b>Learn Duain</b></a></li>
+                                    <li><a href="/Darood"><b>Darood Sharif</b></a></li>
+                                    @* <li><a href="/Home/Lesson_1_Noorani"><b>Noorani Qaida</b></a></li> *@
+                                    <li><a href="/Namaz_e_Janaza"><b>Namaz Janaza</b></a></li>
+                                    <li><a href="/Due_e_Qunoot"><b>Due_e_Qunoot</b></a></li>
+                                </ul>
+                            </li>
+                            <li><a href="/Home/FeeStructure">Fee Structure</a></li>
+                            <li><a href="/Registration">Registration</a></li>
+                            <li><a href="/Forum">Forum</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <div class="rspn-hdr">
+            <div class="rspn-mdbr">
+                <ul class="rspn-scil">
+                    <li><a href="#" title="Twitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#" title="Linkedin" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="#" title="Google Plus" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                </ul>
+                <form class="rspn-srch">
+                    <input type="text" placeholder="Enter Your Keyword" />
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+
+            <div class="lg-mn">
+                <div class="logo">
+                    <a href="/" title="Logo">
+                        <img src="/images/logo.png" alt="logo2.png">
+                    </a>
+                </div>
+                <div class="rspn-cnt">
+                    <span><i class="fa fa-envelope thm-clr"></i><a href="#" title="">info@jamia.com</a></span>
+                    <span><i class="fa fa-phone thm-clr"></i>+(00) 123-345-11</span>
+                </div>
+                <span class="rspn-mnu-btn"><i class="fa fa-list-ul"></i></span>
+            </div>
+
+            <div class="rsnp-mnu">
+                <span class="rspn-mnu-cls"><i class="fa fa-times"></i></span>
+                <ul>
+                    <li id="home"><a href="/">Home</a></li>
+                    <li id="teacher"><a href="/Quran_Teacher">Quran Teacher</a></li>
+                    <li id="reading"><a href="/online_quran_reading">Read Quran</a></li>
+                    <li><a href="/Books/AllBooks">Islamic Books</a></li>
+                    <li class="menu-item-has-children">
+                        <a href="#" title="">Basic Islam</a>
+                        <ul>
+                            <li><a href="/Six_Kalmas"><b>Read Kalmas</b></a></li>
+                            <li><a href="/Namaz"><b>Read Namaz</b></a></li>
+                            <li><a href="/Masnoon_Duain"><b>Learn Duain</b></a></li>
+                            <li><a href="/Darood"><b>Darood Sharif</b></a></li>
+                            @* <li><a href="/Home/Lesson_1_Noorani"><b>Noorani Qaida</b></a></li> *@
+                            <li><a href="/Namaz_e_Janaza"><b>Namaz Janaza</b></a></li>
+                            <li><a href="/Due_e_Qunoot"><b>Due_e_Qunoot</b></a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/Home/FeeStructure">Fee Structure</a></li>
+                    <li><a href="/Registration">Registration</a></li>
+                    <li><a href="/Forum">Forum</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="header-search">
+            <span class="srch-cls-btn brd-rd5"><i class="fa fa-times"></i></span>
+            <form>
+                <input type="text" placeholder="Search here...">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+
+        <div class="contact-form-model-wrap text-center">
+            <span class="model-close"><i class="fa fa-times"></i></span>
+            <div class="contact-form-inner">
+                <div class="sec-title text-center">
+                    <div class="sec-title-inner">
+                        <span>Have Question</span>
+                        <h3>Send Message</h3>
+                    </div>
+                </div>
+                <div class="contact-form text-center">
+                    <form action="#" method="post">
+                        <div class="row mrg20">
+                            <div class="col-md-6 col-sm-6 col-lg-6">
+                                <input type="text" placeholder="Name" id="User_Name" required>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-lg-6">
+                                <input type="text" placeholder="Phone" id="User_Phone" required>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-lg-6">
+                                <input type="email" placeholder="Email" id="User_email" required>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-lg-6">
+                                <input type="text" placeholder="Subject" id="subject" required>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-lg-12">
+                                <textarea placeholder="Message" id="message" required></textarea>
+                                <button class="thm-btn brd-rd40" type="submit" id="contactbutton">Contact Us</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="scl float-right">
+                        <a href="#" title="Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+                        <a href="https://www.yahoo.com/" title="Yahoo" target="_blank"><i class="fa fa-yahoo"></i></a>
+                        <a href="https://plus.google.com/u/3/110044614813581789939" title="Google Plus" target="_blank"><i class="fa fa-google-plus"></i></a>
+                        <a href="https://play.google.com/store/apps/details?id=com.mstech.learnquranwithtutor&pli=1" title="Android App" target="_blank"><i class="fa fa-android"></i></a>
+                        <a href="https://www.facebook.com/Learn-Free-Quran-1338414089559572" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @RenderBody()
+
+        <footer>
+            <div class="gap top-spac70 drk-bg2 remove-bottom">
+                <div class="container">
+                    <div class="footer-data">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 col-lg-4">
+                                <div class="wdgt-box style2">
+                                    <div class="logo">
+                                        <a href="/" title="Logo">
+                                            <img src="/images/logo.png" alt="logo2.png">
+                                        </a>
+                                    </div>
+                                    <p>This website is design for anyone in the world who wish to learn Quarn and basics of Islam for free.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-sm-12 col-lg-8">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-4 col-lg-4">
+                                        <div class="wdgt-box">
+                                            <h4>Privacy Policy</h4>
+                                            <ul>
+                                                <li><a href="/Students_Terms">Terms For Students</a></li>
+                                                <li><a href="/Students_Terms">Terms For Gardians/Parents</a></li>
+                                                <li><a href="/Instructor_Terms">Terms For Instructors</a></li>
+                                                <li><a href="/UserTrust">User Trust</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-lg-4">
+                                        <div class="wdgt-box">
+                                            <h4>Online Stuff</h4>
+                                            <ul>
+                                                <li><a href="/Six_Kalmas">Six Kalmas</a></li>
+                                                <li><a href="/Namaz">Learn Namaz</a></li>
+                                                <li><a href="/Masnoon_Duain">Learn Duain</a></li>
+                                                <li><a href="/Darood">Darood Sharif</a></li>
+                                                <li><a href="/Namaz_e_Janaza">Namaz_e_Janaza</a></li>
+                                                <li><a href="/Due_e_Qunoot">Dua_e_Qanoot</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-lg-4">
+                                        <div class="wdgt-box">
+                                            <h4>Quick Links</h4>
+                                            <ul class="cont-lst">
+                                                <li><a href="/registration">Free Registration</a></li>
+                                                <li><a href="/forum">Questions & Answers</a></li>
+                                                <li><a href="/contact">Contact Management Team</a></li>
+                                                <li><a href="/about">About Us</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bottom-bar">
+                        <p>&copy; @DateTime.Now.Year. All Rights Reserved.</p>
+                        <div class="scl">
+                            <a href="#" title="Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="https://www.yahoo.com/" title="Yahoo" target="_blank"><i class="fa fa-yahoo"></i></a>
+                            <a href="https://plus.google.com/u/3/110044614813581789939" title="Google Plus" target="_blank"><i class="fa fa-google-plus"></i></a>
+                            <a href="https://play.google.com/store/apps/details?id=com.mstech.learnquranwithtutor&pli=1" title="Android App" target="_blank"><i class="fa fa-android"></i></a>
+                            <a href="https://www.facebook.com/Learn-Free-Quran-1338414089559572/" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <a href="javascript:" id="return-to-top"><i class="icon-chevron-up"></i></a>
+
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/downCount.js"></script>
+    <script src="~/assets/js/fancybox.min.js"></script>
+    <script src="~/assets/js/isotope.pkgd.min.js"></script>
+    <script src="~/assets/js/perfectscrollbar.min.js"></script>
+    <script src="~/assets/js/jquery.circliful.min.js"></script>
+    <script src="~/assets/js/custom-scripts.js"></script>
+    <script src="~/Scripts/MainFile.js"></script>
+    <script src="~/Scripts/RegistrationJS.js"></script>
+
+    <script>
+        $(window).scroll(function () {
+            if ($(this).scrollTop() >= 50) {
+                $('#return-to-top').fadeIn(200);
+            } else {
+                $('#return-to-top').fadeOut(200);
+            }
+        });
+
+        $('#return-to-top').click(function () {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 500);
+        });
+    </script>
+</body>
+</html>

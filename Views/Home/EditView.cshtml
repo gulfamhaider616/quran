@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewBag.Title = "Edit Profile | Quran Learning Platform";
+    ViewBag.Description = "Update your profile details, manage your information, and keep your Quran learning journey organized. Easily edit your account settings and personal data.";
+    ViewBag.KeyWords = "edit profile, student profile, update account, quran learning platform, user settings, student dashboard, manage profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="banner-wrapper">
+    <div id="banner" class="box container">
+        <div class="row">
+            <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
+                <h3 style="text-align:center;margin-left: -120px;">Edit Registered Profile</h3>
+                <form action="#" method="post">
+                    <table border="0" style="width: 90%;">
+                        <tr>
+                            <td><label>Student ID<label style="color:red">*</label> :</label></td>
+                            <td>
+                                <input type="text" style="width: 100% !important;max-width: 100%;" id="editstudentid" placeholder="enter student id" required /><br />
+                                <span> <a href="/Home/ForgetYourIDView">forget your id</a></span>
+                            </td>
+                            <td><input type="button" id="editstudentbutton" class="btn-success" style="padding: 1px;width: 100px;" value="Search" /></td>
+                        </tr>
+                    </table>
+                </form>
+                <h3 id="recordnotfound" style="text-align:center;margin-left: -120px;">Sorry, Record not found.</h3>
+                <h3 id="recordnotfoundduetoserver" style="text-align:center;margin-left: -120px;">Sorry, we can't find your result due to internal errors.</h3>
+                <div id="edittableinformation">
+                    <h3 style="text-align:center;margin-left: -120px;">Profile Information</h3>
+                    <table border="0" style="width: 90%;">
+                        <tr>
+                            <td style="width: 26%;"><label>Student ID:</label></td>
+                            <td><label type="text" style="width: 100% !important;max-width: 100%;" id="studentidinformation" name="studentid" required> </label><br /></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 26%;"><label>Student Name<label style="color:red">*</label> :</label></td>
+                            <td><input type="text" style="width: 100% !important;max-width: 100%;" id="editstudentname" name="studentname" required /><br /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Father's Name<label style="color:red">*</label> :</label></td>
+                            <td><input type="text" style="width: 100% !important;max-width: 100%;" id="editfathername" name="fathername" required /><br /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Phone Number<label style="color:red">*</label> :</label></td>
+                            <td><input type="text" style="width: 100% !important;max-width: 100%;" id="editphonenumber" name="phonenumber" required /><br /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Email<label style="color:red">*</label> :</label></td>
+                            <td>
+                                <input type="email" style="width: 100% !important;max-width: 100%;" id="editemail" name="email" required />
+                                <label style="color:green;font-size: 12px;" id="correct"><img src="~/images/tickimage.jpg" style="width:33px;height:32px" /> </label>
+                                <label style="color:red; font-size: 12px;" id="incorrect">this email is already being used.</label>
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Skype ID<label style="color:red">*</label> :</label></td>
+                            <td><input type="text" style="width: 100% !important;max-width: 100%;" id="editskypeid" name="skypeid" required /><br /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Gender<label style="color:red">*</label> :</label></td>
+                            <td>
+                                <input type="text" style="width: 100% !important;max-width: 100%;" id="editgender" name="studentid" required />
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Date of Birth<label style="color:red">*</label> :</label></td>
+                            <td>
+                                <input type="text" style="width: 100% !important;max-width: 100%;" id="editbirth" name="studentid" required />
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Country<label style="color:red">*</label> :</label></td>
+                            <td>
+                                <input type="text" style="width: 100% !important;max-width: 100%;" id="editcountry" name="studentid" required />
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>City Name<label style="color:red">*</label> :</label></td>
+                            <td><input type="text" style="width: 100% !important;max-width: 100%;" id="editcity" name="city" required /><br /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Language<label style="color:red">*</label> :</label></td>
+                            <td><input type="text" style="width: 100% !important;max-width: 100%;" id="editlanguage" name="language" required /><br /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Classes<label style="color:red">*</label> :</label></td>
+                            <td>
+                                <input type="text" style="width: 100% !important;max-width: 100%;" id="editclass" name="studentid" required />
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Days<label style="color:red">*</label> :</label></td>
+                            <td><input type="text" style="margin-top: 10px;width: 100% !important;max-width: 100%;" required id="editdays" name="days"><br /></td>
+                        </tr>
+                        <tr>
+                            <td><label>Feasible Time<label style="color:red">*</label> :</label></td>
+                            <td>
+                                <input type="text" style="width: 100% !important;max-width: 100%;" id="editfeasibletime" name="studentid" required />
+                                <br />
+                                <label style="color:red;word-break: break-all;font-size: 89%;">Note: Operational time 9:00 am to 06:00 pm. According to Pakistan Standard Time</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td style="text-align: center;">
+                                <input type="button" id="editrecordbutton" name="registrationSubmit" class="btn-success" style="padding: 1px;" value="Submit" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

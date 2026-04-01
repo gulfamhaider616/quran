@@ -1,0 +1,64 @@
+﻿@model IEnumerable<LearnFreeQuran.Library.FeedbackDO>
+@{
+    ViewBag.Title = "Feedback | Quran Learning Platform";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script>
+    function DeleteFeedback(FeedbackID) {
+        $.ajax({
+            url: '/Admin/DeleteFeedback',
+            type: 'Get',
+            datatype: 'Json',
+            data: { 'FeedbackID': FeedbackID },
+            success: function (result) {
+                if (result > 0) {
+                    alert("Feedback has been deleted.");
+                    window.location.href = '/Admin/GetFeedback';
+                }
+                else {
+                    alert("Sorry! Try again.");
+                }
+            },
+            error: function () {
+                alert("Sorry! We can't delete due to some internal error.");
+            }
+        });
+    }
+</script>
+
+<div id="banner-wrapper">
+    <div id="banner" class="box container">
+        <div class="row">
+            <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
+                <table class="rest" border="0" style="width: 100%;text-align: center;color: black;border: 1px solid black;font-size: 88%;">
+                    <thead style="font-weight: 600;background: darksalmon !important;">
+                        <tr style="color:white;">
+                            <td>Serial</td>
+                            <td>Name</td>
+                            <td>Country</td>
+                            <td>Message</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int count = 1; }
+                        @foreach (var Item in Model)
+                        {
+                            <tr>
+                                <td>@count</td>
+                                <td>@Item.Name</td>
+                                <td>@Item.Country</td>
+                                <td>@Item.Message</td>
+                                <td><a href="#" onclick='DeleteFeedback("@Item.ID");'> Delete</a></td>
+                            </tr>
+                            count++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

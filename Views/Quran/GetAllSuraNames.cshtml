@@ -1,0 +1,39 @@
+﻿@model IEnumerable<LearnFreeQuran.SuraNamesDO>
+@{
+    ViewBag.Title = "Online Quran Teacher | Quran Learning Platform";
+    ViewBag.Description = "Learn Quran online with experienced teachers. Improve your recitation, understanding, and tajweed through guided lessons and personalized support.";
+    ViewBag.KeyWords = "online quran teacher, learn quran online, quran tutor, tajweed lessons, quran recitation, islamic education, online quran classes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="banner-wrapper">
+    <div id="banner" class="box container">
+        <div class="row">
+            <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
+                <h5 style="text-align:center">Online Quran Reading</h5>
+                <span>Read Quran Online: Read the Holy Quran in all available translations including Arabic, English and Urdu translation. Choose from the list to read quran in urdu, read quran in english, read quran in arabic or combined.</span>
+                <table class="rest" border="0" style="width: 100%;text-align: center;color: black;border: 1px solid black;font-size: 88%;">
+                    <thead style="font-weight: 600;background: darksalmon !important;">
+                        <tr style="color:white;">
+                            <td>Serial</td>
+                            <td>Surah Name</td>
+                            <td>English Name</td>
+                            <td>Number of Ayats</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Item in Model)
+                        {
+                            <tr>
+                                <td>@Item.ChapterID</td>
+                                <td><a href="~/quran_reading?ChapterID=@Item.ChapterID" class="al-quran" style="font-weight: 500;"> @Item.SuraName </a></td>
+                                <td><a href="~/quran_reading?ChapterID=@Item.ChapterID"> @Item.EnglishName </a></td>
+                                <td>@Item.TotalVerses</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+﻿@model LearnFreeQuran.LessonsContract
+@{
+    ViewBag.Title = "Video Lessons | Quran Learning Platform";
+    ViewBag.Description = "Watch Quran video lessons designed to help you learn recitation, understanding, and pronunciation with guided instruction.";
+    ViewBag.KeyWords = "quran video lessons, learn quran online, quran videos, recitation lessons, islamic education videos, tajweed videos";
+}
+<div id="banner-wrapper">
+    <div id="banner" class="box container">
+        <div class="row">
+            <div class="col-md-12" style="width:100%;margin:0 auto;">
+                <h3 style="text-align:center">Online Quran Teacher</h3>
+                <div class="col-md-3" style="display: inline;text-align: center;">
+                    <br />
+                    @foreach (var Item in Model.list)
+                    {
+                        <a href="/Home/VideoLessonPartial?LessonID=@Item.LessonID" id="@Item.LessonID">
+                            <span>@Item.LessonName</span>
+                            <iframe style="vertical-align:top;border: 5px solid #cc6600;" width="150" height="150" src="@Item.LessonLink" frameborder="0" allowfullscreen></iframe>
+                        </a>
+                        <hr style="margin-bottom: 0;" />
+                    }
+                </div>
+                <div class="col-md-9" style="display: inline;">
+                    <h3 style="text-align: center;">@Model.Lesson.LessonName</h3>
+                    <iframe style="width: 100%;border: 5px solid #cc6600;" width="100%" height="400" src="@Model.Lesson.LessonLink?autoplay=1" frameborder="0" allowfullscreen></iframe>
+                    <hr style="border-top:solid 1px #c60;width: 100%;">
+                    <div id="disqus_thread"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        /**
+        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+        var disqus_config = function () {
+            this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://learnfreequran-1.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+</div>
+

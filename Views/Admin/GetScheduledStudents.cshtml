@@ -1,0 +1,107 @@
+﻿@model LearnFreeQuran.Library.StudentListDO
+@{
+    ViewBag.Title = "Scheduled Students | Quran Learning Platform";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script>
+        function PopulateScheduleInBoxes(StudentID,Classes,Days,Time,TutorName,Description) {
+            $('#changestudentid').val(StudentID);
+            $('#changetotalclasses').val(Classes);
+            $('#changedaysname').val(Days);
+            $('#changeclasstime').val(Time);
+            $('#changetutorname').val(TutorName);
+            $('#changedescription').val(Description);
+            debugger;
+            setTimeout(popup, 3000);
+                function popup() {
+                    $("#logindiv").css("display", "block");
+                }
+            $("#contactdiv").css("display", "block");
+            $("#contact #cancel").click(function() {
+            $(this).parent().parent().hide();
+            });
+        }
+</script>
+
+<link href="~/assets/css/ie8.css" rel="stylesheet" />
+<div id="banner-wrapper">
+    <div id="banner" class="box container" >
+        <div class="row">
+            <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
+                <h5 style="float:right;">Total Records:  <label style="color:red;padding-left: 5px;">  @Model.TotalRecords</label></h5>
+                <table class="rest" border="0" style="width: 100%;text-align: center;color: black;border: 1px solid black;font-size: 88%;">
+                    <thead style="font-weight: 600;background: darksalmon !important;">
+                        <tr style="color:white;">
+                            <td>Serial</td>
+                            <td>Student ID</td>
+                            <td>Name</td>
+                            <td>SkypeID </td>
+                            <td>Days </td>
+                            <td>Class Time</td>
+                            <td>Tutor Name</td>
+                            @*<td>Description</td>*@
+                            <td>Scheduled </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int count = 1; }
+                        @foreach (var Item in Model.StudentList)
+                        {
+                            <tr>
+                                <td>@count</td>
+                                <td><a href="/Admin/StudentPreview?StudentID=@Item.StudentID"> @Item.StudentID </a></td>
+                                <td>@Item.StudentName</td>
+                                <td>@Item.SkypeID</td>
+                                <td style="width: 103px;">@Item.Days</td>
+                                <td>@Item.ClassTime</td>
+                                <td>@Item.TutorName</td>
+                                <td><a href="#" onclick='PopulateScheduleInBoxes("@Item.StudentID","@Item.Classes","@Item.Days","@Item.ClassTime","@Item.TutorName","@Item.Description");'> Change</a></td>
+                            </tr>
+                            count++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Set Schedule Form -->
+<div id="contactdiv">
+    <form class="form" action="/Admin/ChangeSchedule" method="post" id="contact" style="color: crimson;font-family: inherit;">
+        <img src="~/images/button_cancel.png" style="width: 27px;" class="img" id="cancel" />
+        <h3>Change Schedule</h3>
+        <hr />
+        <table>
+            <tr>
+                <td><label>Student ID: <span>*</span></label></td>
+                <td><input type="text" id="changestudentid" name="changestudentid" /><br /></td>
+            </tr>
+            <tr>
+                <td><label>Classes: <span>*</span></label></td>
+                <td><input type="text" id="changetotalclasses" name="changetotalclasses" /><br /></td>
+            </tr>
+            <tr>
+                <td><label>Days: <span>*</span></label></td>
+                <td><input type="text" id="changedaysname" name="changedaysname" /><br /></td>
+            </tr>
+            <tr>
+                <td><label>Set Class Time : <span>*</span></label></td>
+                <td><input type="text" id="changeclasstime" name="changeclasstime" /><br /></td>
+            </tr>
+            <tr>
+                <td><label>Tutor Name : <span>*</span></label></td>
+                <td><input type="text" id="changetutorname" name="changetutorname" /><br /></td>
+            </tr>
+            <tr>
+                <td><label>Description : <span>*</span></label></td>
+                <td><input type="text" id="changedescription" name="changedescription" /><br /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" id="changeschedule" class="btn-success" style="padding: 1px;" value="Submit" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+

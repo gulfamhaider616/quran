@@ -1,0 +1,178 @@
+﻿@model IEnumerable<LearnFreeQuran.Library.BookDO>
+    @{ 
+        ViewBag.Title = "All Books | Quran Learning Platform";
+    }
+<div id="banner-wrapper">
+    <div id="banner" class="box container" style="width:70%">
+        <div class="row">
+            <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
+                <table class="rest" border="0" style="width: 100%;color: black;border: 1px solid black;font-size: 88%;">
+                    <thead style="font-weight: 600;background: darksalmon !important;">
+                        <tr style="color:white;">
+                            <td>Serial</td>
+                            <td>Image</td>
+                            <td>Book Details</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var book in Model)
+                        {
+                            <tr>
+                                <td>@book.BookID</td>
+                                <td>
+                                    
+                                        <img alt="Error" class="bookCover" itemprop="image" height="100" width="100"
+                                             src="~/assets/Books/Image/@book.ImageName" />
+                                    
+                                </td>
+                                <td>
+                                    <label><b>Author: &nbsp;</b></label> @book.AutherName
+                                    <div><label><b>Book Title: &nbsp;</b></label>@book.BookTilte</div>
+                                    <div><label><b>Book Details: &nbsp;</b></label>@book.Detail</div>
+                                </td>
+                                <td>
+                                    <a href="~/assets/Books/BookFile/@book.FileName" id="readPdf" class="btn btn-success btn-sm">Download</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    //$('#readPdf').click(function (e) {
+    //    debugger;
+    //    var url = $(this).attr('attr-url');
+
+    //    window.open(url, "_blank");
+    //    //e.preventDefault();
+    //    //window.location.href = '~/images/BooksImage/KirdarYazeed.PNG';
+    //});
+
+    //$("#readPdf").on("click", function () {
+    //    alert("hellloooo");
+    //});
+
+    function showPdf(url) {
+        debugger;
+        console.log(url);
+    }
+
+    //function GetClientReport() {
+    //    window.open('/Admin/GetFile?fileName=', "_blank");
+    //};
+</script>
+
+
+@*<div class="row">
+    <div class="content">
+        <div class=" ">
+            <div class="mainContent ">
+                <div id="premiumAdTop">
+                    <div data-react-class="ReactComponents.GoogleBannerAd" data-react-props="{&quot;adId&quot;:&quot;div-gpt-ad-goodr-listopia-top-970x66&quot;,&quot;className&quot;:&quot;googleBannerAd--pushdown&quot;}"><div class="googleBannerAd--pushdown googleBannerAd" id="div-gpt-ad-goodr-listopia-top-970x66" style="width: 970px; height: auto; display: none;" data-reactid=".0"></div></div>
+                </div>
+
+                <div class="mainContentFloat ">
+                    <div class="leftContainer">
+                        <div class="pageHeader">
+                            <a href="/list">List of Books</a>
+                        </div>
+                        <br class="clear">
+                        <div class="u-paddingBottomSmall u-paddingRightSmall right">
+                        </div>
+                    </div>
+                    <div id="score_explanation" style="display:none">
+                        <h1>Score</h1>
+                        <p>
+                            A book’s total score is based on multiple factors, including the number of
+                            people who have voted for it and how highly those voters ranked the book.
+                        </p>
+                    </div>
+                    <div id="all_votes">
+                        <table class="tableList js-dataTooltip">
+                            <tbody>
+                                @foreach (var rec in Model)
+                                {
+                                    <tr itemscope="" itemtype="">
+                                        <td valign="top" class="number">@rec.BookID</td>
+                                        <td width="5%" valign="top">
+                                            <div id="#" class="u-anchorTarget"></div>
+                                            <div class="js-tooltipTrigger tooltipTrigger" data-resource-id="#" data-resource-type="#">
+                                                <a href="#">
+                                                    <img alt="Error" class="bookCover" itemprop="image" height="100" width="100"
+                                                         src="~/assets/Books/Image/@rec.ImageName" />
+                                                </a>        <section class="tooltip js-tooltip" style="left: 60px; top: 0px; display: none;">
+                                                    <div class="tooltipCaret tooltipCaret--left"></div>
+                                                    by
+                                                    <a class="authorName" href="#"><i><b>@rec.AutherName</b></i></a>
+                                                </section>
+                                            </div>
+                                        </td>
+                                        <td width="100%" valign="top">
+                                            <h3><b>@rec.BookTilte</b></h3>
+                                            <br>
+                                            <span class="by">by</span>
+                                            <span itemprop="author" itemscope="" itemtype="#">
+                                                <span class="authorName__container">
+                                                    <a class="authorName" itemprop="url" href="#"><span itemprop="name">@rec.AutherName</span></a>
+                                                </span>
+                                            </span>
+                                            <span itemprop="author" itemscope="" itemtype="#">
+                                                <span class="authorName__container">
+                                                    <a class="authorName" itemprop="url" href="#"><span itemprop="name">@rec.Detail</span></a>
+                                                </span>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-success" id="readBook" href="@rec.FilePath.Replace("~","")" target="_self"> Read Book</button> <br />
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="Add_Books_To_This_List" style="display:none;">
+    <div class="nonTabs">
+        Add books from:
+        <a id="My_BooksLink" class=" selectedTab js-dhtmlTab" data-tab-name="My_Books" data-tab-set="114023693" href="/list/show/16223.School_Library_List?tab=My_Books">My Books</a>
+        or a
+        <a id="SearchLink" class=" tab js-dhtmlTab" data-tab-name="Search" data-tab-set="114023693" href="/list/show/16223.School_Library_List?tab=Search">Search</a>
+        <div class="clear"> </div>
+    </div>
+</div>
+<script type="text/javascript" charset="utf-8">
+    current_tabs[281227660] = 'all_votes';
+    Event.observe(window, 'load', function (e) {
+        if (location.href.include('#')) {
+            var tabID = location.href.split('#')[1];
+            if (tabID != '' && $(tabID)) {
+                changeTab(tabID)
+            }
+        }
+    })
+</script>
+<script type="text/javascript" charset="utf-8">
+    current_tabs[114023693] = 'My_Books';
+    Event.observe(window, 'load', function (e) {
+        // Switch to an anchored tab if specified in the URL
+        if (location.href.include('#')) {
+            var tabID = location.href.split('#')[1];
+            if (tabID != '' && $(tabID)) {
+                changeTab(tabID)
+            }
+        }
+    })
+</script>*@
+
