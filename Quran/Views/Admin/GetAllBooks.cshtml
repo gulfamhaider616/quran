@@ -26,17 +26,17 @@
                             <tr>
                                 <td>@book.BookID</td>
                                 <td>
-                                    <img alt="Error" class="bookCover" itemprop="image" height="100" width="100"
-                                         src="~/assets/Books/Image/@book.ImageName" />
+                                    <img class="book-cover" itemprop="image" alt="@book.BookTilte"
+                                         src="~/assets/Books/Image/@book.ImageName"
+                                         onerror="this.onerror=null;this.src='/assets/Books/Image/no-cover.svg';" />
                                 </td>
                                 <td>@book.AutherName</td>
                                 <td>@book.BookTilte</td>
                                 <td>@book.Detail</td>
-                                <td>
-                                    <a  href="~/assets/Books/BookFile/@book.FileName"  id="readPdf" class="btn btn-success btn-sm">Download</a>
-                                    <a href="/Admin/DeleteBook?BookID=@book.BookID" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>
-                                    
-                                    <a href="/Admin/GetBookByID?BookID=@book.BookID" class="btn btn-info btn-sm"><i class="fa fa-edit"></i></a>
+                                <td style="white-space:nowrap;">
+                                    <a href="~/assets/Books/BookFile/@book.FileName" target="_blank" title="Download" class="btn btn-success btn-sm"><i class="fa fa-download"></i></a>
+                                    <a href="/Admin/GetBookByID?BookID=@book.BookID" title="Edit" class="btn btn-info btn-sm"><i class="fa fa-edit"></i></a>
+                                    <a href="/Admin/DeleteBook?BookID=@book.BookID" title="Delete" onclick="return confirm('Delete this book?');" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         }

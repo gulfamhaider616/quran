@@ -233,12 +233,12 @@ namespace Quran.DataAccess
             try
             {
                 SqlCommand command = new DBConnection().DbSqlConnection("AddBook");
-                command.Parameters.Add("@BookTilte", SqlDbType.VarChar).Value = book.BookTilte;
-                command.Parameters.Add("@AuthorName", SqlDbType.VarChar).Value = book.AutherName;
-                command.Parameters.Add("@ImagePath", SqlDbType.VarChar).Value = book.ImagePath;
-                command.Parameters.Add("@FilePath", SqlDbType.VarChar).Value = book.FilePath;
-                command.Parameters.Add("@BookType", SqlDbType.VarChar).Value = book.BookType;
-                command.Parameters.Add("@Detail", SqlDbType.VarChar).Value = book.Detail;
+                command.Parameters.Add("@BookTilte", SqlDbType.VarChar).Value = (object)book.BookTilte ?? DBNull.Value;
+                command.Parameters.Add("@AuthorName", SqlDbType.VarChar).Value = (object)book.AutherName ?? DBNull.Value;
+                command.Parameters.Add("@ImagePath", SqlDbType.VarChar).Value = (object)book.ImagePath ?? DBNull.Value;
+                command.Parameters.Add("@FilePath", SqlDbType.VarChar).Value = (object)book.FilePath ?? DBNull.Value;
+                command.Parameters.Add("@BookType", SqlDbType.VarChar).Value = (object)book.BookType ?? DBNull.Value;
+                command.Parameters.Add("@Detail", SqlDbType.VarChar).Value = (object)book.Detail ?? DBNull.Value;
                 SqlDataAdapter adapter = new SqlDataAdapter(command);
                 command.Connection.Close();
                 adapter.Fill(set);
@@ -259,12 +259,12 @@ namespace Quran.DataAccess
                 BookDO book = new BookDO();
                 SqlCommand command = new DBConnection().DbSqlConnection("GetBookByID");
                 command.Parameters.Add("@BookID", SqlDbType.Int).Value = book.BookID;
-                command.Parameters.Add("@BookTilte", SqlDbType.VarChar).Value = book.BookTilte;
-                command.Parameters.Add("@AuthorName", SqlDbType.VarChar).Value = book.AutherName;
-                command.Parameters.Add("@ImagePath", SqlDbType.VarChar).Value = book.ImagePath;
-                command.Parameters.Add("@FilePath", SqlDbType.VarChar).Value = book.FilePath;
-                command.Parameters.Add("@BookType", SqlDbType.VarChar).Value = book.BookType;
-                command.Parameters.Add("@Detail", SqlDbType.VarChar).Value = book.Detail;
+                command.Parameters.Add("@BookTilte", SqlDbType.VarChar).Value = (object)book.BookTilte ?? DBNull.Value;
+                command.Parameters.Add("@AuthorName", SqlDbType.VarChar).Value = (object)book.AutherName ?? DBNull.Value;
+                command.Parameters.Add("@ImagePath", SqlDbType.VarChar).Value = (object)book.ImagePath ?? DBNull.Value;
+                command.Parameters.Add("@FilePath", SqlDbType.VarChar).Value = (object)book.FilePath ?? DBNull.Value;
+                command.Parameters.Add("@BookType", SqlDbType.VarChar).Value = (object)book.BookType ?? DBNull.Value;
+                command.Parameters.Add("@Detail", SqlDbType.VarChar).Value = (object)book.Detail ?? DBNull.Value;
                 result = new DBConnection().ExecuteNonQuery(command);
             }
             catch(Exception ex)
@@ -281,12 +281,12 @@ namespace Quran.DataAccess
             {
                 SqlCommand command = new DBConnection().DbSqlConnection("ChangeBook");
                 command.Parameters.Add("@BookID", SqlDbType.Int).Value = book.BookID;
-                command.Parameters.Add("@BookTilte", SqlDbType.VarChar).Value = book.BookTilte;
-                command.Parameters.Add("@AuthorName", SqlDbType.VarChar).Value = book.AutherName;
-                command.Parameters.Add("@ImagePath", SqlDbType.VarChar).Value = book.ImagePath;
-                command.Parameters.Add("@FilePath", SqlDbType.VarChar).Value = book.FilePath;
-                command.Parameters.Add("@BookType", SqlDbType.VarChar).Value = book.BookType;
-                command.Parameters.Add("@Detail", SqlDbType.VarChar).Value = book.Detail;
+                command.Parameters.Add("@BookTilte", SqlDbType.VarChar).Value = (object)book.BookTilte ?? DBNull.Value;
+                command.Parameters.Add("@AuthorName", SqlDbType.VarChar).Value = (object)book.AutherName ?? DBNull.Value;
+                command.Parameters.Add("@ImagePath", SqlDbType.VarChar).Value = (object)book.ImagePath ?? DBNull.Value;
+                command.Parameters.Add("@FilePath", SqlDbType.VarChar).Value = (object)book.FilePath ?? DBNull.Value;
+                command.Parameters.Add("@BookType", SqlDbType.VarChar).Value = (object)book.BookType ?? DBNull.Value;
+                command.Parameters.Add("@Detail", SqlDbType.VarChar).Value = (object)book.Detail ?? DBNull.Value;
                 result =  new DBConnection().ExecuteNonQuery(command);
             }
             catch (Exception ex)

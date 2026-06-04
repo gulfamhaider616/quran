@@ -57,13 +57,13 @@ namespace Quran.Business
                         {
                             try
                             {
-                                string[] days = (dr.Field<string>("DaysName")).Split(',');
+                                string[] days = (dr.Field<string>("DaysName") ?? "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                                 string result = "";
                                 foreach (var day in days)
                                 {
-                                    result += day.Substring(0, 3) + ", ";
+                                    result += (day.Length >= 3 ? day.Substring(0, 3) : day) + ", ";
                                 }
-                                registration.Days = result.Substring(0, result.Length - 2);
+                                registration.Days = result.Length >= 2 ? result.Substring(0, result.Length - 2) : result;
                             }
                             catch (Exception ex)
                             {
@@ -125,13 +125,13 @@ namespace Quran.Business
                     }
                     else
                     {
-                        string[] days = (dr.Field<string>("DaysName")).Split(',');
+                        string[] days = (dr.Field<string>("DaysName") ?? "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                         string result = "";
                         foreach (var day in days)
                         {
-                            result += day.Substring(0, 3) + ", ";
+                            result += (day.Length >= 3 ? day.Substring(0, 3) : day) + ", ";
                         }
-                        registration.Days = result.Substring(0, result.Length - 2);
+                        registration.Days = result.Length >= 2 ? result.Substring(0, result.Length - 2) : result;
                     }
                     registration.FeasibleTime = dr.Field<string>("FeasibleTime");
                     string date = dr.Field<DateTime>("RegistrationDate").ToString();
@@ -213,13 +213,13 @@ namespace Quran.Business
                     }
                     else
                     {
-                        string[] days = (dr.Field<string>("DaysName")).Split(',');
+                        string[] days = (dr.Field<string>("DaysName") ?? "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                         string result = "";
                         foreach (var day in days)
                         {
-                            result += day.Substring(0, 3) + ", ";
+                            result += (day.Length >= 3 ? day.Substring(0, 3) : day) + ", ";
                         }
-                        registration.Days = result.Substring(0, result.Length - 2);
+                        registration.Days = result.Length >= 2 ? result.Substring(0, result.Length - 2) : result;
                     }
                     registration.ClassTime = dr.Field<string>("ClassTime");
                     registration.TutorName = dr.Field<string>("TutorName");

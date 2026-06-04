@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="70" height="90" viewBox="0 0 70 90">
+  <rect width="70" height="90" rx="6" fill="#eef1f6" stroke="#d7dee8" stroke-width="1"/>
+  <path d="M22 30h26v3H22zM22 38h26v3H22zM22 46h18v3H22z" fill="#b9c4d2"/>
+  <path d="M35 56l5 6h-10z" fill="#9fe08c"/>
+  <text x="35" y="78" font-family="Segoe UI, Arial, sans-serif" font-size="8" fill="#7b8794" text-anchor="middle">No Cover</text>
+</svg>

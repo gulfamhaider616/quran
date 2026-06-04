@@ -5,18 +5,44 @@
     var userName = session?.GetString("name");
     var chapterId = session?.GetString("Chapterid");
     var bookmarkId = session?.GetString("Bookmarkid");
+
+    var seoTitle = ViewBag.Title as string;
+    if (string.IsNullOrWhiteSpace(seoTitle)) { seoTitle = "Learn Quran Online with E-Tutor | Free One-on-One Classes"; }
+    var seoDesc = ViewBag.Description as string;
+    if (string.IsNullOrWhiteSpace(seoDesc)) { seoDesc = "Learn the Holy Quran online for free with qualified e-tutors. Read with translation, study Tajweed, Namaz, Kalmas and Islamic basics, and register in minutes."; }
+    var seoKeys = ViewBag.KeyWords as string;
+    if (string.IsNullOrWhiteSpace(seoKeys)) { seoKeys = "learn quran online, free quran classes, online quran tutor, read holy quran, tajweed, islamic education"; }
+    var req = HttpContextAccessor.HttpContext?.Request;
+    var canonicalUrl = req == null ? "/" : $"{req.Scheme}://{req.Host}{req.Path}";
+    var ogImage = req == null ? "/apple-touch-icon.png" : $"{req.Scheme}://{req.Host}/apple-touch-icon.png";
 }
 <!DOCTYPE html>
 <html lang="en" style="scroll-behavior: smooth; ">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <link rel="icon" href="~/favicon.ico" sizes="32x32" type="image/png">
-    <title>@ViewBag.Title</title>
-    <meta name="description" content="@ViewBag.Description">
-    <meta name="keywords" content="@ViewBag.KeyWords">
+    <title>@seoTitle</title>
+    <meta name="description" content="@seoDesc">
+    <meta name="keywords" content="@seoKeys">
+    <meta name="author" content="Learn Quran with E-Tutor">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="@canonicalUrl">
+
+    <link rel="icon" type="image/png" sizes="64x64" href="~/favicon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/favicon-32.png">
+    <link rel="icon" href="~/favicon.ico">
+    <link rel="apple-touch-icon" href="~/apple-touch-icon.png">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Learn Quran with E-Tutor">
+    <meta property="og:title" content="@seoTitle">
+    <meta property="og:description" content="@seoDesc">
+    <meta property="og:url" content="@canonicalUrl">
+    <meta property="og:image" content="@ogImage">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="@seoTitle">
+    <meta name="twitter:description" content="@seoDesc">
     <link rel="stylesheet" href="/assets/css/icons.min.css">
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/animate.min.css">

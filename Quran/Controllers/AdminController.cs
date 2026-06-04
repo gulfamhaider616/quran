@@ -217,21 +217,33 @@ namespace Quran.Controllers
             }
         }
 
+        [Authorize]
         public IActionResult GetBookByID(int BookID)
         {
-            BookDO book = new BookDO();
-            book.BookID = BookID;
-            int result = 0;
-            return RedirectToAction("ChangeBook");
+            var book = new AdminBA().GetAllBooks().FirstOrDefault(b => b.BookID == BookID);
+            if (book == null)
+            {
+                return RedirectToAction("GetAllBooks");
+            }
+            return View("ChangeBook", book);
         }
 
         [Authorize]
+        [HttpPost]
         public IActionResult ChangeBook(int BookID, string BookTilte, string AuthorName, IFormFile ImagePath, IFormFile FilePath, string BookType, string Detail)
         {
+            // Load the existing record so we can keep the current image / PDF
+            // when the admin doesn't upload a replacement.
+            var existing = new AdminBA().GetAllBooks().FirstOrDefault(b => b.BookID == BookID);
+
             BookDO book = new BookDO();
             book.BookID = BookID;
             book.BookTilte = BookTilte;
             book.AutherName = AuthorName;
+            book.BookType = BookType;
+            book.Detail = Detail;
+            book.ImagePath = existing?.ImagePath;
+            book.FilePath = existing?.FilePath;
 
             if (ImagePath != null && ImagePath.Length > 0)
             {
@@ -256,10 +268,9 @@ namespace Quran.Controllers
                 }
                 book.FilePath = "~/assets/Books/BookFile/" + filename;
             }
-            book.BookType = BookType;
-            book.Detail = Detail;
+
             int result = new AdminBA().ChangeBook(book);
-            return RedirectToAction("ChangeBook");
+            return RedirectToAction("GetAllBooks");
         }
 
         [Authorize]

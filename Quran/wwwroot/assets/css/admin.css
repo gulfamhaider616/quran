@@ -1,0 +1,393 @@
+/* =========================================================================
+   Admin theme for Learn Quran with E-Tutor
+   Palette matches the public site (color3.css): green #38ab1e + blue #2a486c
+   ========================================================================= */
+
+:root {
+    --brand: #38ab1e;
+    --brand-dark: #2e8c18;
+    --brand-darker: #246d13;
+    --secondary: #2a486c;
+    --secondary-dark: #1f3654;
+    --bg: #eef1f6;
+    --card: #ffffff;
+    --text: #33373d;
+    --muted: #7b8794;
+    --border: #e3e8ef;
+    --danger: #d9534f;
+    --shadow: 0 2px 10px rgba(42, 72, 108, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+body.admin-body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Open Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+}
+
+/* ----------------------------------------------------------- Top navbar */
+.admin-topbar {
+    background: linear-gradient(90deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.admin-topbar-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0 18px;
+    min-height: 62px;
+    gap: 8px;
+}
+
+.admin-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 17px;
+    margin-right: 18px;
+}
+
+.admin-brand img { height: 38px; width: auto; display: block; }
+.admin-brand span { white-space: nowrap; }
+.admin-brand .accent { color: #9fe08c; }
+
+.admin-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px;
+    flex: 1 1 auto;
+}
+
+.admin-nav > li { position: relative; }
+
+.admin-nav > li > a {
+    display: block;
+    color: rgba(255, 255, 255, 0.88);
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13.5px;
+    transition: background .15s, color .15s;
+    white-space: nowrap;
+}
+
+.admin-nav > li > a:hover,
+.admin-nav > li.active > a {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+}
+
+/* hover dropdown (Forum) */
+.admin-nav li.has-sub > a::after {
+    content: "\f107"; /* fa caret down */
+    font-family: FontAwesome;
+    margin-left: 7px;
+    font-size: 11px;
+    opacity: .8;
+}
+
+.admin-nav li .sub {
+    list-style: none;
+    margin: 0;
+    padding: 6px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 190px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    display: none;
+    z-index: 1100;
+}
+
+.admin-nav li.has-sub:hover .sub { display: block; }
+
+.admin-nav li .sub li a {
+    display: block;
+    color: var(--text);
+    text-decoration: none;
+    padding: 9px 12px;
+    border-radius: 6px;
+    font-size: 13.5px;
+    font-weight: 600;
+}
+
+.admin-nav li .sub li a:hover { background: var(--bg); color: var(--brand-dark); }
+
+.admin-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+    white-space: nowrap;
+}
+
+.admin-user .who { color: rgba(255, 255, 255, 0.9); font-size: 13px; }
+.admin-user .who i { color: #9fe08c; margin-right: 6px; }
+
+.admin-logout {
+    background: var(--brand);
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 13px;
+    transition: background .15s;
+}
+
+.admin-logout:hover { background: var(--brand-dark); color: #fff; }
+
+/* ----------------------------------------------------------- Content */
+.admin-content { max-width: 1280px; margin: 26px auto; padding: 0 18px; }
+
+/* Old template containers reused by the views -> card look */
+#banner-wrapper, #banner {
+    background: transparent;
+    padding: 0;
+}
+
+#banner.box, #banner-wrapper .box, #banner {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 26px 28px;
+    margin: 0 auto 26px;
+    width: 100% !important;
+    max-width: 1240px;
+    overflow: hidden;
+}
+
+#banner .row { margin: 0; }
+
+/* neutralise the odd inline widths in some views */
+#banner .col-md-12 { width: 100% !important; padding: 0; }
+
+.admin-content h3, .admin-content h4, .admin-content h5 { color: var(--secondary); }
+.admin-content h3 { margin-top: 4px; font-weight: 700; }
+
+/* ----------------------------------------------------------- Tables */
+.rest {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0;
+    border: 1px solid var(--border) !important;
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 13.5px !important;
+    color: var(--text) !important;
+}
+
+.rest thead tr, .rest thead { background: var(--brand) !important; }
+
+.rest thead td, .rest thead th {
+    background: var(--brand) !important;
+    color: #fff !important;
+    font-weight: 600;
+    padding: 12px 10px !important;
+    text-align: center;
+    border: none !important;
+    white-space: nowrap;
+}
+
+.rest tbody td {
+    padding: 10px 10px !important;
+    border-top: 1px solid var(--border) !important;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.rest tbody tr:nth-child(even) { background: #f6f9f4 !important; }
+.rest tbody tr:hover { background: #eaf6e6 !important; }
+.rest tbody a { color: var(--secondary); font-weight: 600; text-decoration: none; }
+.rest tbody a:hover { color: var(--brand-dark); text-decoration: underline; }
+
+/* generic tables in forms (login, add book, schedule) */
+#banner table:not(.rest) { width: 100%; }
+#banner table:not(.rest) td { padding: 7px 6px; vertical-align: middle; }
+#banner table:not(.rest) label { font-weight: 600; color: var(--text); }
+
+.total-records, h5[style*="float"] { color: var(--secondary) !important; }
+
+/* ----------------------------------------------------------- Forms */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="file"],
+textarea,
+select {
+    width: 100%;
+    max-width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text);
+    background: #fff;
+    transition: border-color .15s, box-shadow .15s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(56, 171, 30, 0.15);
+}
+
+textarea { resize: vertical; }
+
+/* ----------------------------------------------------------- Buttons */
+.btn-success:not(.btn),
+input[type="submit"],
+button[type="submit"] {
+    display: inline-block;
+    background: var(--brand) !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 10px 26px !important;
+    border-radius: 7px !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    cursor: pointer;
+    transition: background .15s, transform .05s;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(56, 171, 30, 0.25);
+}
+
+.btn-success:not(.btn):hover,
+input[type="submit"]:hover,
+button[type="submit"]:hover { background: var(--brand-dark) !important; color: #fff !important; }
+
+.btn-success:not(.btn):active,
+input[type="submit"]:active { transform: translateY(1px); }
+
+/* ----------------------------------------------------------- Table action buttons + book cover */
+.rest td .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    min-width: 34px;
+    height: 32px;
+    padding: 0 9px !important;
+    margin: 2px;
+    border-radius: 6px !important;
+    font-size: 13px !important;
+    font-weight: 600;
+    line-height: 1;
+    color: #fff !important;
+    border: none !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+    vertical-align: middle;
+}
+
+.rest td .btn i { font-size: 13px; }
+.rest td .btn.btn-success { background: var(--brand) !important; }
+.rest td .btn.btn-success:hover { background: var(--brand-dark) !important; }
+.rest td .btn.btn-info { background: #2a7fb8 !important; }
+.rest td .btn.btn-info:hover { background: #226a9a !important; }
+.rest td .btn.btn-danger { background: var(--danger) !important; }
+.rest td .btn.btn-danger:hover { background: #b73c39 !important; }
+
+.book-cover {
+    width: 62px;
+    height: 84px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: #f4f6f9;
+    display: inline-block;
+}
+
+/* ----------------------------------------------------------- Schedule / popup panels */
+#contactdiv, #logindiv {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(31, 54, 84, 0.45);
+    z-index: 1200;
+    padding: 40px 16px;
+    overflow-y: auto;
+}
+
+#contactdiv #contact, #logindiv form {
+    background: #fff;
+    max-width: 460px;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    padding: 24px 26px 28px;
+    position: relative;
+    color: var(--text) !important;
+}
+
+#contactdiv h3 { margin: 0 0 4px; color: var(--secondary); }
+#contactdiv hr { border: none; border-top: 2px solid var(--border); margin: 12px 0 16px; }
+#contactdiv table { width: 100%; }
+#contactdiv table td { padding: 6px 6px; }
+#contactdiv label { color: var(--text); font-weight: 600; }
+#contactdiv span { color: var(--danger); }
+
+#contactdiv #cancel, #logindiv .img {
+    position: absolute;
+    top: 14px; right: 16px;
+    width: 24px !important;
+    cursor: pointer;
+    opacity: .7;
+}
+#contactdiv #cancel:hover { opacity: 1; }
+
+/* ----------------------------------------------------------- Login page */
+.admin-login #banner { max-width: 460px; }
+.admin-login h3 { text-align: center; }
+
+/* ----------------------------------------------------------- Footer */
+.admin-footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    padding: 22px 16px 30px;
+    border-top: 1px solid var(--border);
+    margin-top: 30px;
+}
+.admin-footer a { color: var(--brand-dark); text-decoration: none; }
+
+/* ----------------------------------------------------------- Modal (info) */
+.modal-content { border: none !important; border-top: 5px solid var(--brand) !important; border-radius: 10px !important; }
+
+/* ----------------------------------------------------------- Responsive */
+@media (max-width: 880px) {
+    .admin-topbar-inner { padding: 8px 14px; }
+    .admin-nav { order: 3; width: 100%; }
+    .admin-user { margin-left: auto; }
+    #banner.box, #banner { padding: 18px 16px; }
+}
