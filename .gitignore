@@ -1,24 +1,57 @@
+# ---------------------------------------------------------------------------
+# .NET / ASP.NET Core (Quran project)
+# ---------------------------------------------------------------------------
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+[Pp]ublish/
+artifacts/
+
+# .NET build / debug artifacts
 *.pdb
-*.dll
-vs/*
-LearnFreeQuran.Web/.vs/*
-LearnFreeQuran.Web/packages/*
-LearnFreeQuran.Web/bin/*
-LearnFreeQuran.Web/obj/*
-LearnFreeQuran.Web/bin/roslyn/vbc.exe
+*.dll.config
+*.cache
+project.lock.json
+project.fragment.lock.json
 
-LearnFreeQuran.Business/packages/*
-LearnFreeQuran.Business/bin/*
-LearnFreeQuran.Business/obj/*
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
 
-LearnFreeQuran.DataAccess/packages/*
-LearnFreeQuran.DataAccess/bin/*
-LearnFreeQuran.DataAccess/obj/*
+# Visual Studio / Rider / VS Code
+.vs/
+.vscode/
+.idea/
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+*.userprefs
+*.vsix
 
-LearnFreeQuran.Library/packages/*
-LearnFreeQuran.Library/bin/*
-LearnFreeQuran.Library/obj/*
-packages/*
-LearnFreeQuran.Web/Properties/PublishProfiles/learnfreequran.com - Web Deploy (2).pubxml
-.vs/LearnFreeQuran/v14/.suo
-.vs/config/applicationhost.config
+# ASP.NET Core local user secrets / generated assets
+*.GeneratedMSBuildEditorConfig.props
+wwwroot/dist/
+node_modules/
+
+# OS files
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+.DS_Store
+
+# ---------------------------------------------------------------------------
+# Local DB restore artifacts (generated; the source .sql scripts stay tracked)
+# ---------------------------------------------------------------------------
+_restore_log.txt
+*.mdf
+*.ldf
