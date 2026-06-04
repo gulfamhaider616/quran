@@ -1,80 +1,57 @@
 @{
-	ViewBag.Title = "Quran Teacher Section 1 - Arabic Alphabets | E-Tutor";
-
-ViewBag.Description = "Begin Quran learning with Section 1: master the Arabic alphabet (Huroof) with correct pronunciation and sound. A free, beginner-friendly first lesson.";
-	ViewBag.KeyWords = "arabic alphabets, huroof e tahaji, beginner lesson, letter pronunciation, makhraj basics";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Quran Teacher Section 1 - Arabic Alphabets | E-Tutor";
+    ViewBag.Description = "Begin Quran learning with Section 1: master the Arabic alphabet (Huroof) with correct pronunciation and sound. A free, beginner-friendly first lesson.";
+    ViewBag.KeyWords = "arabic alphabets, huroof e tahaji, beginner lesson, letter pronunciation, makhraj basics";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="banner-wrapper">
-	<div id="banner" class="box container">
-		<div class="row">
-			<div class="col-md-12" style="width:100%;margin:0 auto;">
-				<div style="text-align:center;">
-					<button class="alert-success" style="padding: 0;float: left;width: 18%;font-size: 16px;height: 40px;background: rgb(102, 34, 0);color: white;border-radius: unset;"><a href="/Quran_Teacher" style="color: white;">Instructions</a></button>
-					<span style="text-align:center;font-weight:900;font-size: 30px;">Section 1</span>
-					<button class="alert-success" style="padding: 0;float: right;width: 18%;font-size: 16px;height: 40px;background: rgb(102, 34, 0);color: white;border-radius: unset;"><a href="online_quran_teacher_section_2" style="color: white;">Next</a></button>
-				</div>
-				<hr style="border-top:solid 1px #c60;width: 100%;">
-				<div class="col-md-3" style="display: inline;text-align: center;">
-					<br />
+<div class="ql-section">
+    <div class="container">
+        <div class="ql-bar">
+            <a class="ql-nav" href="/Quran_Teacher"><i class="fa fa-angle-left"></i> Instructions</a>
+            <h2 class="ql-heading">Section 1</h2>
+            <a class="ql-nav ql-next" href="online_quran_teacher_section_2">Next <i class="fa fa-angle-right"></i></a>
+        </div>
 
-					<a href="javascript:void(0)" id="1" onclick="changeLesson(1)">
-						<span style="font-weight:bold;color:rgb(102, 34, 0);">Qurani Lesson 1</span>
-						<img src="~/assets/LessonsIcons/1.png" style="border: 1px solid black;max-width: 170px;" />
-						
-					</a>
-					<hr style="margin-bottom: 0;" />
+        <div class="ql-grid">
+            <div class="ql-lessons">
+                <a class="ql-lesson" href="javascript:void(0)" onclick="changeLesson(1)">
+                    <img src="~/assets/LessonsIcons/1.png" alt="Qurani Lesson 1" />
+                    <span>Qurani Lesson 1</span>
+                </a>
+                <a class="ql-lesson" href="javascript:void(0)" onclick="changeLesson(2)">
+                    <img src="~/assets/LessonsIcons/2.png" alt="Qurani Lesson 2" />
+                    <span>Qurani Lesson 2</span>
+                </a>
+                <a class="ql-lesson" href="javascript:void(0)" onclick="changeLesson(3)">
+                    <img src="~/assets/LessonsIcons/3.png" alt="Qurani Lesson 3" />
+                    <span>Qurani Lesson 3</span>
+                </a>
+            </div>
 
-					<a href="javascript:void(0)" id="2" onclick="changeLesson(2)">
-						<span style="font-weight:bold;color:rgb(102, 34, 0);">Qurani Lesson 2</span>
-						<img src="~/assets/LessonsIcons/2.png" style="border: 1px solid black;max-width: 170px;" />
-						
-					</a>
-					<hr style="margin-bottom: 0;" />
-
-					<a href="javascript:void(0)" id="3" onclick="changeLesson(3)">
-						<span style="font-weight:bold;color:rgb(102, 34, 0);">Qurani Lesson 3</span>
-						<img src="~/assets/LessonsIcons/3.png" style="border: 1px solid black;max-width: 170px;" />
-						
-					</a>
-					<hr style="margin-bottom: 0;" />
-				</div>
-				<div class="col-md-9" style="display: inline;">
-					<div id="acivelesson">
-						<h3 style="text-align: center;" id="lessonname">Listen Carefully Qurani Lesson 1</h3>
-						<div id="videodiv">
-							<div id="innerdiv">
-								<video id="video" width="640" height="480" poster="sample-video.jpg"  controls autoplay preload style="width: 100%;height:100%;border: 1px solid black;">
-									<source id="lessonurl" src="~/assets/VideoLessons/Lesson 1.mp4" type="video/mp4">
-								</video>
-							</div>
-						</div>
-						
-					</div>
-					<hr style="border-top:solid 1px #c60;width: 100%;">
-					<div id="disqus_thread"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script>
-
-/**
-*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-
-var disqus_config = function () {
-this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-};
-
-(function() { // DON'T EDIT BELOW THIS LINE
-var d = document, s = d.createElement('script');
-s.src = 'https://learnfreequran-1.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-	</script>
+            <div class="ql-main">
+                <div id="acivelesson">
+                    <h3 id="lessonname" class="ql-now">Listen carefully &mdash; Qurani Lesson 1</h3>
+                    <div id="videodiv" class="ql-video">
+                        <div id="innerdiv">
+                            <video id="video" controls autoplay preload>
+                                <source id="lessonurl" src="~/assets/VideoLessons/Lesson 1.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="ql-disc">Discussion</h4>
+                <div id="disqus_thread"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
+<script>
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://learnfreequran-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>

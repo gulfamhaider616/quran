@@ -72,110 +72,59 @@
 <body>
 
 <main>
-        <div class="pageloader-wrap">
-            <div class="loader">
-                <div class="loader__bar"></div>
-                <div class="loader__bar"></div>
-                <div class="loader__bar"></div>
-                <div class="loader__bar"></div>
-                <div class="loader__bar"></div>
-                <div class="loader__ball"></div>
-            </div>
-        </div>
-        <header class="style2">
-            <div class="container">
-                <div class="logo"><a href="/" title="Logo"><img src="~/images/Logo3.png" alt="logo3.png"></a></div>
-                <nav>
-                    <div>
-                        <a class="srch-btn" href="#" title=""><i class="fa fa-search"></i></a>
-                        @if (!string.IsNullOrEmpty(userName))
+        <header class="nv">
+            <div class="nv-inner">
+                <a class="nv-brand" href="/" title="Learn Quran with E-Tutor"><img src="~/images/Logo3.png" alt="Learn Quran with E-Tutor"></a>
+                <button class="nv-toggle" id="nvToggle" type="button" aria-label="Menu"><i class="fa fa-bars"></i></button>
+                <nav class="nv-menu" id="nvMenu">
+                    <a href="/">Home</a>
+                    <div class="nv-item">
+                        <a href="#" class="nv-top">Learn <i class="fa fa-angle-down"></i></a>
+                        <div class="nv-sub">
+                            <a href="/Quran_Teacher">Quran Teacher</a>
+                            <a href="/online_quran_reading">Read Quran</a>
+                            <a href="/Video_Lessons">Video Lessons</a>
+                            <a href="/Books/AllBooks">Islamic Books</a>
+                        </div>
+                    </div>
+                    <div class="nv-item">
+                        <a href="#" class="nv-top">Basic Islam <i class="fa fa-angle-down"></i></a>
+                        <div class="nv-sub">
+                            <a href="/Six_Kalmas">Read Kalmas</a>
+                            <a href="/Namaz">Read Namaz</a>
+                            <a href="/Masnoon_Duain">Learn Duain</a>
+                            <a href="/Darood">Darood Sharif</a>
+                            <a href="/Namaz_e_Janaza">Namaz Janaza</a>
+                            <a href="/Due_e_Qunoot">Dua-e-Qunoot</a>
+                        </div>
+                    </div>
+                    <a href="/Home/FeeStructure">Fee Structure</a>
+                    <a href="/Registration">Registration</a>
+                    <a href="/Forum">Forum</a>
+                    @if (!string.IsNullOrEmpty(userName))
+                    {
+                        if (!string.IsNullOrEmpty(chapterId) && !string.IsNullOrEmpty(bookmarkId))
                         {
-                            if (!string.IsNullOrEmpty(chapterId) && !string.IsNullOrEmpty(bookmarkId))
-                            {
-                                <a class="thm-btn brd-rd5" href="/quran_reading?ChapterID=@chapterId@bookmarkId" title="">Goto Bookmark</a>
-                            }
-                            else
-                            {
-                                <a class="thm-btn brd-rd5" href="#" title="">Goto Bookmark</a>
-                            }
+                            <a class="nv-cta" href="/quran_reading?ChapterID=@chapterId@bookmarkId">Goto Bookmark</a>
                         }
                         else
                         {
-                            <a class="thm-btn brd-rd5" href="/User/UserLogin" title="">Login</a>
+                            <a class="nv-cta" href="#">Goto Bookmark</a>
                         }
-
-                        <ul>
-                            <li id="home"><a href="/">Home</a></li>
-                            <li id="teacher"><a href="/Quran_Teacher">Quran Teacher</a></li>
-                            <li id="reading"><a href="~/online_quran_reading">Read Quran</a></li>
-                            <li><a href="~/Books/AllBooks">Islamic Books</a></li>
-                            <li><a href="/Video_Lessons">Video Lessons</a></li>
-                            <li class="menu-item-has-children">
-                                <a href="#" title="">Basic Islam</a>
-                                <ul>
-                                    <li><a href="/Six_Kalmas"><b>Read Kalmas</b></a></li>
-                                    <li><a href="/Namaz"><b> Read Namaz</b></a></li>
-                                    <li><a href="/Masnoon_Duain"><b>Learn Duain</b></a></li>
-                                    <li><a href="/Darood"><b>Darood Sharif</b></a></li>
-                                    <li><a href="/Namaz_e_Janaza"><b>Namaz Janaza</b></a></li>
-                                    <li><a href="/Due_e_Qunoot"><b>Due_e_Qunoot</b></a></li>
-                                </ul>
-                            </li>
-                            <li><a href="/Home/FeeStructure">Fee Structure</a></li>
-                            <li><a href="/Registration">Registration</a></li>
-                            <li><a href="/Forum">Forum</a></li>
-                        </ul>
-                    </div>
+                    }
+                    else
+                    {
+                        <a class="nv-cta" href="/User/UserLogin">Login</a>
+                    }
                 </nav>
             </div>
         </header>
-        <div class="rspn-hdr">
-            <div class="rspn-mdbr">
-                <ul class="rspn-scil">
-                    <li><a href="#" title="Twitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#" title="Linkedin" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a href="#" title="Google Plus" target="_blank"><i class="fa fa-google-plus"></i></a></li>
-                </ul>
-                <form class="rspn-srch">
-                    <input type="text" placeholder="Enter Your Keyword" />
-                    <button type="submit"><i class="fa fa-search"></i></button>
-                </form>
-            </div>
-            <div class="lg-mn">
-                <div class="logo"><a href="index.html" title="Logo"><img src="~/images/Logo3.png" alt="logo2.png"></a></div>
-                <div class="rspn-cnt">
-                    <span><i class="fa fa-envelope thm-clr"></i><a href="#" title="">info@jamia.com</a></span>
-                    <span><i class="fa fa-phone thm-clr"></i>+(00) 123-345-11</span>
-                </div>
-                <span class="rspn-mnu-btn"><i class="fa fa-list-ul"></i></span>
-            </div>
-            <div class="rsnp-mnu">
-                <span class="rspn-mnu-cls"><i class="fa fa-times"></i></span>
-                <ul>
-                    <li id="home"><a href="/">Home</a></li>
-                    <li id="teacher"><a href="/Quran_Teacher">Quran Teacher</a></li>
-                    <li id="reading"><a href="~/online_quran_reading">Read Quran</a></li>
-                    <li><a href="~/Books/AllBooks">Islamic Books</a></li>
-                            <li><a href="/Video_Lessons">Video Lessons</a></li>
-                    <li class="menu-item-has-children">
-                        <a href="#" title="">Basic Islam</a>
-                        <ul>
-                            <li><a href="/Six_Kalmas"><b>Read Kalmas</b></a></li>
-                            <li><a href="/Namaz"><b> Read Namaz</b></a></li>
-                            <li><a href="/Masnoon_Duain"><b>Learn Duain</b></a></li>
-                            <li><a href="/Darood"><b>Darood Sharif</b></a></li>
-                            
-                            <li><a href="/Namaz_e_Janaza"><b>Namaz Janaza</b></a></li>
-                            <li><a href="/Due_e_Qunoot"><b>Due_e_Qunoot</b></a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/Home/FeeStructure">Fee Structure</a></li>
-                    <li><a href="/Registration">Registration</a></li>
-                    <li><a href="/Forum">Forum</a></li>
-                </ul>
-            </div>
-        </div>
+        <script>
+            (function () {
+                var t = document.getElementById('nvToggle'), m = document.getElementById('nvMenu');
+                if (t && m) { t.addEventListener('click', function () { m.classList.toggle('open'); }); }
+            })();
+        </script>
         <div class="header-search">
             <span class="srch-cls-btn brd-rd5"><i class="fa fa-times"></i></span>
             <form>

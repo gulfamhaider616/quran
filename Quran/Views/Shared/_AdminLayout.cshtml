@@ -84,11 +84,23 @@
             @if (isAuth)
             {
                 <ul class="admin-nav">
-                    <li class="@Active("getallstudents")"><a href="/Admin/GetAllStudents">All Students</a></li>
-                    <li class="@Active("getscheduledstudents")"><a href="/Admin/GetScheduledStudents">Scheduled</a></li>
-                    <li class="@Active("getunscheduledstudents")"><a href="/Admin/GetUnscheduledStudents">Unscheduled</a></li>
-                    <li class="@Active("gettodayschedule")"><a href="/Admin/GetTodaySchedule">Today</a></li>
-                    <li class="@Active("getcontactus")"><a href="/Admin/GetContactUs">Contact</a></li>
+                    <li class="has-sub @(path.Contains("student") || path.Contains("schedule") || path.Contains("today") ? "active" : "")">
+                        <a href="#">Students</a>
+                        <ul class="sub">
+                            <li><a href="/Admin/GetAllStudents">All Students</a></li>
+                            <li><a href="/Admin/GetScheduledStudents">Scheduled</a></li>
+                            <li><a href="/Admin/GetUnscheduledStudents">Unscheduled</a></li>
+                            <li><a href="/Admin/GetTodaySchedule">Today's Schedule</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-sub @(path.Contains("book") || path.Contains("video") ? "active" : "")">
+                        <a href="#">Content</a>
+                        <ul class="sub">
+                            <li><a href="/Admin/AddBook">Add Book</a></li>
+                            <li><a href="/Admin/GetAllBooks">All Books</a></li>
+                            <li><a href="/Admin/VideoLessons">Video Lessons</a></li>
+                        </ul>
+                    </li>
                     <li class="has-sub @(path.Contains("forum") || path.Contains("publish") ? "active" : "")">
                         <a href="#">Forum</a>
                         <ul class="sub">
@@ -97,10 +109,8 @@
                             <li><a href="/Admin/UnPublish">UnPublish</a></li>
                         </ul>
                     </li>
-                    <li class="@Active("addbook")"><a href="/Admin/AddBook">Add Book</a></li>
-                    <li class="@Active("getallbooks")"><a href="/Admin/GetAllBooks">All Books</a></li>
+                    <li class="@Active("getcontactus")"><a href="/Admin/GetContactUs">Contact</a></li>
                     <li class="@Active("getfeedback")"><a href="/Admin/GetFeedback">Feedback</a></li>
-                    <li class="@Active("videolessons")"><a href="/Admin/VideoLessons">Videos</a></li>
                 </ul>
 
                 <div class="admin-user">

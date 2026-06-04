@@ -391,3 +391,18 @@ input[type="submit"]:active { transform: translateY(1px); }
     .admin-user { margin-left: auto; }
     #banner.box, #banner { padding: 18px 16px; }
 }
+
+/* ----------------------------------------------------------- Admin login card */
+.adm-login-wrap { display: flex; justify-content: center; padding: 50px 16px; }
+.adm-login-card { background: #fff; max-width: 420px; width: 100%; border-radius: 16px; box-shadow: 0 14px 40px rgba(42, 72, 108, .14); overflow: hidden; }
+.adm-login-head { background: linear-gradient(120deg, #2a486c 0%, #1f3654 100%); padding: 30px 30px 26px; text-align: center; }
+.adm-login-head img { height: 46px; margin-bottom: 12px; }
+.adm-login-head h2 { color: #fff; font-weight: 800; font-size: 24px; margin: 0 0 4px; }
+.adm-login-head p { color: #cdd6e4; font-size: 13.5px; margin: 0; }
+.adm-login-body { padding: 30px 32px 34px; }
+.adm-field { margin-bottom: 18px; }
+.adm-field label { display: block; font-weight: 600; color: #2a486c; font-size: 13px; margin-bottom: 6px; }
+.adm-field input { width: 100%; padding: 12px 14px; border: 1px solid #dde3ec; border-radius: 9px; font-size: 14.5px; transition: border-color .15s, box-shadow .15s; }
+.adm-field input:focus { outline: none; border-color: #38ab1e; box-shadow: 0 0 0 3px rgba(56, 171, 30, .15); }
+.adm-login-btn { width: 100%; background: #38ab1e; color: #fff; border: none; padding: 13px; border-radius: 10px; font-weight: 700; font-size: 15px; cursor: pointer; box-shadow: 0 6px 16px rgba(56, 171, 30, .28); transition: background .15s; }
+.adm-login-btn:hover { background: #2e8c18; }
