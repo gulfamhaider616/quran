@@ -1,0 +1,24 @@
+---------------------------------------------------
+Here are the ownership and the certification details
+of the Learn Quran with Tutor 2.0
+---------------------------------------------------
+
+app_name - 						Learn Quran with Tutor
+app_alias - 					learnquranwithtutor
+app_author_name - 				My Company
+app_author_organizational - 	My Company
+app_author_organization - 		My Company
+app_author_locality - 			My Company
+app_author_state - 				Islamabad
+app_author_country - 			Pakistan
+app_password - 					9Rccq73jXrC3
+app_versionName - 				versionName "2.0"
+app_versionCode - 				200
+
+---------------------------------------------------
+The certification was created by WebIntoApp.com at
+the Monday 15th of May 2023 07:24:42 PM
+
+https://www.webintoapp.com
+---------------------------------------------------
+
