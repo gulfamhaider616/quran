@@ -1,4 +1,3 @@
-
 @{
     ViewBag.Title = "Create Account | Learn Quran with E-Tutor";
     ViewBag.Description = "Create your free reader account to bookmark Surahs, save your reading position and continue the Quran where you left off across devices.";
@@ -6,46 +5,36 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<section class="register-section pt-100 pb-100 loaded">
+
+<div class="auth-section auth-signup">
     <div class="container">
-        <div class="register-box">
-
-            <div class="sec-title text-center mb-30">
-                <h2 class="title mb-10">Create New Account</h2>
+        <div class="auth-card">
+            <div class="auth-top">
+                <img src="~/images/Logo3.png" alt="Learn Quran with E-Tutor" />
+                <h2>Create Account</h2>
+                <p>Bookmark Surahs and save your reading progress</p>
             </div>
-
-            <!-- Login Form -->
-            <div  class="contact-form text-center">
+            <div class="auth-body">
                 <div id="form-messages"></div>
                 <form id="contact-form" method="post" action="/User/SaveUser">
-                    <div class="row clearfix">
-                        <!-- Form Group -->
-                        <div class="form-group col-lg-12 mb-25">
-                            <input type="text" id="name" name="name" value="" placeholder="Name" required="">
-                        </div>
-
-                        <!-- Form Group -->
-                        <div class="form-group col-lg-12">
-                            <input type="email" id="email" name="email" value="" placeholder="Email address " required="">
-                        </div>
-                        <div class="form-group col-lg-12">
-                            <input type="password" id="email" name="password" value="" placeholder="Enter password " required="">
-                        </div>
-
-                        <div class="form-group col-lg-12 col-md-12 col-sm-12 text-center">
-                            <button type="submit" class="readon btn-success form-control"><span class="txt">Sign Up</span></button>
-                        </div>
-
-                        <div class="form-group col-lg-12 col-md-12 col-sm-12">
-                            <div class="users">Already have an account? <a href="/User/UserLogin">Sign In</a></div>
-                        </div>
-
+                    <div class="auth-field">
+                        <i class="fa fa-user"></i>
+                        <input type="text" id="name" name="name" placeholder="Full name" required />
                     </div>
-
+                    <div class="auth-field">
+                        <i class="fa fa-envelope"></i>
+                        <input type="email" id="email" name="email" placeholder="Email address" required />
+                    </div>
+                    <div class="auth-field">
+                        <i class="fa fa-lock"></i>
+                        <input type="password" id="password" name="password" placeholder="Create a password" required />
+                    </div>
+                    <button type="submit" class="auth-btn">Sign Up</button>
+                    <div class="auth-switch">
+                        Already have an account? <a href="/User/UserLogin">Sign In</a>
+                    </div>
                 </form>
             </div>
-
         </div>
     </div>
-</section>
-
+</div>

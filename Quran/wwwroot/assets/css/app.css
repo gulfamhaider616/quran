@@ -1,0 +1,340 @@
+/* =========================================================================
+   app.css  -  single custom stylesheet for the public site.
+   Consolidates every custom style that used to live in per-view <style>
+   blocks (Fee, Books, Login, Register) plus the site-wide polish layer
+   and the Online Quran Reading page. Vendor libraries (bootstrap, owl,
+   fancybox, style.css, etc.) remain separate.
+   Palette: green #38ab1e (primary) + blue #2a486c (secondary).
+   ========================================================================= */
+
+/* ----------------------------------------------------------- Content page polish
+   Turns the bare #banner wrapper (Kalmas, Namaz, Duain, Darood, schedule,
+   profile, etc.) into a clean card on a soft section background. */
+#banner-wrapper { background: #f4f6f9; padding: 48px 15px 60px; }
+
+#banner-wrapper #banner.box,
+#banner-wrapper .box {
+    background: #fff;
+    border: 1px solid #e6eaf0;
+    border-radius: 14px;
+    box-shadow: 0 8px 26px rgba(42, 72, 108, .07);
+    padding: 30px 32px;
+    margin: 0 auto;
+    max-width: 1040px;
+    width: auto !important;
+}
+
+#banner-wrapper img { max-width: 100% !important; height: auto; border-radius: 8px; }
+#banner-wrapper .col-md-12 { width: 100% !important; padding: 0; }
+#banner-wrapper h2, #banner-wrapper h3, #banner-wrapper h4 { color: #2a486c; }
+
+#banner-wrapper input[type="submit"],
+#banner-wrapper .btn-success:not(.btn) {
+    background: #38ab1e !important; color: #fff !important; border: none !important;
+    padding: 11px 26px !important; border-radius: 8px !important; font-weight: 700 !important;
+    box-shadow: 0 4px 12px rgba(56, 171, 30, .25); transition: background .15s;
+}
+#banner-wrapper input[type="submit"]:hover,
+#banner-wrapper .btn-success:not(.btn):hover { background: #2e8c18 !important; }
+
+#banner-wrapper input:focus,
+#banner-wrapper textarea:focus,
+#banner-wrapper select:focus {
+    outline: none; border-color: #38ab1e !important; box-shadow: 0 0 0 3px rgba(56, 171, 30, .15) !important;
+}
+
+/* Homepage clickable service tiles */
+.srv-box2 { cursor: pointer; transition: transform .2s ease; }
+.srv-box2:hover { transform: translateY(-6px); }
+
+/* =========================================================================
+   Shared section header (eyebrow + title + lead)
+   ========================================================================= */
+.sec-head { text-align: center; max-width: 680px; margin: 0 auto 40px; }
+.sec-head span { display: inline-block; color: #38ab1e; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; font-size: 13px; margin-bottom: 8px; }
+.sec-head h2 { color: #2a486c; font-weight: 800; margin: 0 0 12px; font-size: 32px; }
+.sec-head p { color: #6b7685; font-size: 15px; margin: 0; }
+@media (max-width: 680px) { .sec-head h2 { font-size: 26px; } }
+
+/* =========================================================================
+   Online Quran Reading  (Surah list)
+   ========================================================================= */
+.qr-section { background: #f4f6f9; padding: 55px 0 65px; }
+.qr-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 14px; }
+.qr-item {
+    display: flex; align-items: center; gap: 14px; background: #fff; border: 1px solid #e6eaf0;
+    border-radius: 12px; padding: 13px 16px; text-decoration: none !important;
+    box-shadow: 0 4px 14px rgba(42, 72, 108, .05); transition: transform .18s, box-shadow .18s, border-color .18s;
+}
+.qr-item:hover { transform: translateY(-3px); border-color: #38ab1e; box-shadow: 0 10px 24px rgba(56, 171, 30, .14); }
+.qr-num {
+    flex: 0 0 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+    background: #eef6ea; color: #2e8c18; font-weight: 700; font-size: 14px; border-radius: 10px;
+}
+.qr-en { flex: 1 1 auto; display: flex; flex-direction: column; min-width: 0; }
+.qr-en-name { color: #2a486c; font-weight: 700; font-size: 15.5px; line-height: 1.25; }
+.qr-verses { color: #9aa5b3; font-size: 12.5px; margin-top: 2px; }
+.qr-ar { color: #38ab1e; font-size: 27px; line-height: 1; white-space: nowrap; }
+
+/* =========================================================================
+   Fee Structure  (pricing plans)
+   ========================================================================= */
+.fee-section { padding: 70px 0; background: #f4f6f9; }
+.fee-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 26px; }
+.fee-card {
+    background: #fff; border: 1px solid #e6eaf0; border-radius: 16px; width: 320px; max-width: 100%;
+    padding: 34px 28px 30px; text-align: center; box-shadow: 0 8px 26px rgba(42,72,108,.07);
+    position: relative; transition: transform .2s ease, box-shadow .2s ease; overflow: hidden;
+}
+.fee-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: #2a486c; }
+.fee-card:hover { transform: translateY(-6px); box-shadow: 0 16px 38px rgba(42,72,108,.14); }
+.fee-card.popular { border-color: #38ab1e; box-shadow: 0 16px 40px rgba(56,171,30,.18); }
+.fee-card.popular::before { background: #38ab1e; }
+.fee-badge { position: absolute; top: 16px; right: -34px; transform: rotate(45deg); background: #38ab1e; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .5px; padding: 5px 40px; box-shadow: 0 2px 6px rgba(0,0,0,.15); }
+.fee-plan { display: inline-block; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #2a486c; margin-bottom: 14px; }
+.fee-price { font-size: 48px; font-weight: 800; color: #38ab1e; line-height: 1; }
+.fee-price small { font-size: 17px; color: #9aa5b3; font-weight: 600; }
+.fee-sub { color: #9aa5b3; font-size: 13px; margin: 6px 0 22px; min-height: 18px; }
+.fee-features { list-style: none; padding: 0; margin: 0 0 26px; text-align: left; }
+.fee-features li { padding: 9px 0; border-bottom: 1px dashed #e9edf3; color: #4a5562; font-size: 14.5px; display: flex; align-items: center; }
+.fee-features li:last-child { border-bottom: none; }
+.fee-features .tick { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; background: #eaf6e6; color: #38ab1e; border-radius: 50%; font-size: 11px; font-weight: 700; margin-right: 12px; flex: 0 0 20px; }
+.fee-btn { display: inline-block; width: 100%; background: #38ab1e; color: #fff !important; text-decoration: none; padding: 13px 0; border-radius: 9px; font-weight: 700; font-size: 15px; transition: background .15s; box-shadow: 0 6px 16px rgba(56,171,30,.25); }
+.fee-btn:hover { background: #2e8c18; }
+.fee-card.popular .fee-btn { box-shadow: 0 8px 20px rgba(56,171,30,.35); }
+.fee-family { margin: 32px auto 0; max-width: 988px; background: linear-gradient(100deg, #2a486c 0%, #1f3654 100%); color: #fff; border-radius: 16px; padding: 30px 34px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.fee-family .ff-icon { font-size: 40px; line-height: 1; }
+.fee-family .ff-text { flex: 1 1 360px; }
+.fee-family h4 { margin: 0 0 6px; font-weight: 800; font-size: 21px; color: #fff; }
+.fee-family p { margin: 0; color: #cdd6e4; font-size: 14.5px; }
+.fee-family .ff-cta { background: #38ab1e; color: #fff !important; text-decoration: none; padding: 12px 26px; border-radius: 9px; font-weight: 700; white-space: nowrap; transition: background .15s; }
+.fee-family .ff-cta:hover { background: #2e8c18; }
+.fee-note-line { text-align: center; color: #8b95a3; font-size: 13.5px; margin-top: 30px; }
+@media (max-width: 680px) { .fee-family { text-align: center; justify-content: center; } }
+
+/* =========================================================================
+   Islamic Books  (card grid + search/filter)
+   ========================================================================= */
+.ib-section { padding: 60px 0 70px; background: #f4f6f9; }
+.ib-toolbar { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; align-items: center; margin: 0 auto 36px; max-width: 720px; }
+.ib-search { position: relative; flex: 1 1 320px; }
+.ib-search input { width: 100%; padding: 12px 16px 12px 42px; border: 1px solid #dde3ec; border-radius: 10px; font-size: 14.5px; background: #fff; transition: border-color .15s, box-shadow .15s; }
+.ib-search input:focus { outline: none; border-color: #38ab1e; box-shadow: 0 0 0 3px rgba(56,171,30,.15); }
+.ib-search .ic { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #9aa5b3; }
+.ib-filter select { padding: 12px 16px; border: 1px solid #dde3ec; border-radius: 10px; font-size: 14.5px; background: #fff; color: #2a486c; font-weight: 600; cursor: pointer; }
+.ib-filter select:focus { outline: none; border-color: #38ab1e; }
+.ib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 26px; }
+.ib-card { background: #fff; border: 1px solid #e6eaf0; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 6px 20px rgba(42,72,108,.06); transition: transform .2s, box-shadow .2s; }
+.ib-card:hover { transform: translateY(-5px); box-shadow: 0 16px 36px rgba(42,72,108,.13); }
+.ib-cover { position: relative; background: linear-gradient(135deg, #eef2f7, #e3e9f1); text-align: center; padding: 22px 0; }
+.ib-cover img { height: 168px; width: auto; max-width: 78%; object-fit: cover; border-radius: 6px; box-shadow: 0 6px 16px rgba(0,0,0,.15); }
+.ib-type { position: absolute; top: 12px; left: 12px; background: rgba(42,72,108,.92); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; }
+.ib-body { padding: 18px 18px 6px; flex: 1 1 auto; }
+.ib-title { font-size: 16px; font-weight: 700; color: #2a486c; margin: 0 0 6px; line-height: 1.35; }
+.ib-author { font-size: 13px; color: #38ab1e; font-weight: 600; margin: 0 0 10px; }
+.ib-detail { font-size: 13.5px; color: #6b7685; margin: 0; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.ib-actions { display: flex; gap: 10px; padding: 14px 18px 18px; }
+.ib-btn { flex: 1; text-align: center; padding: 10px 0; border-radius: 8px; font-size: 13.5px; font-weight: 700; text-decoration: none !important; transition: background .15s, color .15s; }
+.ib-read { background: #38ab1e; color: #fff !important; box-shadow: 0 4px 12px rgba(56,171,30,.25); }
+.ib-read:hover { background: #2e8c18; }
+.ib-dl { background: #eef2f7; color: #2a486c !important; border: 1px solid #dde3ec; }
+.ib-dl:hover { background: #e3e9f1; }
+.ib-disabled { background: #f1f1f4; color: #aab2bd !important; cursor: not-allowed; flex: 1; text-align: center; padding: 10px 0; border-radius: 8px; font-size: 13.5px; font-weight: 700; }
+.ib-empty { text-align: center; color: #8b95a3; font-size: 15px; padding: 50px 0; }
+
+/* =========================================================================
+   Auth pages  (Login / Create Account)
+   ========================================================================= */
+.auth-section { padding: 70px 0; background: #f4f6f9; min-height: 70vh; display: flex; align-items: center; }
+.auth-card { background: #fff; max-width: 460px; margin: 0 auto; border-radius: 16px; box-shadow: 0 14px 40px rgba(42,72,108,.12); overflow: hidden; }
+.auth-top { background: linear-gradient(120deg, #2a486c 0%, #1f3654 100%); padding: 30px 30px 26px; text-align: center; }
+.auth-top img { height: 46px; margin-bottom: 12px; }
+.auth-top h2 { color: #fff; font-weight: 800; font-size: 24px; margin: 0 0 4px; }
+.auth-top p { color: #cdd6e4; font-size: 13.5px; margin: 0; }
+/* green header variant for the sign-up page */
+.auth-signup .auth-top { background: linear-gradient(120deg, #38ab1e 0%, #2e8c18 100%); }
+.auth-signup .auth-top p { color: #e3f5dd; }
+.auth-body { padding: 30px 32px 34px; }
+.auth-field { margin-bottom: 18px; position: relative; }
+.auth-field i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #9aa5b3; }
+.auth-field input { width: 100%; padding: 13px 14px 13px 42px; border: 1px solid #dde3ec; border-radius: 10px; font-size: 14.5px; transition: border-color .15s, box-shadow .15s; }
+.auth-field input:focus { outline: none; border-color: #38ab1e; box-shadow: 0 0 0 3px rgba(56,171,30,.15); }
+.auth-btn { width: 100%; background: #38ab1e; color: #fff; border: none; padding: 14px 0; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background .15s; box-shadow: 0 6px 16px rgba(56,171,30,.28); }
+.auth-btn:hover { background: #2e8c18; }
+.auth-switch { text-align: center; margin-top: 20px; color: #6b7685; font-size: 14px; }
+.auth-switch a { color: #2a486c; font-weight: 700; text-decoration: none; }
+.auth-switch a:hover { color: #38ab1e; }
+
+/* =========================================================================
+   Back-to-top button (moved out of the layout's inline <style>)
+   ========================================================================= */
+#return-to-top {
+    position: fixed; bottom: 20px; right: 20px;
+    background: rgba(0, 0, 0, 0.7); width: 50px; height: 50px;
+    text-decoration: none; border-radius: 35px; display: none;
+    transition: all 0.3s ease;
+}
+#return-to-top i { color: #fff; margin: 0; position: relative; left: 16px; top: 13px; font-size: 19px; transition: all 0.3s ease; }
+#return-to-top:hover { background: rgba(0, 0, 0, 0.9); }
+#return-to-top:hover i { color: #fff; top: 5px; }
+
+/* =========================================================================
+   Surah reading (chapter details)
+   ========================================================================= */
+.sd-wrap { background: #f4f6f9; padding: 40px 0 60px; }
+
+.sd-toolbar {
+    display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; justify-content: center;
+    background: #fff; border: 1px solid #e6eaf0; border-radius: 14px; padding: 18px 20px;
+    box-shadow: 0 6px 20px rgba(42, 72, 108, .06); margin: 0 auto 28px; max-width: 860px;
+}
+.sd-field { display: flex; flex-direction: column; gap: 5px; }
+.sd-field label { font-size: 12px; font-weight: 700; color: #2a486c; text-transform: uppercase; letter-spacing: .5px; }
+.sd-select { padding: 10px 14px; border: 1px solid #dde3ec; border-radius: 9px; font-size: 14.5px; background: #fff; min-width: 190px; height: 44px; cursor: pointer; }
+.sd-select:focus { outline: none; border-color: #38ab1e; box-shadow: 0 0 0 3px rgba(56, 171, 30, .15); }
+.sd-go { height: 44px; background: #38ab1e; color: #fff; border: none; border-radius: 9px; padding: 0 26px; font-weight: 700; font-size: 14.5px; cursor: pointer; transition: background .15s; box-shadow: 0 6px 16px rgba(56, 171, 30, .25); }
+.sd-go:hover { background: #2e8c18; }
+
+.sd-head { text-align: center; margin: 0 auto 26px; max-width: 860px; }
+.sd-title { color: #2a486c; font-size: 44px; margin: 0 0 6px; line-height: 1.2; }
+.sd-meta { color: #6b7685; font-size: 14px; margin: 0; }
+.sd-meta b { color: #38ab1e; }
+
+.sd-list { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+.sd-ayah { background: #fff; border: 1px solid #e6eaf0; border-right: 3px solid #38ab1e; border-radius: 12px; padding: 16px 24px 18px; box-shadow: 0 3px 10px rgba(42, 72, 108, .045); transition: box-shadow .15s, transform .15s; }
+.sd-ayah:hover { box-shadow: 0 8px 22px rgba(42, 72, 108, .1); }
+.sd-ayah:target { border-color: #38ab1e; box-shadow: 0 0 0 3px rgba(56, 171, 30, .18); }
+/* header reads right-to-left: verse number on the right, controls on the left */
+.sd-ayah-head { display: flex; flex-direction: row-reverse; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; padding-bottom: 11px; border-bottom: 1px dashed #eef1f5; }
+.sd-num { flex: 0 0 auto; min-width: 32px; height: 32px; padding: 0 9px; display: flex; align-items: center; justify-content: center; background: #eef6ea; color: #2e8c18; font-weight: 700; border-radius: 8px; font-size: 13px; }
+.sd-vmeta { display: flex; align-items: center; gap: 9px; }
+.sd-audio { width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: #eef2f7; color: #2a486c; cursor: pointer; transition: background .15s, color .15s; }
+.sd-audio:hover { background: #38ab1e; color: #fff; }
+.sd-bookmark { display: inline-flex; align-items: center; gap: 6px; background: #fff; color: #38ab1e; border: 1.5px solid #38ab1e; border-radius: 8px; padding: 6px 12px; font-size: 12.5px; font-weight: 700; cursor: pointer; text-decoration: none; transition: background .15s, color .15s; }
+.sd-bookmark:hover { background: #38ab1e; color: #fff; }
+
+.sd-arabic { text-align: right; direction: rtl; color: #1f5e16; margin: 6px 0 14px; line-height: 2; }
+.sd-arabic.al-quran-font-s-2 { font-size: 2.35rem !important; }
+.sd-trans-en { color: #5a6470; font-weight: 500; margin: 0 0 6px; line-height: 1.6; font-size: 14.5px; text-align: left; direction: ltr; }
+.sd-trans-ur { color: #2e8c18; font-weight: 500; margin: 0; line-height: 1.85; font-size: 16.5px; text-align: right; direction: rtl; }
+
+@media (max-width: 600px) {
+    .sd-title { font-size: 32px; }
+    .sd-select { min-width: 44%; }
+    .sd-bookmark span, .sd-bookmark { font-size: 12px; }
+}
+
+/* =========================================================================
+   Footer
+   ========================================================================= */
+.site-footer { color: #cdd6e4; }
+.ftr-top { background: linear-gradient(180deg, #2a486c 0%, #1f3654 100%); padding: 56px 0 42px; }
+.ftr-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 36px; }
+.ftr-brand p { color: #aebbd0; font-size: 14px; line-height: 1.7; margin: 16px 0 18px; max-width: 340px; }
+.ftr-logo { height: 46px; background: #fff; padding: 6px 12px; border-radius: 8px; }
+.ftr-social { display: flex; gap: 10px; }
+.ftr-social a { width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255, 255, 255, .1); color: #fff; transition: background .15s, transform .15s; }
+.ftr-social a:hover { background: #38ab1e; transform: translateY(-3px); }
+.ftr-col h4 { color: #fff; font-size: 16px; font-weight: 700; margin: 0 0 18px; position: relative; padding-bottom: 10px; }
+.ftr-col h4::after { content: ""; position: absolute; left: 0; bottom: 0; width: 34px; height: 3px; background: #38ab1e; border-radius: 2px; }
+.ftr-col ul { list-style: none; padding: 0; margin: 0; }
+.ftr-col ul li { margin-bottom: 10px; }
+.ftr-col ul li a { color: #aebbd0; text-decoration: none; font-size: 14px; transition: color .15s, padding-left .15s; }
+.ftr-col ul li a::before { content: "\f105"; font-family: FontAwesome; color: #38ab1e; margin-right: 9px; font-size: 12px; }
+.ftr-col ul li a:hover { color: #fff; padding-left: 5px; }
+.ftr-bottom { background: #1a2c44; padding: 18px 0; }
+.ftr-bottom-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.ftr-bottom p { margin: 0; color: #8fa0bb; font-size: 13px; }
+.ftr-bottom .fa-heart { color: #e25555; }
+@media (max-width: 880px) { .ftr-grid { grid-template-columns: 1fr 1fr; gap: 28px; } }
+@media (max-width: 520px) { .ftr-grid { grid-template-columns: 1fr; } .ftr-bottom-inner { justify-content: center; text-align: center; } }
+
+/* =========================================================================
+   Dynamic Quran hero (home featured area)
+   ========================================================================= */
+.qhero { position: relative; overflow: hidden; background: linear-gradient(135deg, #1f3654 0%, #2a486c 55%, #2e6e3a 135%); color: #fff; padding: 120px 0 80px; text-align: center; }
+.qhero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: .06; }
+.qhero .container { position: relative; z-index: 2; }
+.qhero-inner { max-width: 880px; margin: 0 auto; transition: opacity .28s ease; }
+.qhero-inner.is-fading { opacity: 0; }
+.qhero-eyebrow { display: inline-block; background: rgba(56, 171, 30, .18); color: #9fe08c; border: 1px solid rgba(56, 171, 30, .4); padding: 6px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; letter-spacing: .5px; margin-bottom: 22px; }
+.qhero-ar { font-size: 44px; line-height: 1.9; color: #fff; margin: 0 0 18px; direction: rtl; }
+.qhero-en { color: #d7e0ee; font-size: 17px; line-height: 1.7; margin: 0 auto 8px; max-width: 760px; }
+.qhero-ur { color: #b9e6ab; font-size: 18px; line-height: 1.9; margin: 0 auto 26px; direction: rtl; max-width: 760px; }
+.qhero-btn { display: inline-flex; align-items: center; gap: 8px; background: #38ab1e; color: #fff !important; text-decoration: none; padding: 13px 28px; border-radius: 10px; font-weight: 700; font-size: 15px; transition: background .15s, transform .15s; box-shadow: 0 8px 22px rgba(56, 171, 30, .35); }
+.qhero-btn:hover { background: #2e8c18; transform: translateY(-2px); }
+.qhero-note { margin-top: 28px; color: #9fb0c8; font-size: 13px; }
+.qhero-note .fa { color: #9fe08c; margin-right: 6px; }
+@media (max-width: 680px) { .qhero { padding: 50px 0 56px; } .qhero-ar { font-size: 30px; line-height: 1.8; } }
+
+/* =========================================================================
+   Navbar polish
+   ========================================================================= */
+/* keep the template's fixed header; just add a soft shadow */
+header.style2 { box-shadow: 0 2px 14px rgba(42, 72, 108, .08); }
+header.style2 nav > div > ul > li > a { transition: color .15s; font-weight: 600; }
+header.style2 nav > div > ul > li > a:hover { color: #38ab1e !important; }
+header.style2 .thm-btn.brd-rd5 { background: #38ab1e !important; border-radius: 8px !important; transition: background .15s, transform .15s; }
+header.style2 .thm-btn.brd-rd5:hover { background: #2e8c18 !important; transform: translateY(-1px); }
+header.style2 .srch-btn:hover { color: #38ab1e; }
+
+/* =========================================================================
+   Home page sections (About, Services, Mission/Vision/Focus, CTA)
+   ========================================================================= */
+.hm-eyebrow { display: inline-block; color: #38ab1e; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; font-size: 13px; margin-bottom: 10px; }
+.hm-btn { display: inline-flex; align-items: center; gap: 8px; background: #38ab1e; color: #fff !important; text-decoration: none; padding: 12px 26px; border-radius: 9px; font-weight: 700; font-size: 14.5px; box-shadow: 0 6px 16px rgba(56, 171, 30, .25); transition: background .15s, transform .15s; }
+.hm-btn:hover { background: #2e8c18; transform: translateY(-2px); }
+
+/* About */
+.hm-about { padding: 72px 0; background: #fff; }
+.hm-about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.hm-about-img { text-align: center; }
+.hm-about-img img { max-width: 100%; height: auto; }
+.hm-about-text h2 { color: #2a486c; font-weight: 800; font-size: 30px; margin: 0 0 16px; }
+.hm-about-text p { color: #6b7685; font-size: 15px; line-height: 1.8; margin: 0 0 20px; }
+.hm-about-links { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 18px; margin-bottom: 26px; }
+.hm-about-links a { color: #2a486c; text-decoration: none; font-weight: 600; font-size: 14.5px; display: flex; align-items: center; gap: 8px; transition: color .15s; }
+.hm-about-links a i { color: #38ab1e; }
+.hm-about-links a:hover { color: #38ab1e; }
+
+/* Services */
+.hm-serv { padding: 72px 0; background: #f4f6f9; }
+.hm-serv-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.hm-serv-card { display: block; background: #fff; border: 1px solid #e6eaf0; border-radius: 14px; padding: 32px 22px; text-align: center; text-decoration: none; box-shadow: 0 6px 20px rgba(42, 72, 108, .06); transition: transform .2s, box-shadow .2s; }
+.hm-serv-card:hover { transform: translateY(-6px); box-shadow: 0 16px 36px rgba(42, 72, 108, .13); }
+.hm-serv-ic { display: inline-flex; align-items: center; justify-content: center; width: 74px; height: 74px; border-radius: 50%; background: linear-gradient(135deg, #eaf6e6, #d6efcc); color: #2e8c18; font-size: 34px; margin-bottom: 18px; transition: background .2s, color .2s; }
+.hm-serv-card:hover .hm-serv-ic { background: linear-gradient(135deg, #38ab1e, #2e8c18); color: #fff; }
+.hm-serv-ic i { line-height: 1; }
+.hm-serv-card h4 { color: #2a486c; font-weight: 700; font-size: 18px; margin: 0 0 8px; }
+.hm-serv-card p { color: #8b95a3; font-size: 13.5px; line-height: 1.6; margin: 0; }
+
+/* Mission / Vision / Focus */
+.hm-mvf { padding: 72px 0; background: #fff; }
+.hm-mvf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+.hm-mvf-card { background: #f8fafc; border: 1px solid #e6eaf0; border-top: 4px solid #38ab1e; border-radius: 14px; padding: 34px 28px; text-align: center; transition: transform .2s, box-shadow .2s; }
+.hm-mvf-card:nth-child(2) { border-top-color: #2a486c; }
+.hm-mvf-card:hover { transform: translateY(-5px); box-shadow: 0 14px 32px rgba(42, 72, 108, .1); }
+.hm-mvf-ic { display: inline-flex; align-items: center; justify-content: center; width: 70px; height: 70px; border-radius: 18px; background: #eaf6e6; color: #2e8c18; font-size: 32px; margin-bottom: 18px; }
+.hm-mvf-card:nth-child(2) .hm-mvf-ic { background: #e9eef6; color: #2a486c; }
+.hm-mvf-card h4 { color: #2a486c; font-weight: 800; font-size: 21px; margin: 0 0 2px; }
+.hm-mvf-card h5 { color: #38ab1e; font-weight: 600; font-size: 14px; margin: 0 0 14px; }
+.hm-mvf-card p { color: #6b7685; font-size: 14px; line-height: 1.7; margin: 0; }
+
+/* CTA */
+.hm-cta { position: relative; overflow: hidden; background: linear-gradient(135deg, #1f3654, #2a486c); color: #fff; text-align: center; padding: 64px 0; }
+.hm-cta-bg { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: .06; }
+.hm-cta-inner { position: relative; z-index: 2; max-width: 760px; margin: 0 auto; }
+.hm-cta-inner h3 { color: #fff; font-weight: 800; font-size: 28px; margin: 0 0 16px; }
+.hm-cta-inner p { color: #cdd6e4; font-size: 15px; line-height: 1.8; margin: 0 0 26px; }
+.hm-cta-btn { display: inline-flex; align-items: center; gap: 8px; background: #38ab1e; color: #fff !important; text-decoration: none; padding: 14px 30px; border-radius: 10px; font-weight: 700; font-size: 15px; box-shadow: 0 8px 22px rgba(56, 171, 30, .35); transition: background .15s, transform .15s; }
+.hm-cta-btn:hover { background: #2e8c18; transform: translateY(-2px); }
+
+@media (max-width: 880px) {
+    .hm-about-grid { grid-template-columns: 1fr; gap: 30px; }
+    .hm-serv-grid { grid-template-columns: 1fr 1fr; }
+    .hm-mvf-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+    .hm-serv-grid { grid-template-columns: 1fr; }
+    .hm-about-links { grid-template-columns: 1fr; }
+}

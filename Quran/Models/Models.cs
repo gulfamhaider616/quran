@@ -149,4 +149,16 @@ namespace Quran.Models
         public string LessonName { get; set; }
         public string LessonLink { get; set; }
     }
+
+    public class FeaturedVerseDO
+    {
+        public int ChapterID { get; set; }
+        public int VerseID { get; set; }
+        public string Arabic { get; set; }
+        public string English { get; set; }
+        public string Urdu { get; set; }
+        public string SuraName { get; set; }
+        public string EnglishName { get; set; }
+        public int Total { get; set; }
+    }
 }

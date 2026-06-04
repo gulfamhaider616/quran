@@ -63,6 +63,25 @@ namespace Quran.Business
             }
             return suraDetail;
         }
+
+        public FeaturedVerseDO GetFeaturedVerse(int position)
+        {
+            FeaturedVerseDO verse = new FeaturedVerseDO();
+            DataSet dataset = new QuranDA().GetFeaturedVerse(position);
+            if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
+            {
+                DataRow r = dataset.Tables[0].Rows[0];
+                verse.ChapterID = r.Field<int>("ChapterID");
+                verse.VerseID = r.Field<int>("VerseID");
+                verse.Arabic = r.Field<string>("AyahText");
+                verse.English = r.Field<string>("EnglishTranslation");
+                verse.Urdu = r.Field<string>("UrduTranslation");
+                verse.SuraName = r.Field<string>("SuraName");
+                verse.EnglishName = r.Field<string>("EnglishName");
+                verse.Total = r.Field<int>("Total");
+            }
+            return verse;
+        }
     }
 }
 

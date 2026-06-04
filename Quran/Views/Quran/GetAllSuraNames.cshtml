@@ -1,39 +1,31 @@
 @model IEnumerable<Quran.Models.SuraNamesDO>
 @{
-	ViewBag.Title = "Read Quran Online with Translation | Learn Quran with E-Tutor";
-	ViewBag.Description = "Read the complete Holy Quran online with English, Urdu and Indonesian translation. Browse all 114 Surahs, listen, learn and bookmark your progress free.";
-	ViewBag.KeyWords = "read holy quran, surah list, multilingual translation, urdu tarjuma, listen recitation, digital mushaf, 114 chapters";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Read Quran Online with Translation | Learn Quran with E-Tutor";
+    ViewBag.Description = "Read the complete Holy Quran online with English, Urdu and Indonesian translation. Browse all 114 Surahs, listen, learn and bookmark your progress free.";
+    ViewBag.KeyWords = "read holy quran, surah list, multilingual translation, urdu tarjuma, listen recitation, digital mushaf, 114 chapters";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="banner-wrapper">
-	<div id="banner" class="box container" >
-		<div class="row">
-			<div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
-				<h5 style="text-align:center">Online Quran Reading</h5>
-				<span >Read Quran Online: Read the Holy Quran in all available translations including Arabic, English and Urdu translation. Choose from the list to read quran in urdu, read quran in english, read quran in arabic or combined.</span>
-				<table class="rest" border="0" style="width: 100%;text-align: center;color: black;border: 1px solid black;font-size: 88%;">
-					<thead style="font-weight: 600;background: darksalmon !important;">
-						<tr style="color:white;">
-							<td>Serial</td>
-							<td>Surah Name</td>
-							<td>English Name</td>
-							<td>Number of Ayats</td>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach (var Item in Model)
-						{
-							<tr>
-								<td>@Item.ChapterID</td>
-								<td><a href="~/quran_reading?ChapterID=@Item.ChapterID" class="al-quran" style="font-weight: 500;"> @Item.SuraName </a></td>
-								<td><a href="~/quran_reading?ChapterID=@Item.ChapterID"> @Item.EnglishName </a></td>
-								<td>@Item.TotalVerses</td>
-							</tr>
-						}
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
+<div class="qr-section">
+    <div class="container">
+        <div class="sec-head">
+            <span>Read Quran Online</span>
+            <h2>The Holy Quran &mdash; All 114 Surahs</h2>
+            <p>Read the Holy Quran in Arabic with English and Urdu translation. Choose any Surah from the list below to start reading, and bookmark your progress.</p>
+        </div>
+
+        <div class="qr-list">
+            @foreach (var item in Model)
+            {
+                <a class="qr-item" href="~/quran_reading?ChapterID=@item.ChapterID" title="@item.EnglishName">
+                    <span class="qr-num">@item.ChapterID</span>
+                    <span class="qr-en">
+                        <span class="qr-en-name">@item.EnglishName</span>
+                        <span class="qr-verses">@item.TotalVerses verses</span>
+                    </span>
+                    <span class="qr-ar al-quran">@item.SuraName</span>
+                </a>
+            }
+        </div>
+    </div>
 </div>

@@ -271,5 +271,24 @@ namespace Quran.Controllers
         {
             return Json(new RegistrationBA().GetVideoLessonByID(LessonID));
         }
+
+        // Returns the verse at the given 1-based position (1 -> last verse of the Quran)
+        // for the dynamic featured area on the home page.
+        public JsonResult FeaturedVerse(int position)
+        {
+            if (position < 1) { position = 1; }
+            var v = new QuranBA().GetFeaturedVerse(position);
+            return Json(new
+            {
+                chapterId = v.ChapterID,
+                verseId = v.VerseID,
+                arabic = v.Arabic,
+                english = v.English,
+                urdu = v.Urdu,
+                suraName = v.SuraName,
+                englishName = v.EnglishName,
+                total = v.Total
+            });
+        }
     }
 }

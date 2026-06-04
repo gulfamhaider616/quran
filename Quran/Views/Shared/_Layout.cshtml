@@ -54,6 +54,7 @@
 
     <!-- Color Scheme -->
     <link rel="stylesheet" href="/assets/css/colors/color3.css" /><!-- Color -->
+    <link rel="stylesheet" href="/assets/css/app.css"><!-- Custom app styles (consolidated) -->
 
     <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <!-- Google tag (gtag.js) -->
@@ -70,51 +71,6 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1488654337163312"
             crossorigin="anonymous"></script>
 
-    <style>
-        #return-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgb(0, 0, 0);
-            background: rgba(0, 0, 0, 0.7);
-            width: 50px;
-            height: 50px;
-            display: block;
-            text-decoration: none;
-            -webkit-border-radius: 35px;
-            -moz-border-radius: 35px;
-            border-radius: 35px;
-            display: none;
-            -webkit-transition: all 0.3s linear;
-            -moz-transition: all 0.3s ease;
-            -ms-transition: all 0.3s ease;
-            -o-transition: all 0.3s ease;
-            transition: all 0.3s ease;
-        }
-
-            #return-to-top i {
-                color: #fff;
-                margin: 0;
-                position: relative;
-                left: 16px;
-                top: 13px;
-                font-size: 19px;
-                -webkit-transition: all 0.3s ease;
-                -moz-transition: all 0.3s ease;
-                -ms-transition: all 0.3s ease;
-                -o-transition: all 0.3s ease;
-                transition: all 0.3s ease;
-            }
-
-            #return-to-top:hover {
-                background: rgba(0, 0, 0, 0.9);
-            }
-
-                #return-to-top:hover i {
-                    color: #fff;
-                    top: 5px;
-                }
-    </style>
 </head>
 <body>
 
@@ -272,68 +228,57 @@
         </div><!-- Contact Form Model Wrap -->
 
         @RenderBody()
-        <footer>
-            <div class="gap top-spac70 drk-bg2 remove-bottom">
+        <footer class="site-footer">
+            <div class="ftr-top">
                 <div class="container">
-                    <div class="footer-data">
-                        <div class="row">
-                            <div class="col-md-4 col-sm-12 col-lg-4">
-                                <div class="wdgt-box style2">
-                                    <div class="logo"><a href="index.html" title="Logo"><img src="~/images/Logo3.png" alt="logo2.png"></a></div>
-                                    <p>This website is design for anyone in the world who wish to learn Quarn and basics of Islam for free.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-8 col-sm-12 col-lg-8">
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-4 col-lg-4">
-                                        <div class="wdgt-box">
-                                            <h4>Privacy Policy</h4>
-                                            <ul>
-                                                <li><a href="/Students_Terms">Terms For Students</a></li>
-                                                <li><a href="/Students_Terms">Terms For Gardians/Parents</a></li>
-                                                <li><a href="/Instructor_Terms">Terms For Instructors</a></li>
-                                                <li><a href="/UserTrust">User Trust</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4 col-lg-4">
-                                        <div class="wdgt-box">
-                                            <h4>Online Stuff</h4>
-                                            <ul>
-                                                <li><a href="/Six_Kalmas">Six Kalmas</a></li>
-                                                <li><a href="/Namaz">Learn Namaz</a></li>
-                                                <li><a href="/Masnoon_Duain">Learn Duain</a></li>
-                                                <li><a href="/Darood">Darood Sharif</a></li>
-                                                <li><a href="/Namaz_e_Janaza">Namaz_e_Janaza</a></li>
-                                                <li><a href="/Due_e_Qunoot">Dua_e_Qanoot</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4 col-lg-4">
-                                        <div class="wdgt-box">
-                                            <h4>Quick Links</h4>
-                                            <ul class="cont-lst">
-                                                <li><a href="/registration">Free Registration</a></li>
-                                                <li><a href="/forum">Questions & Answers</a></li>
-                                                <li><a href="/contact">Contact Management Team</a></li>
-                                                <li><a href="/about">About Us</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="ftr-grid">
+                        <div class="ftr-col ftr-brand">
+                            <a href="/" title="Learn Quran with E-Tutor"><img class="ftr-logo" src="~/images/Logo3.png" alt="Learn Quran with E-Tutor"></a>
+                            <p>Learn the Holy Quran online for free with qualified e-tutors &mdash; Quran reading with translation, Tajweed and the basics of Islam, open to everyone, everywhere.</p>
+                            <div class="ftr-social">
+                                <a href="https://www.facebook.com/Learn-Free-Quran-1338414089559572/" target="_blank" rel="noopener" title="Facebook"><i class="fa fa-facebook"></i></a>
+                                <a href="https://play.google.com/store/apps/details?id=com.mstech.learnquranwithtutor" target="_blank" rel="noopener" title="Android App"><i class="fa fa-android"></i></a>
+                                <a href="#" title="Twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="#" title="YouTube"><i class="fa fa-youtube-play"></i></a>
                             </div>
                         </div>
-                    </div><!-- Footer Data -->
-                    <div class="bottom-bar">
-                        <p>&copy; @DateTime.Now.Year. All Rights Reserved.</p>
-                        <div class="scl">
-                            <a href="#" title="Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
-                            <a href="https://www.yahoo.com/" title="Yahoo" target="_blank"><i class="fa fa-yahoo"></i></a>
-                            <a href="https://plus.google.com/u/3/110044614813581789939" title="Google Plus" target="_blank"><i class="fa fa-google-plus"></i></a>
-                            <a href="https://play.google.com/store/apps/details?id=com.mstech.learnquranwithtutor&pli=1" title="Android App" target="_blank"><i class="fa fa-android"></i></a>
-                            <a href="https://www.facebook.com/Learn-Free-Quran-1338414089559572/" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+                        <div class="ftr-col">
+                            <h4>Explore</h4>
+                            <ul>
+                                <li><a href="/online_quran_reading">Read Quran</a></li>
+                                <li><a href="/Quran_Teacher">Quran Teacher</a></li>
+                                <li><a href="/Books/AllBooks">Islamic Books</a></li>
+                                <li><a href="/Forum">Forum</a></li>
+                            </ul>
                         </div>
-                    </div><!-- Bottom Bar -->
+                        <div class="ftr-col">
+                            <h4>Basic Islam</h4>
+                            <ul>
+                                <li><a href="/Six_Kalmas">Six Kalmas</a></li>
+                                <li><a href="/Namaz">Learn Namaz</a></li>
+                                <li><a href="/Masnoon_Duain">Masnoon Duain</a></li>
+                                <li><a href="/Darood">Darood Sharif</a></li>
+                                <li><a href="/Namaz_e_Janaza">Namaz-e-Janaza</a></li>
+                                <li><a href="/Due_e_Qunoot">Dua-e-Qunoot</a></li>
+                            </ul>
+                        </div>
+                        <div class="ftr-col">
+                            <h4>Quick Links</h4>
+                            <ul>
+                                <li><a href="/Registration">Free Registration</a></li>
+                                <li><a href="/Home/FeeStructure">Fee Structure</a></li>
+                                <li><a href="/about">About Us</a></li>
+                                <li><a href="/contact">Contact Us</a></li>
+                                <li><a href="/Students_Terms">Terms &amp; Privacy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ftr-bottom">
+                <div class="container ftr-bottom-inner">
+                    <p>&copy; @DateTime.Now.Year Learn Free Quran. All rights reserved.</p>
+                    <p>Made with <i class="fa fa-heart"></i> for the sake of Allah.</p>
                 </div>
             </div>
         </footer>
