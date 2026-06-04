@@ -167,7 +167,6 @@ namespace Quran.Controllers
             return Json(result);
         }
 
-        // Send student id in email to User.
         [NonAction]
         public void SendStudentID_Email(string email, string name, string studentID)
         {
@@ -272,8 +271,6 @@ namespace Quran.Controllers
             return Json(new RegistrationBA().GetVideoLessonByID(LessonID));
         }
 
-        // Returns the verse at the given 1-based position (1 -> last verse of the Quran)
-        // for the dynamic featured area on the home page.
         public JsonResult FeaturedVerse(int position)
         {
             if (position < 1) { position = 1; }

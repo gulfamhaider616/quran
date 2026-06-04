@@ -66,8 +66,7 @@
 </head>
 <body class="admin-body @(isAuth ? "" : "admin-login")">
 
-    <!-- Info modal -->
-    <div id="myModal" class="modal">
+<div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h5 style="text-align:center" id="modelheading"></h5>
@@ -101,6 +100,7 @@
                     <li class="@Active("addbook")"><a href="/Admin/AddBook">Add Book</a></li>
                     <li class="@Active("getallbooks")"><a href="/Admin/GetAllBooks">All Books</a></li>
                     <li class="@Active("getfeedback")"><a href="/Admin/GetFeedback">Feedback</a></li>
+                    <li class="@Active("videolessons")"><a href="/Admin/VideoLessons">Videos</a></li>
                 </ul>
 
                 <div class="admin-user">

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 using System.Data;
@@ -26,7 +26,6 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ", user,
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
@@ -46,16 +45,11 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ", email,
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
             return set;
         }
-        /// <summary>
-        /// Get All Questions
-        /// </summary>
-        /// <returns></returns>
         public DataSet GetUserProfile(int Id)
         {
             DataSet set = new DataSet();
@@ -69,7 +63,6 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ", "",
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
@@ -87,7 +80,6 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ", "",
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
@@ -107,7 +99,6 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ", user,
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
@@ -126,7 +117,6 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ", email,
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }

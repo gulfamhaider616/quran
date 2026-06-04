@@ -24,7 +24,6 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ", email,
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
@@ -44,7 +43,6 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ", studentID,
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
@@ -75,7 +73,6 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ", registration,
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
@@ -95,18 +92,12 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ", email,
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
             return set;
         }
 
-        /// <summary>
-        /// Save Contact Us Message
-        /// </summary>
-        /// <param name="email"></param>
-        /// <returns></returns>
         public DataSet SaveContactUs(string contacttopic, string contactemail, string contactmessage)
         {
             DataSet set = new DataSet();
@@ -122,7 +113,6 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ", contacttopic,
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
@@ -144,7 +134,6 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ", name,
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
@@ -163,7 +152,6 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ", "",
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
@@ -196,17 +184,12 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ", registration,
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
             return set;
         }
 
-        /// <summary>
-        /// Get All Video Lessons
-        /// </summary>
-        /// <returns></returns>
         public DataSet GetAllVideoLesson()
         {
             DataSet set = new DataSet();
@@ -238,11 +221,49 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ", LessonID,
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
             return set;
+        }
+
+        public int SaveVideoLesson(string lessonName, string link)
+        {
+            try
+            {
+                SqlConnection connection = new SqlConnection(DbConfig.ConnectionString);
+                SqlCommand command = new SqlCommand(
+                    "INSERT INTO dbo.VideoLesson (LessonName, Link) VALUES (@LessonName, @Link); SELECT CAST(SCOPE_IDENTITY() AS int);",
+                    connection);
+                command.Parameters.Add("@LessonName", SqlDbType.NVarChar).Value = (object)lessonName ?? DBNull.Value;
+                command.Parameters.Add("@Link", SqlDbType.NVarChar).Value = (object)link ?? DBNull.Value;
+                connection.Open();
+                object result = command.ExecuteScalar();
+                connection.Close();
+                return result == null || result == DBNull.Value ? 0 : Convert.ToInt32(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error saving video lesson.", ex);
+            }
+        }
+
+        public int DeleteVideoLesson(int lessonId)
+        {
+            try
+            {
+                SqlConnection connection = new SqlConnection(DbConfig.ConnectionString);
+                SqlCommand command = new SqlCommand("DELETE FROM dbo.VideoLesson WHERE Id = @Id;", connection);
+                command.Parameters.Add("@Id", SqlDbType.Int).Value = lessonId;
+                connection.Open();
+                int rows = command.ExecuteNonQuery();
+                connection.Close();
+                return rows;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deleting video lesson.", ex);
+            }
         }
     }
 }

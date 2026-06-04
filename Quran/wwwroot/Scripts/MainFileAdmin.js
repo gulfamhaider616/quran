@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+$(document).ready(function () {
     $('#schedule').click(function () {
         var studentid = $('#studentid').val();
         var totalclasses = $('#totalclasses').val();
@@ -15,12 +15,10 @@
             success: function (result) {
                 if(result>0)
                 {
-                    //$('#contact').parent().parent().hide();
                     swal("Schedule has been saved!");
                 }
                 else
                 {
-                    //$('#contact').parent().parent().hide();
                     swal("Sorry, we can't save this schedule. Try again");
                 }
             },

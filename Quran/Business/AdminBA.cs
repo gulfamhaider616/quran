@@ -1,4 +1,4 @@
-﻿using Quran.DataAccess;
+using Quran.DataAccess;
 using Quran.Models;
 using System;
 using System.Collections.Generic;
@@ -149,8 +149,7 @@ namespace Quran.Business
             return studentList;
         }
 
-
-        public StudentListDO GetScheduledStudents()
+public StudentListDO GetScheduledStudents()
         {
             StudentListDO studentList = new StudentListDO();
             List<RegistrationDO> list = new List<RegistrationDO>();
@@ -236,8 +235,7 @@ namespace Quran.Business
             return studentList;
         }
 
-
-        public int SaveSchedule(ScheduleDO schedule)
+public int SaveSchedule(ScheduleDO schedule)
         {
             DataSet dataset = new AdminDA().SaveSchedule(schedule);
             int scheduleID = 0;
@@ -318,7 +316,6 @@ namespace Quran.Business
                     registration.RegistrationDate = date.Substring(0, date.Length - 11);
                     registration.Scheduled = dr.Field<int>("IsScheduled");
                    
-                    //schedule information
                     registration.ScheduledDays= dr.Field<string>("scheduledDays");
                     registration.TutorName= dr.Field<string>("TutorName");
                     registration.ClassTime = dr.Field<string>("scheduledClassTime");
@@ -370,9 +367,8 @@ namespace Quran.Business
                         string[] imgPath = book.ImagePath.Split('/');
                         book.ImageName = imgPath[imgPath.Length - 1];
                     } 
-                    
-                    
-                    if (!string.IsNullOrWhiteSpace(book.FilePath))
+
+if (!string.IsNullOrWhiteSpace(book.FilePath))
                     {
                         string[] filePath = book.FilePath.Split('/');
                         book.FileName = filePath[filePath.Length - 1];

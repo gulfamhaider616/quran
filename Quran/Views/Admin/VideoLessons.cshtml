@@ -1,0 +1,68 @@
+@model IEnumerable<Quran.Models.VideoLessonDO>
+@{
+    ViewBag.Title = "Video Lessons | Learn Quran with E-Tutor";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var list = Model?.ToList() ?? new List<Quran.Models.VideoLessonDO>();
+}
+
+<div id="banner-wrapper">
+    <div id="banner" class="box container">
+        <div class="row">
+            <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
+
+                <h4 style="text-align:center">Add YouTube Video Lesson</h4>
+                <form method="post" action="/Admin/SaveVideoLesson">
+                    <table border="0" style="width: 90%;">
+                        <tr>
+                            <td style="width: 26%;"><label>Lesson Title<label style="color:red">*</label> :</label></td>
+                            <td><input type="text" name="LessonName" placeholder="e.g. Lesson 1 - Introduction" required /></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 26%;"><label>YouTube Link<label style="color:red">*</label> :</label></td>
+                            <td><input type="url" name="LessonLink" placeholder="https://www.youtube.com/watch?v=..." required /></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" value="Add Video" /></td>
+                        </tr>
+                    </table>
+                </form>
+
+                <h4 style="text-align:center;margin-top:30px;">All Video Lessons</h4>
+                <table class="rest" border="0" style="width: 100%;text-align: center;color: black;border: 1px solid black;font-size: 88%;">
+                    <thead>
+                        <tr>
+                            <td>Serial</td>
+                            <td>Lesson Title</td>
+                            <td>YouTube Link</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int count = 1; }
+                        @foreach (var video in list)
+                        {
+                            <tr>
+                                <td>@count</td>
+                                <td>@video.LessonName</td>
+                                <td style="word-break:break-all;max-width:340px;">
+                                    <a href="@video.LessonLink" target="_blank" rel="noopener">@video.LessonLink</a>
+                                </td>
+                                <td style="white-space:nowrap;">
+                                    <a href="@video.LessonLink" target="_blank" rel="noopener" title="Watch" class="btn btn-success btn-sm"><i class="fa fa-youtube-play"></i></a>
+                                    <a href="/Admin/DeleteVideoLesson?LessonID=@video.LessonID" title="Delete" onclick="return confirm('Delete this video lesson?');" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            count++;
+                        }
+                        @if (!list.Any())
+                        {
+                            <tr><td colspan="4" style="padding:18px;color:#888;">No video lessons added yet.</td></tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

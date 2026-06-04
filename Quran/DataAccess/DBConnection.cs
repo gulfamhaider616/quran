@@ -16,10 +16,6 @@ namespace Quran.DataAccess
             return command;
         }
 
-        /// <summary>
-        /// Method for executing an INSERT/UPDATE/DELETE statements passed as
-        /// sql command using the ConnectionClass connection
-        /// </summary>
         public int ExecuteNonQuery(SqlCommand objValue)
         {
             int res = 0;

@@ -1,34 +1,29 @@
 @{
-	ViewBag.Title = "Online Quran Teacher | Learn Quran with E-Tutor";
-	ViewBag.Description = "Meet your online Quran teacher and start structured lessons from Noorani Qaida to fluent recitation with Tajweed. Guided, interactive and free for all.";
-	ViewBag.KeyWords = "online quran teacher, noorani qaida, tajweed lessons, guided course, interactive learning, structured curriculum";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Online Quran Teacher | Learn Quran with E-Tutor";
+    ViewBag.Description = "Meet your online Quran teacher and start structured lessons from Noorani Qaida to fluent recitation with Tajweed. Guided, interactive and free for all.";
+    ViewBag.KeyWords = "online quran teacher, noorani qaida, tajweed lessons, guided course, interactive learning, structured curriculum";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="banner-wrapper">
-	<div id="banner" class="box container">
-		<div class="row">
-			<div class="col-md-12" style="width:100%;margin:0 auto;">
-				<h3 style="text-align:center">Online Quran Teacher</h3>
-				<div class="col-md-10" style="text-align: center;font-size: 12px;float: none;text-align: left;width: 100%;">
-					<p>
-						Online Quran Teacher is a platform which is being used to teach you Quran from beginning. We have prepared video lessons in easiest way of quran learning. 
-					</p>
-					<p>
-					After completion of all sections you must have to attempt a practice test which is being used for your personal assessment. 
-					</p>
-					<p>
-						When you will complete all sections successfully and get more than 85% score in the practice test then we will award you "Quran Certificate".
-					</p>
-					<p>
-						Please hear lessons again and again fro proper understanding and attempt your practice test carefully.
-					</p>
-					<p>
-						Please use your Student ID to start your practice test because we are noticing your performance on the basis of your Student ID.
-					</p>
-					<a href="~/online_quran_teacher_section_1"><input type="button" class="btn-success" style="padding: 1px;margin-left: 30%;background: rgb(102, 34, 0);color: white;border-radius: unset;" value="Get Started" /></a>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="qt-section">
+    <div class="container">
+        <div class="sec-head">
+            <span>Online Quran Teacher</span>
+            <h2>Learn the Quran, Step by Step</h2>
+            <p>A free, structured course that teaches you to read the Holy Quran from the very beginning &mdash; with easy-to-follow video lessons and a practice test.</p>
+        </div>
+
+        <div class="qt-card">
+            <ul class="qt-points">
+                <li><i class="fa fa-check-circle"></i> Carefully prepared video lessons in the easiest way to learn the Quran.</li>
+                <li><i class="fa fa-check-circle"></i> After completing all sections, attempt a practice test for your personal assessment.</li>
+                <li><i class="fa fa-check-circle"></i> Score more than <strong>85%</strong> in the practice test and earn your <strong>Quran Certificate</strong>.</li>
+                <li><i class="fa fa-check-circle"></i> Listen to the lessons as many times as you need, and attempt your test carefully.</li>
+                <li><i class="fa fa-check-circle"></i> Use your <strong>Student ID</strong> to start the practice test so we can track your progress.</li>
+            </ul>
+            <div class="qt-cta">
+                <a class="hm-btn" href="~/online_quran_teacher_section_1">Get Started <i class="fa fa-angle-right"></i></a>
+            </div>
+        </div>
+    </div>
 </div>

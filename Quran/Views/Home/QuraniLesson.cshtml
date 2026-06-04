@@ -1,55 +1,63 @@
 @model IEnumerable<Quran.Models.VideoLessonDO>
 @{
     ViewBag.Title = "Quran Video Lessons | Learn Quran with E-Tutor";
-    ViewBag.Description = "Watch free Quran video lessons covering recitation, Tajweed and Islamic basics. Learn at your own pace with clear, structured visual tutorials.";
-    ViewBag.KeyWords = "video lessons, tajweed tutorials, recitation videos, visual learning, self paced";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Description = "Watch free Quran video lessons covering recitation, Tajweed and the basics of Islam. Learn at your own pace with clear, structured video tutorials.";
+    ViewBag.KeyWords = "quran video lessons, tajweed tutorials, recitation videos, visual learning, self paced";
+
+    var videos = Model?.ToList() ?? new List<Quran.Models.VideoLessonDO>();
+    System.Func<string, string> ytId = url =>
+    {
+        if (string.IsNullOrWhiteSpace(url)) { return ""; }
+        var m = System.Text.RegularExpressions.Regex.Match(url, @"(?:v=|youtu\.be/|embed/)([A-Za-z0-9_-]{11})");
+        return m.Success ? m.Groups[1].Value : "";
+    };
 }
 
-<div id="banner-wrapper">
-    <div id="banner" class="box container">
-        <div class="row">
-            <div class="col-md-12" style="width:100%;margin:0 auto;">
-                <h3 style="text-align:center">Online Quran Teacher</h3>
-                <div class="col-md-3" style="display: inline;text-align: center;">
-                    <br />
-                    @foreach (var Item in Model)
-                    {
-                        <a href="/Home/VideoLessonPartial?LessonID=@Item.LessonID" id="@Item.LessonID">
-                            <span>@Item.LessonName</span>
-                            <iframe style="vertical-align:top;border: 5px solid #cc6600;" width="150" height="150" src="@Item.LessonLink" frameborder="0" allowfullscreen></iframe>
-                        </a>
-                        <hr style="margin-bottom: 0;" />
-                    }
-                </div>
-                <div class="col-md-9" style="display: inline;">
-                    <h3 style="text-align: center;">Lesson 1</h3>
-                    <iframe style="width: 100%;border: 5px solid #cc6600;" width="100%" height="400" src="https://www.youtube.com/embed/npc2XAwyXRk?rel=0" frameborder="0" allowfullscreen></iframe>
-                    
-                    <hr style="border-top:solid 1px #c60;width: 100%;">
-                    <div id="disqus_thread"></div>
-                </div>
-            </div>
+<div class="vl-section">
+    <div class="container">
+        <div class="sec-head">
+            <span>Learn Visually</span>
+            <h2>Quran Video Lessons</h2>
+            <p>Watch free, structured video lessons on Quran recitation, Tajweed and the basics of Islam &mdash; learn at your own pace.</p>
         </div>
+
+        @if (videos.Any())
+        {
+            <div class="vl-grid">
+                @foreach (var v in videos)
+                {
+                    var id = ytId(v.LessonLink);
+                    <div class="vl-card">
+                        <div class="vl-thumb" data-embed="https://www.youtube.com/embed/@id?autoplay=1&rel=0" onclick="vlPlay(this)">
+                            @if (!string.IsNullOrEmpty(id))
+                            {
+                                <img src="https://img.youtube.com/vi/@id/hqdefault.jpg" alt="@v.LessonName" loading="lazy" />
+                            }
+                            <span class="vl-play"><i class="fa fa-play"></i></span>
+                        </div>
+                        <div class="vl-body"><h4>@v.LessonName</h4></div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p style="text-align:center;color:#8b95a3;padding:46px 0;">No video lessons available yet. Please check back soon.</p>
+        }
     </div>
-    <script>
-
-/**
-*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-
-var disqus_config = function () {
-this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-};
-
-(function() { // DON'T EDIT BELOW THIS LINE
-var d = document, s = d.createElement('script');
-s.src = 'https://learnfreequran-1.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-    </script>
 </div>
 
-
+<script>
+    function vlPlay(el) {
+        var src = el.getAttribute('data-embed');
+        if (!src || el.classList.contains('is-playing')) { return; }
+        var f = document.createElement('iframe');
+        f.setAttribute('src', src);
+        f.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        f.setAttribute('allowfullscreen', '');
+        f.className = 'vl-iframe';
+        el.innerHTML = '';
+        el.appendChild(f);
+        el.classList.add('is-playing');
+    }
+</script>

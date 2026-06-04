@@ -5,48 +5,16 @@
     ViewBag.KeyWords = "free registration, enroll class, student signup, choose schedule, instant student id";
 }
 
-<!-- Banner -->
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#btnUserType").click(function () {
-
-            if ($('#stdRadio').is(':checked')) {
-                alert("Student");
-                $("#studentModal").css('display', 'block');
-                return;
-            }
-            if ($('#trRadio').is(':checked')) {
-                alert("Tutor");
-                $("#tutorModal").css('display', 'block');
-                return;
-            }
-        });
-        $(".close").click(function () {
-            $(this).parent().parent().css('display', 'none');
-        })
-    })
-</script>
-<style>
-    #studentModal, #tutorModal {
-        display: none;
-    }
-
-    .my-button {
-        position: initial !important;
-    }
-
-        .my-button:hover {
-            color: white !important;
-        }
-</style>
-
 <div id="banner-wrapper">
     <div id="banner" class="box container">
         <div class="row">
             <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
-                <div style="float:left">Already Registered: <a href="/Home/EditView">Edit Profile</a></div>
-                @*<div style="float:Right"><a href="/Home/EditView">Become a Tutor</a></div>*@
-                <table border="0" style="width: 90%;">
+                <div class="sec-head" style="margin-bottom:18px;">
+                    <span>Free Registration</span>
+                    <h2>Join &amp; Start Learning</h2>
+                </div>
+                <div class="reg-top">Already registered? <a href="/Home/EditView">Edit your profile</a></div>
+                <table border="0" class="reg-table">
                     <tr>
                         <td style="width: 26%;"><label>Student Name<label style="color:red">*</label> :</label></td>
                         <td><input type="text" style="width: 100% !important;max-width: 100%;" id="studentname" name="studentname" placeholder="enter name" required /><br /></td>
@@ -550,7 +518,7 @@
                             <br />
                             <label style="color:red;font:12px;" id="termserror">Please check this box.</label>
                             <br />
-                            <input type="button" id="registrationSubmit" name="registrationSubmit" class="btn-success" style="padding: 1px;" value="Submit" />
+                            <input type="button" id="registrationSubmit" name="registrationSubmit" class="btn-success" value="Submit" />
                         </td>
                     </tr>
                 </table>
@@ -558,5 +526,4 @@
         </div>
     </div>
 </div>
-
 

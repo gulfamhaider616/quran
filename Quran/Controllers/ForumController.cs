@@ -7,7 +7,6 @@ namespace Quran.Controllers
 {
     public class ForumController : Controller
     {
-        // GET: Forum
         public IActionResult ForumHomePage()
         {
             return View(new ForumBA().GetAllPublishedQuestion().ToList());

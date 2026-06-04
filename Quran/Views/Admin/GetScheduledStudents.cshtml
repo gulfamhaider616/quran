@@ -1,4 +1,4 @@
-﻿@model Quran.Models.StudentListDO
+@model Quran.Models.StudentListDO
 @{
     ViewBag.Title = "Get  ScheduledStudents | Learn Quran with E-Tutor";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -39,7 +39,7 @@
                             <td>Days </td>
                             <td>Class Time</td>
                             <td>Tutor Name</td>
-                            @*<td>Description</td>*@
+                            
                             <td>Scheduled </td>
                         </tr>
                     </thead>
@@ -66,7 +66,6 @@
     </div>
 </div>
 
-<!--Set Schedule Form -->
 <div id="contactdiv">
     <form class="form" action="/Admin/ChangeSchedule" method="post" id="contact" style="color: crimson;font-family: inherit;">
         <img src="~/images/button_cancel.png" style="width: 27px;" class="img" id="cancel" />
@@ -104,5 +103,4 @@
         </table>
     </form>
 </div>
-
 

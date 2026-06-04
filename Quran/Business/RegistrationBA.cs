@@ -1,4 +1,4 @@
-﻿using Quran.DataAccess;
+using Quran.DataAccess;
 using Quran.Models;
 using System;
 using System.Collections.Generic;
@@ -87,8 +87,7 @@ namespace Quran.Business
             return schedule;
         }
 
-
-        public int SaveContactUs(string contacttopic, string contactemail, string contactmessage)
+public int SaveContactUs(string contacttopic, string contactemail, string contactmessage)
         {
 
             DataSet dataset = new RegistrationDA().SaveContactUs(contacttopic, contactemail, contactmessage);
@@ -189,6 +188,16 @@ namespace Quran.Business
                 }
             }
             return lesson;
+        }
+
+        public int SaveVideoLesson(string lessonName, string link)
+        {
+            return new RegistrationDA().SaveVideoLesson(lessonName, link);
+        }
+
+        public bool DeleteVideoLesson(int lessonId)
+        {
+            return new RegistrationDA().DeleteVideoLesson(lessonId) > 0;
         }
     }
 }

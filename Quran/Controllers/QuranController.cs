@@ -6,7 +6,6 @@ namespace Quran.Controllers
 {
     public class QuranController : Controller
     {
-        // GET: Quran
         public IActionResult GetAllSuraNames()
         {
             return View(new QuranBA().GetAllSuraNames());

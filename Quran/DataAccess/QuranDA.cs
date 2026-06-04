@@ -22,7 +22,6 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ", "",
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
@@ -48,12 +47,6 @@ namespace Quran.DataAccess
             return set;
         }
 
-        /// <summary>
-        /// Returns the single verse at the given 1-based position in the whole
-        /// Quran (ordered Surah 1 verse 1 -> Surah 114 last verse), plus the
-        /// total verse count and the Surah name. Uses a direct query so no new
-        /// stored procedure is required.
-        /// </summary>
         public DataSet GetFeaturedVerse(int position)
         {
             DataSet set = new DataSet();

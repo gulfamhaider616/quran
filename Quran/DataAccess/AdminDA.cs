@@ -25,17 +25,12 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ", adminemail,
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
             return set;
         }
 
-        /// <summary>
-        /// Get All Students saved in database
-        /// </summary>
-        /// <returns></returns>
         public DataSet GetAllStudents()
         {
             DataSet set = new DataSet();
@@ -48,17 +43,12 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ",
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
             return set;
         }
 
-        /// <summary>
-        /// Get All UnScheduled Students
-        /// </summary>
-        /// <returns></returns>
         public DataSet GetUnscheduledStudents()
         {
             DataSet set = new DataSet();
@@ -71,15 +61,13 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ",
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
             return set;
         }
 
-
-        public DataSet GetScheduledStudents()
+public DataSet GetScheduledStudents()
         {
             DataSet set = new DataSet();
             try
@@ -91,15 +79,13 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ",
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
             return set;
         }
 
-
-        public DataSet GetTodaySchedule()
+public DataSet GetTodaySchedule()
         {
             DataSet set = new DataSet();
             try
@@ -111,18 +97,12 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ",
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
             return set;
         }
 
-        /// <summary>
-        /// Set Student Schedule
-        /// </summary>
-        /// <param name="schedule"></param>
-        /// <returns></returns>
         public DataSet SaveSchedule(ScheduleDO schedule)
         {
             DataSet set = new DataSet();
@@ -141,7 +121,6 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ",
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
@@ -166,15 +145,13 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ",
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
             return set;
         }
 
-
-        public DataSet GetAllContactUs()
+public DataSet GetAllContactUs()
         {
             DataSet set = new DataSet();
             try
@@ -186,7 +163,6 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ", "",
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
@@ -201,12 +177,6 @@ namespace Quran.DataAccess
             return new DBConnection().ExecuteNonQuery(objSqlCommand);
         }
 
-        /// <summary>
-        /// Student preview
-        /// </summary>
-        /// <param name="adminemail"></param>
-        /// <param name="adminpassword"></param>
-        /// <returns></returns>
         public DataSet StudentPreview(string studentID)
         {
             DataSet set = new DataSet();
@@ -220,7 +190,6 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ", studentID,
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
@@ -245,7 +214,6 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ",
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
@@ -291,16 +259,13 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
-                //]\
                   throw new Exception(string.Concat("Error executing the ",
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
             return result;
         }
 
-
-        public DataSet GetAllBooks()
+public DataSet GetAllBooks()
         {
             DataSet set = new DataSet();
             try
@@ -312,7 +277,6 @@ namespace Quran.DataAccess
             }
             catch (Exception ex)
             {
-                //logger.Debug("Error executing " + objValue.CommandText + ": " + ex.ToString());
                 throw new Exception(string.Concat("Error executing the ",
                     " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
             }
@@ -328,7 +292,6 @@ namespace Quran.DataAccess
             return new DBConnection().ExecuteNonQuery(objSqlCommand);
         }
 
-     
-    }
+}
 }
 

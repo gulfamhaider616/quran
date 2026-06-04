@@ -7,7 +7,6 @@ namespace Quran.Controllers
 {
     public class UserController : Controller
     {
-        // GET: User
         public IActionResult Registration()
         {
             return View();

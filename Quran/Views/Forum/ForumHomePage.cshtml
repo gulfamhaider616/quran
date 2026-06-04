@@ -4,30 +4,41 @@
     ViewBag.Description = "Ask questions about Islam and the Quran and get answers from a qualified team and community. Browse published topics on faith, worship and daily life.";
     ViewBag.KeyWords = "islamic forum, questions answers, ask scholar, faith discussion, worship queries, community help";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var questions = Model?.ToList() ?? new List<Quran.Models.AskQuestionDO>();
 }
 
-<div id="banner-wrapper">
-    <div id="banner" class="box container" >
-        <div class="row">
-            <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
-                <div style="text-align: right;">
-                    <a href="/Forum/AskQuestion"> <input type="button" class="btn-success" value="Ask Question" style="font-size: inherit;padding: 0;width: 20%;" /></a>
-                </div><br />
-                <table class="rest" border="0" style="width: 100%;color: black;font-size: 88%;">
-                    <tbody>
-                        @foreach (var Item in Model)
-                        {
-                            <tr>
-                                <td><img src="~/images/question.png" style="width: 40px;height: 40px;border-radius: 8px;" /></td>
-                                <td style="text-align: left;"><a href="/Forum/SingleQuestion?QuestionID=@Item.AskQuestionID" style="text-decoration: none;"> @Item.Subject</a></td>
-                                <td style="text-align:right;">@Item.UserName</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+<div class="fr-section">
+    <div class="container">
+        <div class="sec-head">
+            <span>Questions &amp; Answers</span>
+            <h2>Islamic Q&amp;A Forum</h2>
+            <p>Ask anything about Islam, the Quran or worship and get clear answers from our qualified team and community.</p>
+        </div>
+
+        <div class="fr-bar">
+            <a class="hm-btn" href="/Forum/AskQuestion"><i class="fa fa-pencil"></i> Ask a Question</a>
+        </div>
+
+        @if (questions.Any())
+        {
+            <div class="fr-list">
+                @foreach (var item in questions)
+                {
+                    <a class="fr-item" href="/Forum/SingleQuestion?QuestionID=@item.AskQuestionID">
+                        <span class="fr-icon"><i class="fa fa-comments-o"></i></span>
+                        <span class="fr-q">
+                            <span class="fr-subject">@item.Subject</span>
+                            <span class="fr-meta">by @item.UserName @(string.IsNullOrWhiteSpace(item.Country) ? "" : "· " + item.Country)</span>
+                        </span>
+                        <i class="fa fa-angle-right fr-arrow"></i>
+                    </a>
+                }
             </div>
-        </div>      
-    </div>   
+        }
+        else
+        {
+            <p class="fr-empty">No questions have been published yet. Be the first to ask!</p>
+        }
+    </div>
 </div>
 <script src="~/Scripts/Forum.js"></script>
-

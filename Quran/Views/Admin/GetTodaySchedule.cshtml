@@ -1,25 +1,8 @@
-﻿@model Quran.Models.StudentListDO
+@model Quran.Models.StudentListDO
 @{
     ViewBag.Title = "Get Scheduled Students | Learn Quran with E-Tutor";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-@*<script>
-        function PopulateDataInBoxes(StudentID,Classes,Days,FeasibleTime) {
-            $('#studentid').val(StudentID);
-            $('#totalclasses').val(Classes);
-            $('#daysname').val(Days);
-            $('#time').val(FeasibleTime);
-            debugger;
-            setTimeout(popup, 3000);
-                function popup() {
-                    $("#logindiv").css("display", "block");
-                }
-            $("#contactdiv").css("display", "block");
-            $("#contact #cancel").click(function() {
-            $(this).parent().parent().hide();
-            });
-        }
-    </script>*@
 
 <link href="~/assets/css/ie8.css" rel="stylesheet" />
 <div id="banner-wrapper">
@@ -61,7 +44,6 @@
     </div>
 </div>
 
-<!--Set Schedule Form -->
 <div id="contactdiv">
     <form class="form" action="#" method="post" id="contact" style="color: crimson;font-family: inherit;">
         <img src="~/images/button_cancel.png" style="width: 27px;" class="img" id="cancel" />
@@ -103,5 +85,4 @@
         </table>
     </form>
 </div>
-
 

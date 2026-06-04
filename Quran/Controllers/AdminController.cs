@@ -24,7 +24,6 @@ namespace Quran.Controllers
             _env = env;
         }
 
-        // GET: Admin
         public IActionResult Index()
         {
             return View();
@@ -232,8 +231,6 @@ namespace Quran.Controllers
         [HttpPost]
         public IActionResult ChangeBook(int BookID, string BookTilte, string AuthorName, IFormFile ImagePath, IFormFile FilePath, string BookType, string Detail)
         {
-            // Load the existing record so we can keep the current image / PDF
-            // when the admin doesn't upload a replacement.
             var existing = new AdminBA().GetAllBooks().FirstOrDefault(b => b.BookID == BookID);
 
             BookDO book = new BookDO();
@@ -293,6 +290,34 @@ namespace Quran.Controllers
                 return View("Error");
             }
         }
+
+        #region Video Lessons
+
+        [Authorize]
+        public IActionResult VideoLessons()
+        {
+            return View(new RegistrationBA().GetAllVideoLesson());
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult SaveVideoLesson(string LessonName, string LessonLink)
+        {
+            if (!string.IsNullOrWhiteSpace(LessonName) && !string.IsNullOrWhiteSpace(LessonLink))
+            {
+                new RegistrationBA().SaveVideoLesson(LessonName.Trim(), LessonLink.Trim());
+            }
+            return RedirectToAction("VideoLessons");
+        }
+
+        [Authorize]
+        public IActionResult DeleteVideoLesson(int LessonID)
+        {
+            new RegistrationBA().DeleteVideoLesson(LessonID);
+            return RedirectToAction("VideoLessons");
+        }
+
+        #endregion
 
         [Authorize]
         public async Task<IActionResult> Logout()

@@ -338,3 +338,79 @@ header.style2 .srch-btn:hover { color: #38ab1e; }
     .hm-serv-grid { grid-template-columns: 1fr; }
     .hm-about-links { grid-template-columns: 1fr; }
 }
+
+/* =========================================================================
+   Video lessons (public grid)
+   ========================================================================= */
+.vl-section { background: #f4f6f9; padding: 60px 0 70px; }
+.vl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+.vl-card { background: #fff; border: 1px solid #e6eaf0; border-radius: 14px; overflow: hidden; box-shadow: 0 6px 20px rgba(42, 72, 108, .06); transition: transform .2s, box-shadow .2s; }
+.vl-card:hover { transform: translateY(-5px); box-shadow: 0 16px 36px rgba(42, 72, 108, .13); }
+.vl-thumb { position: relative; aspect-ratio: 16 / 9; background: #0d1b2a; cursor: pointer; overflow: hidden; }
+.vl-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
+.vl-card:hover .vl-thumb img { transform: scale(1.05); }
+.vl-play { position: absolute; inset: 0; margin: auto; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; background: rgba(56, 171, 30, .92); color: #fff; border-radius: 50%; font-size: 22px; padding-left: 4px; box-shadow: 0 6px 18px rgba(0, 0, 0, .3); transition: transform .15s, background .15s; }
+.vl-thumb:hover .vl-play { transform: scale(1.1); background: #38ab1e; }
+.vl-thumb.is-playing { cursor: default; }
+.vl-thumb.is-playing .vl-play { display: none; }
+.vl-iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.vl-body { padding: 15px 18px; }
+.vl-body h4 { margin: 0; color: #2a486c; font-size: 16px; font-weight: 700; line-height: 1.4; }
+
+/* =========================================================================
+   Quran Teacher page
+   ========================================================================= */
+.qt-section { background: #f4f6f9; padding: 60px 0 70px; }
+.qt-card { max-width: 760px; margin: 0 auto; background: #fff; border: 1px solid #e6eaf0; border-radius: 16px; box-shadow: 0 8px 26px rgba(42, 72, 108, .07); padding: 36px 40px; }
+.qt-points { list-style: none; padding: 0; margin: 0 0 28px; }
+.qt-points li { display: flex; align-items: flex-start; gap: 12px; color: #4a5562; font-size: 15px; line-height: 1.6; padding: 11px 0; border-bottom: 1px dashed #eef1f5; }
+.qt-points li:last-child { border-bottom: none; }
+.qt-points li i { color: #38ab1e; font-size: 18px; margin-top: 2px; flex: 0 0 auto; }
+.qt-points strong { color: #2a486c; }
+.qt-cta { text-align: center; }
+
+/* =========================================================================
+   Forum (list + single question)
+   ========================================================================= */
+.fr-section { background: #f4f6f9; padding: 60px 0 70px; }
+.fr-bar { text-align: center; margin-bottom: 30px; }
+.fr-list { max-width: 840px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+.fr-item { display: flex; align-items: center; gap: 16px; background: #fff; border: 1px solid #e6eaf0; border-radius: 12px; padding: 16px 20px; text-decoration: none; box-shadow: 0 4px 14px rgba(42, 72, 108, .05); transition: transform .15s, box-shadow .15s, border-color .15s; }
+.fr-item:hover { transform: translateX(4px); border-color: #38ab1e; box-shadow: 0 8px 22px rgba(56, 171, 30, .12); }
+.fr-icon { flex: 0 0 auto; width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; background: #eef6ea; color: #2e8c18; border-radius: 12px; font-size: 20px; }
+.fr-q { flex: 1 1 auto; display: flex; flex-direction: column; min-width: 0; }
+.fr-subject { color: #2a486c; font-weight: 700; font-size: 15.5px; line-height: 1.35; }
+.fr-meta { color: #9aa5b3; font-size: 13px; margin-top: 3px; }
+.fr-arrow { color: #c2cbd6; font-size: 20px; }
+.fr-item:hover .fr-arrow { color: #38ab1e; }
+.fr-empty { text-align: center; color: #8b95a3; padding: 46px 0; }
+
+.fr-single { max-width: 840px; margin: 0 auto; }
+.fr-back { display: inline-flex; align-items: center; gap: 7px; color: #2a486c; font-weight: 600; text-decoration: none; margin-bottom: 18px; font-size: 14px; }
+.fr-back:hover { color: #38ab1e; }
+.fr-q-card { background: #fff; border: 1px solid #e6eaf0; border-left: 4px solid #38ab1e; border-radius: 14px; padding: 28px 30px; box-shadow: 0 8px 26px rgba(42, 72, 108, .07); }
+.fr-q-title { color: #2a486c; font-size: 26px; font-weight: 800; margin: 0 0 12px; line-height: 1.3; }
+.fr-q-meta { color: #38ab1e; font-weight: 600; font-size: 14px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+.fr-q-body { color: #4a5562; font-size: 15.5px; line-height: 1.8; white-space: pre-line; }
+.fr-disc-title { color: #2a486c; font-weight: 700; font-size: 18px; margin: 34px 0 16px; }
+
+/* =========================================================================
+   Registration form + content-page inputs
+   ========================================================================= */
+.reg-top { color: #6b7685; margin-bottom: 18px; }
+.reg-top a { color: #38ab1e; font-weight: 600; text-decoration: none; }
+.reg-table { width: 100% !important; max-width: 720px; margin: 0 auto; }
+.reg-table td { padding: 9px 8px; vertical-align: top; }
+.reg-table td:first-child { width: 190px; white-space: nowrap; }
+.reg-table label { font-weight: 600; color: #33373d; }
+@media (max-width: 560px) { .reg-table td:first-child { width: auto; } }
+
+#banner-wrapper input[type="text"],
+#banner-wrapper input[type="email"],
+#banner-wrapper input[type="password"],
+#banner-wrapper input[type="url"],
+#banner-wrapper input[type="number"],
+#banner-wrapper select,
+#banner-wrapper textarea {
+    padding: 10px 12px; border: 1px solid #dde3ec; border-radius: 8px; font-size: 14px; background: #fff; color: #33373d; font-family: inherit;
+}

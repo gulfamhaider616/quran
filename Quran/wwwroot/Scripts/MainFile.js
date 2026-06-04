@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+$(document).ready(function () {
     $('#days').hide();
     $('#incorrect').hide();
     $('#correct').hide();
@@ -59,15 +59,6 @@
                 data: { 'email': email },
                 success: function (data) {
                     $("#editemail").css("background", "white");
-                    //debugger;
-                    //if (data == true) {
-                    //    $('#correct').show();
-                    //    $('#incorrect').hide();
-                    //}
-                    //else {
-                    //    $('#incorrect').show();
-                    //    $('#correct').hide();
-                    //}
                 },
                 error: function () {
 
@@ -87,10 +78,6 @@
         return pattern.test(emailAddress);
     };
 
-    //$('.confirm').click(function () {
-    //    alert('clicked');
-    //    window.location.href = "/";
-    //});
     $('#missingdays').hide();
     $('#termserror').hide();
     $('#registrationSubmit').click(function () {
@@ -177,8 +164,7 @@
         }
     });
 
- 
-    $('#scheduletable').hide();
+$('#scheduletable').hide();
     $('#edittableinformation').hide();
     $('#recordnotfound').hide();
     $('#recordnotfoundduetoserver').hide();
@@ -317,11 +303,9 @@
         });
     });
 
-    //Student Edit Portal
     $('#editstudentbutton').click(function () {
         debugger;
         var studentid = $('#editstudentid').val();
-        //$('#schedulebody').html('');
         $.ajax({
             url: '/Home/GetEditInformation',
             type: 'GET',
@@ -402,7 +386,6 @@
         });
     });
 
-  
 });
 function changeLesson(lessonid) {
     $.ajax({
@@ -411,7 +394,6 @@ function changeLesson(lessonid) {
         datatype: 'Json',
         data: {'LessonID':lessonid},
         success: function (data) {
-            //console.log(data);
             var lessonID = data.LessonID;        
             var LessonName = data.LessonName;
             var Lessonurl = "~/assets/VideoLessons/" + LessonName + ".mp4";
@@ -428,7 +410,6 @@ function changeLesson(lessonid) {
     });
 }
 function addElement(parentId, elementTag, elementId, html) {
-    // Adds an element to the document
     var p = document.getElementById(parentId);
     var newElement = document.createElement(elementTag);
     newElement.setAttribute('id', elementId);
@@ -436,7 +417,6 @@ function addElement(parentId, elementTag, elementId, html) {
     p.appendChild(newElement);
 }
 function removeElement(elementId) {
-    // Removes an element from the document
     var element = document.getElementById(elementId);
     element.parentNode.removeChild(element);
 }
@@ -449,12 +429,6 @@ function Addookmark(id) {
             data: { 'id': id },
             success: function (data) {
                 if (data != null) {
-                    //swal({
-                    //    title: "Thanks!",
-                    //    text: "Your BookMark has been recorded",
-                    //    type: "success",
-                    //    html: true
-                    //});
                     if (data.includes("UserLogin")) {
                         window.location.href = data;
                     }

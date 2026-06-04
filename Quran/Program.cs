@@ -8,7 +8,6 @@ using Quran.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// MVC + keep JSON property names as declared (PascalCase) so existing client scripts keep working.
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options =>
     {
@@ -20,7 +19,6 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        // Mirrors the legacy Forms auth loginUrl "~/Admin/Index".
         options.LoginPath = "/Admin/Index";
         options.AccessDeniedPath = "/Admin/Index";
         options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
@@ -38,7 +36,6 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 
-// Make the connection string available to the (non-DI) data-access layer.
 DbConfig.ConnectionString = builder.Configuration.GetConnectionString("myConnectionString");
 
 if (!app.Environment.IsDevelopment())
@@ -57,7 +54,6 @@ app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
-// ---- Friendly routes (ported from the legacy App_Start/RouteConfig.cs) ----
 app.MapControllerRoute("quran_reading", "quran_reading/{ChapterID?}/{trans?}",
     new { controller = "Quran", action = "SuraDetail" });
 app.MapControllerRoute("online_quran_reading", "online_quran_reading",
@@ -86,6 +82,8 @@ app.MapControllerRoute("Duain", "Masnoon_Duain",
     new { controller = "Home", action = "ReadDuain" });
 app.MapControllerRoute("Six_Kalmas", "Six_Kalmas",
     new { controller = "Home", action = "ReadKalmas" });
+app.MapControllerRoute("Video_Lessons", "Video_Lessons",
+    new { controller = "Home", action = "QuraniLesson" });
 app.MapControllerRoute("About", "About",
     new { controller = "Home", action = "About" });
 app.MapControllerRoute("Contact", "Contact",

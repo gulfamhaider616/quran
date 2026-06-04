@@ -7,7 +7,6 @@ namespace Quran.Controllers
 {
     public class BooksController : Controller
     {
-        // GET: Books
         public IActionResult AllBooks()
         {
             List<BookDO> list = new AdminBA().GetAllBooks();

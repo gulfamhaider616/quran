@@ -4,7 +4,6 @@ namespace Quran.Controllers
 {
     public class QuranTeacherController : Controller
     {
-        // GET: QuranTeacher
         public IActionResult QuranTeacherHome()
         {
             return View();
