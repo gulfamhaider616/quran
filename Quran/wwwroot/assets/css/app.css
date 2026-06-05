@@ -521,3 +521,59 @@ input[type="submit"].btn-success:hover,
 .alert-success:hover { background: #2e8c18 !important; color: #fff !important; }
 .btn-success:active, input.btn-success:active, .alert-success:active { transform: translateY(1px); }
 .btn-success a, .alert-success a { color: #fff !important; text-decoration: none !important; }
+
+/* =========================================================================
+   Themed data tables (.rest) on public pages - matches the admin tables
+   ========================================================================= */
+.rest {
+    width: 100% !important; border-collapse: separate !important; border-spacing: 0;
+    border: 1px solid #e6eaf0 !important; border-radius: 10px; overflow: hidden;
+    font-size: 13.5px !important; color: #33373d !important;
+}
+.rest thead td, .rest thead th {
+    background: #38ab1e !important; color: #fff !important; font-weight: 600;
+    padding: 12px 10px !important; text-align: center; border: none !important; white-space: nowrap;
+}
+.rest tbody td { padding: 10px !important; border-top: 1px solid #e6eaf0 !important; text-align: center; vertical-align: middle; }
+.rest tbody tr:nth-child(even) { background: #f6f9f4 !important; }
+.rest tbody tr:hover { background: #eaf6e6 !important; }
+.rest tbody a { color: #2a486c; font-weight: 600; text-decoration: none; }
+.rest tbody a:hover { color: #2e8c18; }
+
+/* =========================================================================
+   Dashboard widget - Islamic date + prayer times (home)
+   ========================================================================= */
+.dash-section { background: #f4f6f9; padding: 60px 0; }
+.dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+.dash-card { background: #fff; border: 1px solid #e6eaf0; border-radius: 16px; box-shadow: 0 8px 26px rgba(42, 72, 108, .07); overflow: hidden; }
+.dash-head { display: flex; align-items: center; gap: 10px; padding: 16px 24px; color: #fff; }
+.dash-head h3 { margin: 0; font-size: 18px; font-weight: 700; color: #fff; }
+.dash-head .fa { font-size: 19px; }
+.dash-head-blue { background: linear-gradient(120deg, #2a486c, #1f3654); }
+.dash-head-green { background: linear-gradient(120deg, #38ab1e, #2e8c18); }
+.dash-loc { margin-left: auto; font-size: 12.5px; opacity: .9; }
+.dash-body { padding: 24px; }
+
+.dash-hijri { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.dash-hijri-day { font-size: 52px; font-weight: 800; color: #38ab1e; line-height: 1; }
+.dash-hijri-mn { display: flex; flex-direction: column; }
+.dash-hijri-en { font-size: 21px; font-weight: 800; color: #2a486c; line-height: 1.2; }
+.dash-hijri-ar { font-size: 23px; color: #38ab1e; line-height: 1.2; }
+.dash-hijri-year { margin-left: auto; background: #eef6ea; color: #2e8c18; font-weight: 700; padding: 6px 14px; border-radius: 20px; font-size: 14px; }
+.dash-greg { color: #6b7685; font-size: 14px; margin-top: 16px; padding-top: 14px; border-top: 1px dashed #eef1f5; }
+.dash-months { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+.dash-months span { font-size: 11.5px; color: #8b95a3; background: #f4f6f9; padding: 4px 9px; border-radius: 14px; }
+.dash-months span.dm-on { background: #38ab1e; color: #fff; font-weight: 700; }
+
+.dash-prayers { list-style: none; margin: 0; padding: 0; }
+.dash-prayers li { display: flex; align-items: center; justify-content: space-between; padding: 12px 4px; border-bottom: 1px dashed #eef1f5; }
+.dash-prayers li:last-child { border-bottom: none; }
+.dash-prayers .p-n { color: #2a486c; font-weight: 600; font-size: 15px; display: flex; align-items: center; gap: 10px; }
+.dash-prayers .p-n .fa { color: #9aa5b3; width: 18px; text-align: center; }
+.dash-prayers .p-t { color: #5a6470; font-weight: 600; font-size: 14.5px; }
+.dash-prayers .dash-next { background: #eef6ea; margin: 4px -14px; padding: 12px 18px; border-radius: 10px; border-bottom: none; }
+.dash-prayers .dash-next .p-n, .dash-prayers .dash-next .p-t { color: #2e8c18; }
+.dash-prayers .dash-next .p-n .fa { color: #38ab1e; }
+.dash-prayers .dash-next em { background: #38ab1e; color: #fff; font-style: normal; font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-left: 6px; }
+.dash-skel, .dash-note { color: #8b95a3; font-size: 14px; padding: 14px 4px; }
+@media (max-width: 780px) { .dash-grid { grid-template-columns: 1fr; } }

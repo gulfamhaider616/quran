@@ -47,6 +47,107 @@
     })();
 </script>
 
+<section class="dash-section">
+    <div class="container">
+        <div class="sec-head">
+            <span>Today at a Glance</span>
+            <h2>Islamic Date &amp; Prayer Times</h2>
+            <p>Today's Hijri date and your local prayer times, detected automatically.</p>
+        </div>
+        <div class="dash-grid">
+            <div class="dash-card">
+                <div class="dash-head dash-head-blue"><i class="fa fa-moon-o"></i><h3>Islamic Date</h3></div>
+                <div class="dash-body">
+                    <div class="dash-hijri">
+                        <span class="dash-hijri-day" id="hijriDay">--</span>
+                        <span class="dash-hijri-mn">
+                            <span class="dash-hijri-en" id="hijriMonth">Loading&hellip;</span>
+                            <span class="dash-hijri-ar al-quran" id="hijriMonthAr"></span>
+                        </span>
+                        <span class="dash-hijri-year" id="hijriYear"></span>
+                    </div>
+                    <div class="dash-greg" id="gregDate"></div>
+                    <div class="dash-months" id="hijriMonths"></div>
+                </div>
+            </div>
+            <div class="dash-card">
+                <div class="dash-head dash-head-green"><i class="fa fa-clock-o"></i><h3>Prayer Times</h3><span class="dash-loc" id="prayerLoc"></span></div>
+                <div class="dash-body">
+                    <ul class="dash-prayers" id="prayerList">
+                        <li class="dash-skel">Detecting your location&hellip;</li>
+                    </ul>
+                    <div class="dash-note" id="prayerNote"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    (function () {
+        var EN = ['Muharram', 'Safar', 'Rabi al-Awwal', 'Rabi al-Thani', 'Jumada al-Awwal', 'Jumada al-Thani', 'Rajab', 'Shaban', 'Ramadan', 'Shawwal', 'Dhul-Qadah', 'Dhul-Hijjah'];
+        var AR = ['محرم', 'صفر', 'ربيع الأول', 'ربيع الثاني', 'جمادى الأولى', 'جمادى الآخرة', 'رجب', 'شعبان', 'رمضان', 'شوال', 'ذو القعدة', 'ذو الحجة'];
+        function $(id) { return document.getElementById(id); }
+        try {
+            var now = new Date();
+            var f = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', { day: 'numeric', month: 'numeric', year: 'numeric' });
+            var d = 1, m = 1, y = 1446;
+            f.formatToParts(now).forEach(function (p) {
+                if (p.type === 'day') { d = parseInt(p.value, 10); }
+                if (p.type === 'month') { m = parseInt(p.value, 10); }
+                if (p.type === 'year') { y = parseInt(p.value, 10); }
+            });
+            if (m < 1) { m = 1; } if (m > 12) { m = 12; }
+            $('hijriDay').textContent = d;
+            $('hijriMonth').textContent = EN[m - 1];
+            $('hijriMonthAr').textContent = AR[m - 1];
+            $('hijriYear').textContent = y + ' AH';
+            $('gregDate').textContent = now.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            var mh = '';
+            for (var i = 0; i < 12; i++) { mh += '<span class="' + (i === m - 1 ? 'dm-on' : '') + '">' + EN[i] + '</span>'; }
+            $('hijriMonths').innerHTML = mh;
+        } catch (e) { $('hijriMonth').textContent = 'Unavailable'; }
+
+        var list = $('prayerList'), locEl = $('prayerLoc'), note = $('prayerNote');
+        function to12(t) {
+            if (!t) { return ''; }
+            var a = t.split(':'), h = parseInt(a[0], 10), mn = a[1] || '00';
+            var ap = h >= 12 ? 'PM' : 'AM'; h = h % 12; if (h === 0) { h = 12; }
+            return h + ':' + mn + ' ' + ap;
+        }
+        function render(tm) {
+            var rows = [['Fajr', 'fa-cloud'], ['Sunrise', 'fa-sun-o'], ['Dhuhr', 'fa-sun-o'], ['Asr', 'fa-adjust'], ['Maghrib', 'fa-moon-o'], ['Isha', 'fa-star-o']];
+            var now = new Date(), nowMin = now.getHours() * 60 + now.getMinutes(), nextIdx = -1;
+            var mins = rows.map(function (r) { var p = (tm[r[0]] || '0:0').split(':'); return parseInt(p[0], 10) * 60 + parseInt(p[1], 10); });
+            for (var i = 0; i < rows.length; i++) { if (mins[i] > nowMin) { nextIdx = i; break; } }
+            var html = '';
+            for (var j = 0; j < rows.length; j++) {
+                html += '<li class="' + (j === nextIdx ? 'dash-next' : '') + '"><span class="p-n"><i class="fa ' + rows[j][1] + '"></i> ' + rows[j][0] + '</span><span class="p-t">' + to12(tm[rows[j][0]]) + (j === nextIdx ? ' <em>Next</em>' : '') + '</span></li>';
+            }
+            list.innerHTML = html;
+        }
+        function fetchTimes(lat, lng) {
+            var dt = new Date(), ds = ('0' + dt.getDate()).slice(-2) + '-' + ('0' + (dt.getMonth() + 1)).slice(-2) + '-' + dt.getFullYear();
+            fetch('https://api.aladhan.com/v1/timings/' + ds + '?latitude=' + lat + '&longitude=' + lng + '&method=2')
+                .then(function (r) { return r.json(); })
+                .then(function (j) {
+                    if (j && j.data && j.data.timings) {
+                        render(j.data.timings);
+                        if (j.data.meta && j.data.meta.timezone) { locEl.textContent = j.data.meta.timezone.replace(/_/g, ' '); }
+                        note.textContent = '';
+                    } else { note.textContent = 'Could not load prayer times.'; list.innerHTML = ''; }
+                })
+                .catch(function () { note.textContent = 'Could not load prayer times.'; list.innerHTML = ''; });
+        }
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function (pos) { fetchTimes(pos.coords.latitude, pos.coords.longitude); },
+                function () { list.innerHTML = ''; note.textContent = 'Allow location access to see your local prayer times.'; }
+            );
+        } else { list.innerHTML = ''; note.textContent = 'Your browser does not support location.'; }
+    })();
+</script>
+
 <section class="hm-about">
     <div class="container">
         <div class="hm-about-grid">
