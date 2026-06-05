@@ -44,6 +44,11 @@ namespace Quran.Business
             return new ForumDA().PublishQuestionByAdmin(QuestionID) > 0;
         }
 
+        public bool UnPublishQuestionByAdmin(int QuestionID)
+        {
+            return new ForumDA().UnPublishQuestionByAdmin(QuestionID) > 0;
+        }
+
         public bool DeleteQuestions(int QuestionID)
         {
             return new ForumDA().DeleteQuestions(QuestionID) > 0;

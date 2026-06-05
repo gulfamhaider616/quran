@@ -317,6 +317,30 @@ input[type="submit"]:active { transform: translateY(1px); }
 .rest td .btn.btn-info:hover { background: #226a9a !important; }
 .rest td .btn.btn-danger { background: var(--danger) !important; }
 .rest td .btn.btn-danger:hover { background: #b73c39 !important; }
+.rest td .btn.btn-warning { background: #e08e0b !important; }
+.rest td .btn.btn-warning:hover { background: #c47c08 !important; }
+
+/* Admin question-preview action buttons (outside a table) */
+.aqp-actions { display: flex; gap: 10px; margin-top: 14px; }
+.aqp-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 20px !important;
+    border-radius: 9px !important;
+    font-weight: 700;
+    font-size: 14px !important;
+    color: #fff !important;
+    border: none !important;
+    text-decoration: none !important;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+}
+.aqp-actions .btn:active { transform: translateY(1px); }
+.aqp-actions .btn.btn-success { background: var(--brand) !important; }
+.aqp-actions .btn.btn-success:hover { background: var(--brand-dark) !important; }
+.aqp-actions .btn.btn-danger { background: var(--danger) !important; }
+.aqp-actions .btn.btn-danger:hover { background: #b73c39 !important; }
 
 .book-cover {
     width: 62px;

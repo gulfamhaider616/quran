@@ -42,6 +42,11 @@ namespace Quran.DataAccess
             return Db.Execute("UPDATE dbo.Forum SET IsPublish = 1 WHERE QuestionID = @QuestionID;", new { QuestionID });
         }
 
+        public int UnPublishQuestionByAdmin(int QuestionID)
+        {
+            return Db.Execute("UPDATE dbo.Forum SET IsPublish = 0 WHERE QuestionID = @QuestionID;", new { QuestionID });
+        }
+
         public IDictionary<string, object> GetSingleQuestion(int QuestionID)
         {
             return Db.QueryProcSingle("GetSingleQuestion", new { QuestionID });

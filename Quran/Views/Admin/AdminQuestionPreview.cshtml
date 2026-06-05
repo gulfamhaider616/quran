@@ -17,7 +17,10 @@
             </div>
         </div>
         <hr style="border-top:solid 1px #e6eaf0;width: 657px;">
-        <a href="#" onclick='PublishQuestion("@Model.AskQuestionID")' style="text-decoration:none;">Publish</a> | <a href="#" onclick='confirmAction("Are you sure you want to delete this question?", function(){ DeleteQuestions("@Model.AskQuestionID"); }); return false;' style="text-decoration:none;">Delete</a>
+        <div class="aqp-actions">
+            <a href="javascript:void(0)" class="btn btn-success btn-sm" onclick='PublishQuestion("@Model.AskQuestionID")'><i class="fa fa-bullhorn"></i> Publish</a>
+            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick='confirmAction("Are you sure you want to delete this question?", function(){ DeleteQuestions("@Model.AskQuestionID"); }); return false;'><i class="fa fa-trash-o"></i> Delete</a>
+        </div>
     </div>
 </div>
 

@@ -26,6 +26,10 @@ namespace Quran.Controllers
 
         public IActionResult Index()
         {
+            if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                return RedirectToAction("GetAllStudents");
+            }
             return View();
         }
 
@@ -146,6 +150,12 @@ namespace Quran.Controllers
         public JsonResult PublishQuestionByAdmin(int QuestionID)
         {
             return Json(new ForumBA().PublishQuestionByAdmin(QuestionID));
+        }
+
+        [Authorize]
+        public JsonResult UnPublishQuestionByAdmin(int QuestionID)
+        {
+            return Json(new ForumBA().UnPublishQuestionByAdmin(QuestionID));
         }
 
         [Authorize]

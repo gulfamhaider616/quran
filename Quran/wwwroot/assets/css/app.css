@@ -29,13 +29,18 @@
 #banner-wrapper h2, #banner-wrapper h3, #banner-wrapper h4 { color: #2a486c; }
 
 #banner-wrapper input[type="submit"],
+#banner-wrapper input[type="button"].btn-success,
 #banner-wrapper .btn-success:not(.btn) {
     background: #38ab1e !important; color: #fff !important; border: none !important;
-    padding: 11px 26px !important; border-radius: 8px !important; font-weight: 700 !important;
-    box-shadow: 0 4px 12px rgba(56, 171, 30, .25); transition: background .15s;
+    padding: 12px 30px !important; border-radius: 10px !important; font-weight: 700 !important;
+    font-size: 15px !important; cursor: pointer;
+    box-shadow: 0 6px 16px rgba(56, 171, 30, .28); transition: background .15s, transform .15s, box-shadow .15s;
 }
 #banner-wrapper input[type="submit"]:hover,
-#banner-wrapper .btn-success:not(.btn):hover { background: #2e8c18 !important; }
+#banner-wrapper input[type="button"].btn-success:hover,
+#banner-wrapper .btn-success:not(.btn):hover { background: #2e8c18 !important; transform: translateY(-2px); box-shadow: 0 9px 22px rgba(56, 171, 30, .32); }
+#banner-wrapper input[type="submit"]:active,
+#banner-wrapper .btn-success:not(.btn):active { transform: translateY(0); }
 
 #banner-wrapper input:focus,
 #banner-wrapper textarea:focus,
@@ -529,10 +534,53 @@
 #banner-wrapper input[type="password"],
 #banner-wrapper input[type="url"],
 #banner-wrapper input[type="number"],
+#banner-wrapper input[type="date"],
+#banner-wrapper input[type="tel"],
 #banner-wrapper select,
 #banner-wrapper textarea {
-    padding: 10px 12px; border: 1px solid #dde3ec; border-radius: 8px; font-size: 14px; background: #fff; color: #33373d; font-family: inherit;
+    padding: 11px 14px; border: 1px solid #dde3ec; border-radius: 9px; font-size: 14.5px; background: #fff; color: #33373d; font-family: inherit;
+    transition: border-color .15s, box-shadow .15s, background .15s;
 }
+#banner-wrapper input[type="text"]:hover,
+#banner-wrapper input[type="email"]:hover,
+#banner-wrapper input[type="password"]:hover,
+#banner-wrapper input[type="url"]:hover,
+#banner-wrapper input[type="number"]:hover,
+#banner-wrapper select:hover,
+#banner-wrapper textarea:hover { border-color: #c2cbd6; }
+#banner-wrapper input::placeholder,
+#banner-wrapper textarea::placeholder { color: #aab2bf; }
+#banner-wrapper label { color: #2a486c; font-weight: 600; }
+
+/* Fluent terms / privacy agreement row (reusable, also used inside modals) */
+.agree-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    background: #f6f9f4;
+    border: 1px solid #dbead2;
+    border-radius: 10px;
+    padding: 11px 16px;
+    margin: 4px auto 6px;
+    max-width: 460px;
+    cursor: pointer;
+    font-weight: 500 !important;
+    color: #4a5562 !important;
+    font-size: 14px !important;
+    line-height: 1.45;
+}
+.agree-row input[type="checkbox"] {
+    flex: 0 0 auto;
+    width: 18px !important;
+    height: 18px !important;
+    margin: 0 !important;
+    accent-color: #38ab1e;
+    cursor: pointer;
+}
+.agree-row span { flex: 1 1 auto; }
+.agree-row a { color: #2e8c18; font-weight: 700; text-decoration: none; }
+.agree-row a:hover { text-decoration: underline; }
 
 /* =========================================================================
    Quran Teacher - lesson sections (Section 1-5)

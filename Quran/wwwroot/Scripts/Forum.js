@@ -73,6 +73,26 @@ function PublishQuestion(QuestionID) {
     });
 }
 
+function UnPublishQuestion(QuestionID) {
+    $.ajax({
+        url: '/Admin/UnPublishQuestionByAdmin',
+        type: 'GET',
+        datatype: 'Json',
+        data: { 'QuestionID': QuestionID },
+        success: function (result) {
+            if (result == true) {
+                showPopupModel("Done!", "The question has been unpublished.", "/Admin/Publish")
+            }
+            else {
+                showPopupModel("Sorry!", "We can't unpublish this question, please try again.", "/Admin/Publish")
+            }
+        },
+        error: function () {
+            showPopupModel("Sorry!", "We can't unpublish this question due to internal error.", "/Admin/Publish")
+        }
+    });
+}
+
 function DeleteQuestions(QuestionID) {
     $.ajax({
         url: '/Admin/DeleteQuestions',
