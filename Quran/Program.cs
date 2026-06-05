@@ -112,6 +112,8 @@ app.MapControllerRoute("online_quran_teacher_section_4", "online_quran_teacher_s
     new { controller = "QuranTeacher", action = "Section_4" });
 app.MapControllerRoute("online_quran_teacher_section_5", "online_quran_teacher_section_5",
     new { controller = "QuranTeacher", action = "Section_5" });
+app.MapControllerRoute("Practice_Test", "Practice_Test",
+    new { controller = "QuranTeacher", action = "PracticeTest" });
 
 app.MapControllerRoute(
     name: "default",

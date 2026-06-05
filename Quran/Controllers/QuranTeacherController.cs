@@ -34,6 +34,11 @@ namespace Quran.Controllers
             return View();
         }
 
+        public IActionResult PracticeTest()
+        {
+            return View();
+        }
+
         public IActionResult Test_1()
         {
             return View();

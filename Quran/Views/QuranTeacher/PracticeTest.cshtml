@@ -1,0 +1,212 @@
+@{
+    ViewBag.Title = "Quran Reading Practice Test | Learn Quran with E-Tutor";
+    ViewBag.Description = "Take the free Quran reading practice test. Check your Tajweed and Noorani Qaida basics, get your score with right and wrong answers, and aim for 85% to earn your certificate.";
+    ViewBag.KeyWords = "quran practice test, tajweed quiz, noorani qaida test, self assessment, reading certificate, score check";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="ql-section">
+    <div class="container">
+        <div class="sec-head">
+            <span>Personal Assessment</span>
+            <h2>Quran Reading Practice Test</h2>
+            <p>Answer the questions below and submit to see your result. Score <strong>85%</strong> or above to be eligible for your Quran Certificate.</p>
+        </div>
+
+        <div class="pt-card">
+            <div class="pt-top">
+                <div class="pt-field">
+                    <label>Your Student ID <span class="pt-opt-note">(optional)</span></label>
+                    <input type="text" id="ptStudentId" placeholder="e.g. LFQ-1234" autocomplete="off" />
+                </div>
+                <div class="pt-progress"><span id="ptCount">0</span> / <span id="ptTotal">10</span> answered</div>
+            </div>
+
+            <form id="ptForm">
+                <div class="pt-q" data-answer="b">
+                    <p class="pt-qtext"><span class="pt-qn">1</span> How many letters are in the Arabic alphabet?</p>
+                    <label class="pt-opt"><input type="radio" name="q1" value="a"><span>26</span></label>
+                    <label class="pt-opt"><input type="radio" name="q1" value="b"><span>28</span></label>
+                    <label class="pt-opt"><input type="radio" name="q1" value="c"><span>29</span></label>
+                    <label class="pt-opt"><input type="radio" name="q1" value="d"><span>30</span></label>
+                </div>
+
+                <div class="pt-q" data-answer="a">
+                    <p class="pt-qtext"><span class="pt-qn">2</span> The harakah <b>Fatha</b> ( ﹷ ) gives which sound?</p>
+                    <label class="pt-opt"><input type="radio" name="q2" value="a"><span>&ldquo;a&rdquo;</span></label>
+                    <label class="pt-opt"><input type="radio" name="q2" value="b"><span>&ldquo;i&rdquo;</span></label>
+                    <label class="pt-opt"><input type="radio" name="q2" value="c"><span>&ldquo;u&rdquo;</span></label>
+                    <label class="pt-opt"><input type="radio" name="q2" value="d"><span>&ldquo;n&rdquo;</span></label>
+                </div>
+
+                <div class="pt-q" data-answer="b">
+                    <p class="pt-qtext"><span class="pt-qn">3</span> <b>Kasra</b> ( ﹻ ) is written ___ the letter and gives the &ldquo;i&rdquo; sound.</p>
+                    <label class="pt-opt"><input type="radio" name="q3" value="a"><span>above</span></label>
+                    <label class="pt-opt"><input type="radio" name="q3" value="b"><span>below</span></label>
+                    <label class="pt-opt"><input type="radio" name="q3" value="c"><span>after</span></label>
+                    <label class="pt-opt"><input type="radio" name="q3" value="d"><span>inside</span></label>
+                </div>
+
+                <div class="pt-q" data-answer="c">
+                    <p class="pt-qtext"><span class="pt-qn">4</span> <b>Damma</b> ( ﹹ ) gives which sound?</p>
+                    <label class="pt-opt"><input type="radio" name="q4" value="a"><span>&ldquo;a&rdquo;</span></label>
+                    <label class="pt-opt"><input type="radio" name="q4" value="b"><span>&ldquo;i&rdquo;</span></label>
+                    <label class="pt-opt"><input type="radio" name="q4" value="c"><span>&ldquo;u&rdquo;</span></label>
+                    <label class="pt-opt"><input type="radio" name="q4" value="d"><span>&ldquo;e&rdquo;</span></label>
+                </div>
+
+                <div class="pt-q" data-answer="b">
+                    <p class="pt-qtext"><span class="pt-qn">5</span> <b>Tanween</b> adds an extra ___ sound at the end of a letter.</p>
+                    <label class="pt-opt"><input type="radio" name="q5" value="a"><span>&ldquo;m&rdquo;</span></label>
+                    <label class="pt-opt"><input type="radio" name="q5" value="b"><span>&ldquo;n&rdquo;</span></label>
+                    <label class="pt-opt"><input type="radio" name="q5" value="c"><span>&ldquo;h&rdquo;</span></label>
+                    <label class="pt-opt"><input type="radio" name="q5" value="d"><span>&ldquo;l&rdquo;</span></label>
+                </div>
+
+                <div class="pt-q" data-answer="b">
+                    <p class="pt-qtext"><span class="pt-qn">6</span> <b>Sukoon</b> ( ﹿ ) means the letter is read ___.</p>
+                    <label class="pt-opt"><input type="radio" name="q6" value="a"><span>with a long vowel</span></label>
+                    <label class="pt-opt"><input type="radio" name="q6" value="b"><span>with no vowel (resting / silent)</span></label>
+                    <label class="pt-opt"><input type="radio" name="q6" value="c"><span>doubled</span></label>
+                    <label class="pt-opt"><input type="radio" name="q6" value="d"><span>nasally</span></label>
+                </div>
+
+                <div class="pt-q" data-answer="c">
+                    <p class="pt-qtext"><span class="pt-qn">7</span> <b>Shaddah</b> ( ﹼ ) means the letter is ___.</p>
+                    <label class="pt-opt"><input type="radio" name="q7" value="a"><span>skipped</span></label>
+                    <label class="pt-opt"><input type="radio" name="q7" value="b"><span>elongated</span></label>
+                    <label class="pt-opt"><input type="radio" name="q7" value="c"><span>doubled</span></label>
+                    <label class="pt-opt"><input type="radio" name="q7" value="d"><span>silent</span></label>
+                </div>
+
+                <div class="pt-q" data-answer="b">
+                    <p class="pt-qtext"><span class="pt-qn">8</span> <b>Madd</b> means to ___ the sound of a letter.</p>
+                    <label class="pt-opt"><input type="radio" name="q8" value="a"><span>shorten</span></label>
+                    <label class="pt-opt"><input type="radio" name="q8" value="b"><span>prolong / stretch</span></label>
+                    <label class="pt-opt"><input type="radio" name="q8" value="c"><span>stop</span></label>
+                    <label class="pt-opt"><input type="radio" name="q8" value="d"><span>repeat</span></label>
+                </div>
+
+                <div class="pt-q" data-answer="b">
+                    <p class="pt-qtext"><span class="pt-qn">9</span> <b>Ghunna</b> (the nasal sound) is produced from the ___.</p>
+                    <label class="pt-opt"><input type="radio" name="q9" value="a"><span>throat</span></label>
+                    <label class="pt-opt"><input type="radio" name="q9" value="b"><span>nose</span></label>
+                    <label class="pt-opt"><input type="radio" name="q9" value="c"><span>lips</span></label>
+                    <label class="pt-opt"><input type="radio" name="q9" value="d"><span>tip of the tongue</span></label>
+                </div>
+
+                <div class="pt-q" data-answer="c">
+                    <p class="pt-qtext"><span class="pt-qn">10</span> How many sections make up this Quran Teacher course?</p>
+                    <label class="pt-opt"><input type="radio" name="q10" value="a"><span>3</span></label>
+                    <label class="pt-opt"><input type="radio" name="q10" value="b"><span>4</span></label>
+                    <label class="pt-opt"><input type="radio" name="q10" value="c"><span>5</span></label>
+                    <label class="pt-opt"><input type="radio" name="q10" value="d"><span>6</span></label>
+                </div>
+            </form>
+
+            <div id="ptResult" class="pt-result"></div>
+
+            <div class="pt-actions">
+                <button type="button" class="hm-btn" id="ptSubmit" onclick="checkTest()"><i class="fa fa-check"></i> Submit Test</button>
+                <a class="ql-nav" id="ptReset" href="javascript:void(0)" onclick="resetTest()" style="display:none;"><i class="fa fa-refresh"></i> Try Again</a>
+                <a class="ql-nav" href="/online_quran_teacher_section_1"><i class="fa fa-book"></i> Back to Lessons</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        var form = document.getElementById('ptForm');
+        var total = form.querySelectorAll('.pt-q').length;
+        document.getElementById('ptTotal').textContent = total;
+        form.addEventListener('change', updateCount);
+        function updateCount() {
+            var answered = form.querySelectorAll('.pt-q input:checked').length;
+            document.getElementById('ptCount').textContent = answered;
+        }
+    })();
+
+    function checkTest() {
+        var form = document.getElementById('ptForm');
+        var questions = form.querySelectorAll('.pt-q');
+        var correct = 0, wrong = 0, unanswered = 0;
+
+        questions.forEach(function (q) {
+            var answer = q.getAttribute('data-answer');
+            var chosen = q.querySelector('input:checked');
+
+            q.classList.remove('pt-correct', 'pt-wrong');
+            q.querySelectorAll('.pt-opt').forEach(function (opt) {
+                opt.classList.remove('pt-opt-correct', 'pt-opt-wrong');
+                var input = opt.querySelector('input');
+                input.disabled = true;
+                if (input.value === answer) { opt.classList.add('pt-opt-correct'); }
+            });
+
+            if (!chosen) {
+                unanswered++;
+                q.classList.add('pt-wrong');
+            } else if (chosen.value === answer) {
+                correct++;
+                q.classList.add('pt-correct');
+            } else {
+                wrong++;
+                q.classList.add('pt-wrong');
+                chosen.parentNode.classList.add('pt-opt-wrong');
+            }
+        });
+
+        var pct = Math.round((correct / total()) * 100);
+        var pass = pct >= 85;
+        var sid = (document.getElementById('ptStudentId').value || '').trim();
+        var sidText = sid ? (' with your Student ID <strong>' + sid + '</strong>') : '';
+
+        var html =
+            '<div class="pt-score ' + (pass ? 'pass' : 'fail') + '">' +
+                '<div class="pt-pct">' + pct + '%</div>' +
+                '<div class="pt-score-label">' + (pass ? 'Excellent! You passed.' : 'Keep practicing.') + '</div>' +
+            '</div>' +
+            '<div class="pt-tally">' +
+                '<span class="pt-t pt-t-right"><i class="fa fa-check-circle"></i> Correct: <b>' + correct + '</b></span>' +
+                '<span class="pt-t pt-t-wrong"><i class="fa fa-times-circle"></i> Wrong: <b>' + wrong + '</b></span>' +
+                '<span class="pt-t pt-t-skip"><i class="fa fa-minus-circle"></i> Unanswered: <b>' + unanswered + '</b></span>' +
+                '<span class="pt-t pt-t-total"><i class="fa fa-list-ol"></i> Total: <b>' + total() + '</b></span>' +
+            '</div>' +
+            '<p class="pt-msg">' +
+                (pass
+                    ? 'You scored 85% or above &mdash; you are eligible for your Quran Certificate. Please contact us' + sidText + '.'
+                    : 'You need 85% or more to earn the certificate. Review the lessons and try again.') +
+            '</p>';
+
+        var result = document.getElementById('ptResult');
+        result.innerHTML = html;
+        result.classList.add('show');
+        document.getElementById('ptSubmit').style.display = 'none';
+        document.getElementById('ptReset').style.display = 'inline-flex';
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function total() {
+        return document.getElementById('ptForm').querySelectorAll('.pt-q').length;
+    }
+
+    function resetTest() {
+        var form = document.getElementById('ptForm');
+        form.reset();
+        form.querySelectorAll('.pt-q').forEach(function (q) {
+            q.classList.remove('pt-correct', 'pt-wrong');
+            q.querySelectorAll('.pt-opt').forEach(function (opt) {
+                opt.classList.remove('pt-opt-correct', 'pt-opt-wrong');
+                opt.querySelector('input').disabled = false;
+            });
+        });
+        var result = document.getElementById('ptResult');
+        result.innerHTML = '';
+        result.classList.remove('show');
+        document.getElementById('ptCount').textContent = '0';
+        document.getElementById('ptSubmit').style.display = 'inline-flex';
+        document.getElementById('ptReset').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
