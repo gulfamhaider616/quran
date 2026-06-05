@@ -432,6 +432,9 @@ function Addookmark(id) {
                     if (data.includes("UserLogin")) {
                         window.location.href = data;
                     }
+                    else if (typeof highlightBookmark === 'function') {
+                        highlightBookmark(id, false);
+                    }
                 }
                 else {
                     swal({

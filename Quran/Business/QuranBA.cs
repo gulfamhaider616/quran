@@ -1,11 +1,7 @@
-﻿using Quran.DataAccess;
+using Quran.DataAccess;
 using Quran.Models;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quran.Business
 {
@@ -14,18 +10,14 @@ namespace Quran.Business
         public List<SuraNamesDO> GetAllSuraNames()
         {
             List<SuraNamesDO> list = new List<SuraNamesDO>();
-            DataSet dataset = new QuranDA().GetAllSuraNames();
-            if (dataset.Tables.Count > 0)
+            foreach (IDictionary<string, object> dr in new QuranDA().GetAllSuraNames())
             {
-                foreach (DataRow dr in dataset.Tables[0].Rows)
-                {
-                    SuraNamesDO sura = new SuraNamesDO();
-                    sura.ChapterID = dr.Field<int>("ChapterID");
-                    sura.SuraName = dr.Field<string>("SuraName");
-                    sura.EnglishName = dr.Field<string>("EnglishName");
-                    sura.TotalVerses = dr.Field<int>("TotalVerses");
-                    list.Add(sura);
-                }
+                SuraNamesDO sura = new SuraNamesDO();
+                sura.ChapterID = dr.Get<int>("ChapterID");
+                sura.SuraName = dr.Get<string>("SuraName");
+                sura.EnglishName = dr.Get<string>("EnglishName");
+                sura.TotalVerses = dr.Get<int>("TotalVerses");
+                list.Add(sura);
             }
             return list;
         }
@@ -34,54 +26,50 @@ namespace Quran.Business
         {
             SuraDetailContract suraDetail = new SuraDetailContract();
             List<AyatDO> list = new List<AyatDO>();
-            DataSet dataset = new QuranDA().GetSuraByID(chapterId);
-            if (dataset.Tables.Count > 0)
+            var (header, ayat) = new QuranDA().GetSuraByID(chapterId);
+
+            if (header.Count > 0)
             {
-                if (dataset.Tables[0].Rows.Count > 0)
-                {
-                    DataRow dr = dataset.Tables[0].Rows[0];
-                    SuraNamesDO sura = new SuraNamesDO();
-                    sura.ChapterID = dr.Field<int>("ChapterID");
-                    sura.SuraName = dr.Field<string>("SuraName");
-                    sura.EnglishName = dr.Field<string>("EnglishName");
-                    sura.TotalVerses = dr.Field<int>("TotalVerses");
-                    suraDetail.SuraDetail = sura;
-                }
-                
-                foreach (DataRow dr in dataset.Tables[1].Rows)
-                {
-                    AyatDO ayat = new AyatDO();
-                    ayat.ChapterID = dr.Field<int>("ChapterID");
-                    ayat.VerseID = dr.Field<int>("VerseID");
-                    ayat.AyatText = dr.Field<string>("AyahText");
-                    ayat.EnglishTranslation = dr.Field<string>("EnglishTranslation");
-                    ayat.IndonasianTranslation = dr.Field<string>("IndonasianTranslation");
-                    ayat.UrduTranslation = dr.Field<string>("UrduTranslation");
-                    list.Add(ayat);
-                }
-                suraDetail.AyatList = list;
+                IDictionary<string, object> dr = header[0];
+                SuraNamesDO sura = new SuraNamesDO();
+                sura.ChapterID = dr.Get<int>("ChapterID");
+                sura.SuraName = dr.Get<string>("SuraName");
+                sura.EnglishName = dr.Get<string>("EnglishName");
+                sura.TotalVerses = dr.Get<int>("TotalVerses");
+                suraDetail.SuraDetail = sura;
             }
+
+            foreach (IDictionary<string, object> dr in ayat)
+            {
+                AyatDO a = new AyatDO();
+                a.ChapterID = dr.Get<int>("ChapterID");
+                a.VerseID = dr.Get<int>("VerseID");
+                a.AyatText = dr.Get<string>("AyahText");
+                a.EnglishTranslation = dr.Get<string>("EnglishTranslation");
+                a.IndonasianTranslation = dr.Get<string>("IndonasianTranslation");
+                a.UrduTranslation = dr.Get<string>("UrduTranslation");
+                list.Add(a);
+            }
+            suraDetail.AyatList = list;
             return suraDetail;
         }
 
         public FeaturedVerseDO GetFeaturedVerse(int position)
         {
             FeaturedVerseDO verse = new FeaturedVerseDO();
-            DataSet dataset = new QuranDA().GetFeaturedVerse(position);
-            if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
+            IDictionary<string, object> dr = new QuranDA().GetFeaturedVerse(position);
+            if (dr != null)
             {
-                DataRow r = dataset.Tables[0].Rows[0];
-                verse.ChapterID = r.Field<int>("ChapterID");
-                verse.VerseID = r.Field<int>("VerseID");
-                verse.Arabic = r.Field<string>("AyahText");
-                verse.English = r.Field<string>("EnglishTranslation");
-                verse.Urdu = r.Field<string>("UrduTranslation");
-                verse.SuraName = r.Field<string>("SuraName");
-                verse.EnglishName = r.Field<string>("EnglishName");
-                verse.Total = r.Field<int>("Total");
+                verse.ChapterID = dr.Get<int>("ChapterID");
+                verse.VerseID = dr.Get<int>("VerseID");
+                verse.Arabic = dr.Get<string>("AyahText");
+                verse.English = dr.Get<string>("EnglishTranslation");
+                verse.Urdu = dr.Get<string>("UrduTranslation");
+                verse.SuraName = dr.Get<string>("SuraName");
+                verse.EnglishName = dr.Get<string>("EnglishName");
+                verse.Total = dr.Get<int>("Total");
             }
             return verse;
         }
     }
 }
-

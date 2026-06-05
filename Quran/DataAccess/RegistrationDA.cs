@@ -1,270 +1,107 @@
-using Quran.Models;
-using System;
 using System.Collections.Generic;
-using System.Data;
-using Microsoft.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Quran.Models;
 
 namespace Quran.DataAccess
 {
     public class RegistrationDA
     {
-        public DataSet VarifyEmail(string email)
+        public IDictionary<string, object> VarifyEmail(string email)
         {
-            DataSet set = new DataSet();
-            try
-            {
-                SqlCommand command = new DBConnection().DbSqlConnection("VarifyEmail");
-                command.Parameters.Add("@Email", SqlDbType.VarChar).Value = email;
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ", email,
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+            return Db.QueryProcSingle("VarifyEmail", new { Email = email });
         }
 
-        public DataSet GetStudentScheduleByID(string studentID)
+        public IDictionary<string, object> GetStudentScheduleByID(string studentID)
         {
-            DataSet set = new DataSet();
-            try
-            {
-                SqlCommand command = new DBConnection().DbSqlConnection("GetStudentScheduleByID");
-                command.Parameters.Add("@StudentID", SqlDbType.VarChar).Value = studentID;
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ", studentID,
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
-        }
-        public DataSet SaveRegistration(RegistrationDO registration)
-        {
-            DataSet set = new DataSet();
-            try
-            {
-                SqlCommand command = new DBConnection().DbSqlConnection("SaveRegistration");
-                command.Parameters.Add("@StudentName", SqlDbType.VarChar).Value = registration.StudentName;
-                command.Parameters.Add("@FatherName", SqlDbType.VarChar).Value = registration.FatherName;
-                command.Parameters.Add("@PhoneNumber", SqlDbType.VarChar).Value = registration.PhoneNumber;
-                command.Parameters.Add("@Email", SqlDbType.VarChar).Value = registration.Email;
-                command.Parameters.Add("@SkypeID", SqlDbType.VarChar).Value = registration.SkypeID;
-                command.Parameters.Add("@Gender", SqlDbType.VarChar).Value = registration.Gender;
-                command.Parameters.Add("@DateOfBirth", SqlDbType.VarChar).Value = registration.DateOfBirth;
-                command.Parameters.Add("@Country", SqlDbType.VarChar).Value = registration.Country;
-                command.Parameters.Add("@City", SqlDbType.VarChar).Value = registration.City;
-                command.Parameters.Add("@Classes", SqlDbType.VarChar).Value = registration.Classes;
-                command.Parameters.Add("@DaysName", SqlDbType.VarChar).Value = registration.Days;
-                command.Parameters.Add("@FeasibleTime", SqlDbType.VarChar).Value = registration.FeasibleTime;
-                command.Parameters.Add("@FirstLanguage", SqlDbType.VarChar).Value = registration.FirstLanguage;
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ", registration,
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+            return Db.QueryProcSingle("GetStudentScheduleByID", new { StudentID = studentID });
         }
 
-        public DataSet GetForgetStudentIDByEmail(string email)
+        public IDictionary<string, object> SaveRegistration(RegistrationDO registration)
         {
-            DataSet set = new DataSet();
-            try
+            return Db.QueryProcSingle("SaveRegistration", new
             {
-                SqlCommand command = new DBConnection().DbSqlConnection("GetForgetStudentIDByEmail");
-                command.Parameters.Add("@Email", SqlDbType.VarChar).Value = email;
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ", email,
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+                StudentName = registration.StudentName,
+                FatherName = registration.FatherName,
+                PhoneNumber = registration.PhoneNumber,
+                Email = registration.Email,
+                SkypeID = registration.SkypeID,
+                Gender = registration.Gender,
+                DateOfBirth = registration.DateOfBirth,
+                Country = registration.Country,
+                City = registration.City,
+                Classes = registration.Classes,
+                DaysName = registration.Days,
+                FeasibleTime = registration.FeasibleTime,
+                FirstLanguage = registration.FirstLanguage
+            });
         }
 
-        public DataSet SaveContactUs(string contacttopic, string contactemail, string contactmessage)
+        public IDictionary<string, object> GetForgetStudentIDByEmail(string email)
         {
-            DataSet set = new DataSet();
-            try
-            {
-                SqlCommand command = new DBConnection().DbSqlConnection("SaveContactUs");
-                command.Parameters.Add("@ContactTopic", SqlDbType.VarChar).Value = contacttopic;
-                command.Parameters.Add("@ContactEmail", SqlDbType.VarChar).Value = contactemail;
-                command.Parameters.Add("@CotactMessage", SqlDbType.VarChar).Value = contactmessage;
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ", contacttopic,
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+            return Db.QueryProcSingle("GetForgetStudentIDByEmail", new { Email = email });
         }
 
-        public DataSet SaveFeedback(string name, string country, string message)
+        public IDictionary<string, object> SaveContactUs(string contacttopic, string contactemail, string contactmessage)
         {
-            DataSet set = new DataSet();
-            try
+            return Db.QueryProcSingle("SaveContactUs", new
             {
-                SqlCommand command = new DBConnection().DbSqlConnection("SaveFeedback");
-                command.Parameters.Add("@Name", SqlDbType.VarChar).Value = name;
-                command.Parameters.Add("@Country", SqlDbType.VarChar).Value = country;
-                command.Parameters.Add("@Message", SqlDbType.VarChar).Value = message;
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ", name,
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+                ContactTopic = contacttopic,
+                ContactEmail = contactemail,
+                CotactMessage = contactmessage
+            });
         }
 
-        public DataSet GetFeedback()
+        public IDictionary<string, object> SaveFeedback(string name, string country, string message)
         {
-            DataSet set = new DataSet();
-            try
-            {
-                SqlCommand command = new DBConnection().DbSqlConnection("GetFeedback");
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ", "",
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+            return Db.QueryProcSingle("SaveFeedback", new { Name = name, Country = country, Message = message });
         }
 
-        public DataSet SaveUpdateRecord(RegistrationDO registration)
+        public List<IDictionary<string, object>> GetFeedback()
         {
-            DataSet set = new DataSet();
-            try
-            {
-                SqlCommand command = new DBConnection().DbSqlConnection("SaveUpdatedRecord");
-                command.Parameters.Add("@StudentID", SqlDbType.VarChar).Value = registration.StudentID;
-                command.Parameters.Add("@StudentName", SqlDbType.VarChar).Value = registration.StudentName;
-                command.Parameters.Add("@FatherName", SqlDbType.VarChar).Value = registration.FatherName;
-                command.Parameters.Add("@PhoneNumber", SqlDbType.VarChar).Value = registration.PhoneNumber;
-                command.Parameters.Add("@Email", SqlDbType.VarChar).Value = registration.Email;
-                command.Parameters.Add("@SkypeID", SqlDbType.VarChar).Value = registration.SkypeID;
-                command.Parameters.Add("@Gender", SqlDbType.VarChar).Value = registration.Gender;
-                command.Parameters.Add("@DateOfBirth", SqlDbType.VarChar).Value = registration.DateOfBirth;
-                command.Parameters.Add("@Country", SqlDbType.VarChar).Value = registration.Country;
-                command.Parameters.Add("@City", SqlDbType.VarChar).Value = registration.City;
-                command.Parameters.Add("@Classes", SqlDbType.VarChar).Value = registration.Classes;
-                command.Parameters.Add("@DaysName", SqlDbType.VarChar).Value = registration.Days;
-                command.Parameters.Add("@FeasibleTime", SqlDbType.VarChar).Value = registration.FeasibleTime;
-                command.Parameters.Add("@FirstLanguage", SqlDbType.VarChar).Value = registration.FirstLanguage;
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ", registration,
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+            return Db.QueryProc("GetFeedback");
         }
 
-        public DataSet GetAllVideoLesson()
+        public IDictionary<string, object> SaveUpdateRecord(RegistrationDO registration)
         {
-            DataSet set = new DataSet();
-            try
+            return Db.QueryProcSingle("SaveUpdatedRecord", new
             {
-                SqlCommand command = new DBConnection().DbSqlConnection("GetAllVideoLessons");
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ", "",
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+                StudentID = registration.StudentID,
+                StudentName = registration.StudentName,
+                FatherName = registration.FatherName,
+                PhoneNumber = registration.PhoneNumber,
+                Email = registration.Email,
+                SkypeID = registration.SkypeID,
+                Gender = registration.Gender,
+                DateOfBirth = registration.DateOfBirth,
+                Country = registration.Country,
+                City = registration.City,
+                Classes = registration.Classes,
+                DaysName = registration.Days,
+                FeasibleTime = registration.FeasibleTime,
+                FirstLanguage = registration.FirstLanguage
+            });
         }
 
-        public DataSet GetVideoLessonByID(int LessonID)
+        public List<IDictionary<string, object>> GetAllVideoLesson()
         {
-            DataSet set = new DataSet();
-            try
-            {
-                SqlCommand command = new DBConnection().DbSqlConnection("GetVideoLessonByID");
-                command.Parameters.Add("@LessonID", SqlDbType.Int).Value = LessonID;
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ", LessonID,
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+            return Db.QueryProc("GetAllVideoLessons");
+        }
+
+        public IDictionary<string, object> GetVideoLessonByID(int LessonID)
+        {
+            return Db.QueryProcSingle("GetVideoLessonByID", new { LessonID });
         }
 
         public int SaveVideoLesson(string lessonName, string link)
         {
-            try
-            {
-                SqlConnection connection = new SqlConnection(DbConfig.ConnectionString);
-                SqlCommand command = new SqlCommand(
-                    "INSERT INTO dbo.VideoLesson (LessonName, Link) VALUES (@LessonName, @Link); SELECT CAST(SCOPE_IDENTITY() AS int);",
-                    connection);
-                command.Parameters.Add("@LessonName", SqlDbType.NVarChar).Value = (object)lessonName ?? DBNull.Value;
-                command.Parameters.Add("@Link", SqlDbType.NVarChar).Value = (object)link ?? DBNull.Value;
-                connection.Open();
-                object result = command.ExecuteScalar();
-                connection.Close();
-                return result == null || result == DBNull.Value ? 0 : Convert.ToInt32(result);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error saving video lesson.", ex);
-            }
+            int? result = Db.ExecuteScalar<int?>(
+                "INSERT INTO dbo.VideoLesson (LessonName, Link) VALUES (@LessonName, @Link); SELECT CAST(SCOPE_IDENTITY() AS int);",
+                new { LessonName = lessonName, Link = link });
+            return result ?? 0;
         }
 
         public int DeleteVideoLesson(int lessonId)
         {
-            try
-            {
-                SqlConnection connection = new SqlConnection(DbConfig.ConnectionString);
-                SqlCommand command = new SqlCommand("DELETE FROM dbo.VideoLesson WHERE Id = @Id;", connection);
-                command.Parameters.Add("@Id", SqlDbType.Int).Value = lessonId;
-                connection.Open();
-                int rows = command.ExecuteNonQuery();
-                connection.Close();
-                return rows;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error deleting video lesson.", ex);
-            }
+            return Db.Execute("DELETE FROM dbo.VideoLesson WHERE Id = @Id;", new { Id = lessonId });
         }
     }
 }
-

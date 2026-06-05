@@ -203,7 +203,10 @@
 .sd-list { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
 .sd-ayah { background: #fff; border: 1px solid #e6eaf0; border-right: 3px solid #38ab1e; border-radius: 12px; padding: 16px 24px 18px; box-shadow: 0 3px 10px rgba(42, 72, 108, .045); transition: box-shadow .15s, transform .15s; }
 .sd-ayah:hover { box-shadow: 0 8px 22px rgba(42, 72, 108, .1); }
-.sd-ayah:target { border-color: #38ab1e; box-shadow: 0 0 0 3px rgba(56, 171, 30, .18); }
+.sd-ayah.sd-bookmarked { border-color: #38ab1e; background: #f3fbef; box-shadow: 0 0 0 3px rgba(56, 171, 30, .22); }
+.sd-ayah.sd-bookmarked .sd-bookmark { background: #38ab1e; color: #fff; }
+@keyframes sdBmFlash { 0% { box-shadow: 0 0 0 6px rgba(56, 171, 30, .35); } 100% { box-shadow: 0 0 0 3px rgba(56, 171, 30, .22); } }
+.sd-ayah.sd-bm-flash { animation: sdBmFlash .9s ease-out; }
 /* header reads right-to-left: verse number on the right, controls on the left */
 .sd-ayah-head { display: flex; flex-direction: row-reverse; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; padding-bottom: 11px; border-bottom: 1px dashed #eef1f5; }
 .sd-num { flex: 0 0 auto; min-width: 32px; height: 32px; padding: 0 9px; display: flex; align-items: center; justify-content: center; background: #eef6ea; color: #2e8c18; font-weight: 700; border-radius: 8px; font-size: 13px; }

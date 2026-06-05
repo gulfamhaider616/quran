@@ -1,420 +1,164 @@
-using Quran.Models;
-using System;
 using System.Collections.Generic;
-using System.Data;
-using Microsoft.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Quran.Models;
 
 namespace Quran.DataAccess
 {
     public class AdminDA
     {
-        public DataSet VerifyAdmin(string adminemail, string adminpassword)
+        public IDictionary<string, object> VerifyAdmin(string adminemail, string adminpassword)
         {
-            DataSet set = new DataSet();
-            try
-            {
-                SqlCommand command = new DBConnection().DbSqlConnection("VerifyAdmin");
-                command.Parameters.Add("@AdminEmail", SqlDbType.VarChar).Value = adminemail;
-                command.Parameters.Add("@AdminPassword", SqlDbType.VarChar).Value = adminpassword;
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ", adminemail,
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+            return Db.QueryProcSingle("VerifyAdmin", new { AdminEmail = adminemail, AdminPassword = adminpassword });
         }
 
-        public DataSet GetAllStudents()
+        public (List<IDictionary<string, object>> Rows, List<IDictionary<string, object>> Counts) GetAllStudents()
         {
-            DataSet set = new DataSet();
-            try
-            {
-                SqlCommand command = new DBConnection().DbSqlConnection("GetAllStudents");
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ",
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+            return Db.QueryProcTwo("GetAllStudents");
         }
 
-        public DataSet GetUnscheduledStudents()
+        public (List<IDictionary<string, object>> Rows, List<IDictionary<string, object>> Counts) GetUnscheduledStudents()
         {
-            DataSet set = new DataSet();
-            try
-            {
-                SqlCommand command = new DBConnection().DbSqlConnection("GetUnscheduledStudents");
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ",
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+            return Db.QueryProcTwo("GetUnscheduledStudents");
         }
 
-public DataSet GetScheduledStudents()
+        public (List<IDictionary<string, object>> Rows, List<IDictionary<string, object>> Counts) GetScheduledStudents()
         {
-            DataSet set = new DataSet();
-            try
-            {
-                SqlCommand command = new DBConnection().DbSqlConnection("GetScheduledStudents");
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ",
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+            return Db.QueryProcTwo("GetScheduledStudents");
         }
 
-public DataSet GetTodaySchedule()
+        public (List<IDictionary<string, object>> Rows, List<IDictionary<string, object>> Counts) GetTodaySchedule()
         {
-            DataSet set = new DataSet();
-            try
-            {
-                SqlCommand command = new DBConnection().DbSqlConnection("GetTodaySchedule");
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ",
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+            return Db.QueryProcTwo("GetTodaySchedule");
         }
 
-        public DataSet SaveSchedule(ScheduleDO schedule)
+        public IDictionary<string, object> SaveSchedule(ScheduleDO schedule)
         {
-            DataSet set = new DataSet();
-            try
+            return Db.QueryProcSingle("SaveSchedule", new
             {
-                SqlCommand command = new DBConnection().DbSqlConnection("SaveSchedule");
-                command.Parameters.Add("@StudentID", SqlDbType.VarChar).Value = schedule.StudentID;
-                command.Parameters.Add("@Classes", SqlDbType.Int).Value = schedule.Classes;
-                command.Parameters.Add("@DaysName", SqlDbType.VarChar).Value = schedule.Days;
-                command.Parameters.Add("@ClassTime", SqlDbType.VarChar).Value = schedule.ClassTime;
-                command.Parameters.Add("@TutorName", SqlDbType.VarChar).Value = schedule.TutorName;
-                command.Parameters.Add("@Discription", SqlDbType.VarChar).Value = schedule.Description;
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ",
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+                StudentID = schedule.StudentID,
+                Classes = schedule.Classes,
+                DaysName = schedule.Days,
+                ClassTime = schedule.ClassTime,
+                TutorName = schedule.TutorName,
+                Discription = schedule.Description
+            });
         }
 
-        public DataSet ChangeSchedule(ScheduleDO schedule)
+        public IDictionary<string, object> ChangeSchedule(ScheduleDO schedule)
         {
-            DataSet set = new DataSet();
-            try
+            return Db.QueryProcSingle("ChangeSchedule", new
             {
-                SqlCommand command = new DBConnection().DbSqlConnection("ChangeSchedule");
-                command.Parameters.Add("@StudentID", SqlDbType.VarChar).Value = schedule.StudentID;
-                command.Parameters.Add("@Classes", SqlDbType.Int).Value = schedule.Classes;
-                command.Parameters.Add("@DaysName", SqlDbType.VarChar).Value = schedule.Days;
-                command.Parameters.Add("@ClassTime", SqlDbType.VarChar).Value = schedule.ClassTime;
-                command.Parameters.Add("@TutorName", SqlDbType.VarChar).Value = schedule.TutorName;
-                command.Parameters.Add("@Discription", SqlDbType.VarChar).Value = schedule.Description;
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ",
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+                StudentID = schedule.StudentID,
+                Classes = schedule.Classes,
+                DaysName = schedule.Days,
+                ClassTime = schedule.ClassTime,
+                TutorName = schedule.TutorName,
+                Discription = schedule.Description
+            });
         }
 
-public DataSet GetAllContactUs()
+        public List<IDictionary<string, object>> GetAllContactUs()
         {
-            DataSet set = new DataSet();
-            try
-            {
-                SqlCommand command = new DBConnection().DbSqlConnection("GetAllContactUs");
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ", "",
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+            return Db.QueryProc("GetAllContactUs");
         }
+
         public int DeleteFeedback(int feedbackID)
         {
-            SqlCommand objSqlCommand = new SqlCommand();
-            objSqlCommand.CommandText = "DeleteFeedback";
-            objSqlCommand.CommandType = CommandType.StoredProcedure;
-            objSqlCommand.Parameters.AddWithValue("@FeedbackID", feedbackID);
-            return new DBConnection().ExecuteNonQuery(objSqlCommand);
+            return Db.ExecuteProc("DeleteFeedback", new { FeedbackID = feedbackID });
         }
 
-        public DataSet StudentPreview(string studentID)
+        public IDictionary<string, object> StudentPreview(string studentID)
         {
-            DataSet set = new DataSet();
-            try
-            {
-                SqlCommand command = new DBConnection().DbSqlConnection("StudentPreviewByID");
-                command.Parameters.Add("@StudentID", SqlDbType.VarChar).Value = studentID;
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ", studentID,
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+            return Db.QueryProcSingle("StudentPreviewByID", new { StudentID = studentID });
         }
 
-        public DataSet AddBook(BookDO book)
+        public IDictionary<string, object> AddBook(BookDO book)
         {
-            DataSet set = new DataSet();
-            try
+            return Db.QueryProcSingle("AddBook", new
             {
-                SqlCommand command = new DBConnection().DbSqlConnection("AddBook");
-                command.Parameters.Add("@BookTilte", SqlDbType.VarChar).Value = (object)book.BookTilte ?? DBNull.Value;
-                command.Parameters.Add("@AuthorName", SqlDbType.VarChar).Value = (object)book.AutherName ?? DBNull.Value;
-                command.Parameters.Add("@ImagePath", SqlDbType.VarChar).Value = (object)book.ImagePath ?? DBNull.Value;
-                command.Parameters.Add("@FilePath", SqlDbType.VarChar).Value = (object)book.FilePath ?? DBNull.Value;
-                command.Parameters.Add("@BookType", SqlDbType.VarChar).Value = (object)book.BookType ?? DBNull.Value;
-                command.Parameters.Add("@Detail", SqlDbType.VarChar).Value = (object)book.Detail ?? DBNull.Value;
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ",
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+                BookTilte = book.BookTilte,
+                AuthorName = book.AutherName,
+                ImagePath = book.ImagePath,
+                FilePath = book.FilePath,
+                BookType = book.BookType,
+                Detail = book.Detail
+            });
         }
+
         public int GetBookByID(int BookID)
         {
-            int result = 0;
-            try
+            BookDO book = new BookDO();
+            return Db.ExecuteProc("GetBookByID", new
             {
-                BookDO book = new BookDO();
-                SqlCommand command = new DBConnection().DbSqlConnection("GetBookByID");
-                command.Parameters.Add("@BookID", SqlDbType.Int).Value = book.BookID;
-                command.Parameters.Add("@BookTilte", SqlDbType.VarChar).Value = (object)book.BookTilte ?? DBNull.Value;
-                command.Parameters.Add("@AuthorName", SqlDbType.VarChar).Value = (object)book.AutherName ?? DBNull.Value;
-                command.Parameters.Add("@ImagePath", SqlDbType.VarChar).Value = (object)book.ImagePath ?? DBNull.Value;
-                command.Parameters.Add("@FilePath", SqlDbType.VarChar).Value = (object)book.FilePath ?? DBNull.Value;
-                command.Parameters.Add("@BookType", SqlDbType.VarChar).Value = (object)book.BookType ?? DBNull.Value;
-                command.Parameters.Add("@Detail", SqlDbType.VarChar).Value = (object)book.Detail ?? DBNull.Value;
-                result = new DBConnection().ExecuteNonQuery(command);
-            }
-            catch(Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ",
-                  " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return result;
-        }
-        public int ChangeBook(BookDO book)
-        {
-            int result = 0;
-            try
-            {
-                SqlCommand command = new DBConnection().DbSqlConnection("ChangeBook");
-                command.Parameters.Add("@BookID", SqlDbType.Int).Value = book.BookID;
-                command.Parameters.Add("@BookTilte", SqlDbType.VarChar).Value = (object)book.BookTilte ?? DBNull.Value;
-                command.Parameters.Add("@AuthorName", SqlDbType.VarChar).Value = (object)book.AutherName ?? DBNull.Value;
-                command.Parameters.Add("@ImagePath", SqlDbType.VarChar).Value = (object)book.ImagePath ?? DBNull.Value;
-                command.Parameters.Add("@FilePath", SqlDbType.VarChar).Value = (object)book.FilePath ?? DBNull.Value;
-                command.Parameters.Add("@BookType", SqlDbType.VarChar).Value = (object)book.BookType ?? DBNull.Value;
-                command.Parameters.Add("@Detail", SqlDbType.VarChar).Value = (object)book.Detail ?? DBNull.Value;
-                result =  new DBConnection().ExecuteNonQuery(command);
-            }
-            catch (Exception ex)
-            {
-                  throw new Exception(string.Concat("Error executing the ",
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return result;
+                BookID = book.BookID,
+                BookTilte = book.BookTilte,
+                AuthorName = book.AutherName,
+                ImagePath = book.ImagePath,
+                FilePath = book.FilePath,
+                BookType = book.BookType,
+                Detail = book.Detail
+            });
         }
 
-public DataSet GetAllBooks()
+        public int ChangeBook(BookDO book)
         {
-            DataSet set = new DataSet();
-            try
+            return Db.ExecuteProc("ChangeBook", new
             {
-                SqlCommand command = new DBConnection().DbSqlConnection("GetAllBooks");
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ",
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+                BookID = book.BookID,
+                BookTilte = book.BookTilte,
+                AuthorName = book.AutherName,
+                ImagePath = book.ImagePath,
+                FilePath = book.FilePath,
+                BookType = book.BookType,
+                Detail = book.Detail
+            });
+        }
+
+        public List<IDictionary<string, object>> GetAllBooks()
+        {
+            return Db.QueryProc("GetAllBooks");
         }
 
         public int DeleteBook(int BookID)
         {
-            SqlCommand objSqlCommand = new SqlCommand();
-            objSqlCommand.CommandText = "DeleteBook";
-            objSqlCommand.CommandType = CommandType.StoredProcedure;
-            objSqlCommand.Parameters.AddWithValue("@BookID", BookID);
-            return new DBConnection().ExecuteNonQuery(objSqlCommand);
+            return Db.ExecuteProc("DeleteBook", new { BookID });
         }
 
-        public DataSet GetAllAdmins()
+        public List<IDictionary<string, object>> GetAllAdmins()
         {
-            DataSet set = new DataSet();
-            try
-            {
-                SqlConnection connection = new SqlConnection(DbConfig.ConnectionString);
-                SqlCommand command = new SqlCommand("SELECT Id, AdminName, AdminEmail, AdminPassword FROM dbo.AdminUser ORDER BY Id;", connection);
-                command.CommandType = CommandType.Text;
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error executing GetAllAdmins.", ex);
-            }
-            return set;
+            return Db.Query("SELECT Id, AdminName, AdminEmail, AdminPassword FROM dbo.AdminUser ORDER BY Id;");
         }
 
-        public DataSet GetAdminById(int id)
+        public IDictionary<string, object> GetAdminById(int id)
         {
-            DataSet set = new DataSet();
-            try
-            {
-                SqlConnection connection = new SqlConnection(DbConfig.ConnectionString);
-                SqlCommand command = new SqlCommand("SELECT Id, AdminName, AdminEmail, AdminPassword FROM dbo.AdminUser WHERE Id = @Id;", connection);
-                command.CommandType = CommandType.Text;
-                command.Parameters.Add("@Id", SqlDbType.Int).Value = id;
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error executing GetAdminById.", ex);
-            }
-            return set;
+            return Db.QuerySingle("SELECT Id, AdminName, AdminEmail, AdminPassword FROM dbo.AdminUser WHERE Id = @Id;",
+                new { Id = id });
         }
 
         public int AdminEmailExists(string email, int excludeId)
         {
-            try
-            {
-                SqlConnection connection = new SqlConnection(DbConfig.ConnectionString);
-                SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM dbo.AdminUser WHERE AdminEmail = @AdminEmail AND Id <> @Id;", connection);
-                command.CommandType = CommandType.Text;
-                command.Parameters.Add("@AdminEmail", SqlDbType.NVarChar).Value = (object)email ?? DBNull.Value;
-                command.Parameters.Add("@Id", SqlDbType.Int).Value = excludeId;
-                connection.Open();
-                int count = Convert.ToInt32(command.ExecuteScalar());
-                connection.Close();
-                return count;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error executing AdminEmailExists.", ex);
-            }
+            return Db.ExecuteScalar<int>(
+                "SELECT COUNT(*) FROM dbo.AdminUser WHERE AdminEmail = @AdminEmail AND Id <> @Id;",
+                new { AdminEmail = email, Id = excludeId });
         }
 
         public int SaveAdmin(AdminUserDO admin)
         {
-            try
-            {
-                SqlConnection connection = new SqlConnection(DbConfig.ConnectionString);
-                SqlCommand command = new SqlCommand(
-                    "INSERT INTO dbo.AdminUser (AdminName, AdminEmail, AdminPassword) VALUES (@AdminName, @AdminEmail, @AdminPassword); SELECT CAST(SCOPE_IDENTITY() AS int);",
-                    connection);
-                command.CommandType = CommandType.Text;
-                command.Parameters.Add("@AdminName", SqlDbType.NVarChar).Value = (object)admin.AdminName ?? DBNull.Value;
-                command.Parameters.Add("@AdminEmail", SqlDbType.NVarChar).Value = (object)admin.AdminEmail ?? DBNull.Value;
-                command.Parameters.Add("@AdminPassword", SqlDbType.NVarChar).Value = (object)admin.AdminPassword ?? DBNull.Value;
-                connection.Open();
-                object result = command.ExecuteScalar();
-                connection.Close();
-                return result == null || result == DBNull.Value ? 0 : Convert.ToInt32(result);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error saving admin.", ex);
-            }
+            int? result = Db.ExecuteScalar<int?>(
+                "INSERT INTO dbo.AdminUser (AdminName, AdminEmail, AdminPassword) VALUES (@AdminName, @AdminEmail, @AdminPassword); SELECT CAST(SCOPE_IDENTITY() AS int);",
+                new { admin.AdminName, admin.AdminEmail, admin.AdminPassword });
+            return result ?? 0;
         }
 
         public int UpdateAdmin(AdminUserDO admin)
         {
-            try
-            {
-                SqlConnection connection = new SqlConnection(DbConfig.ConnectionString);
-                SqlCommand command = new SqlCommand(
-                    "UPDATE dbo.AdminUser SET AdminName = @AdminName, AdminEmail = @AdminEmail, AdminPassword = @AdminPassword WHERE Id = @Id;",
-                    connection);
-                command.CommandType = CommandType.Text;
-                command.Parameters.Add("@Id", SqlDbType.Int).Value = admin.Id;
-                command.Parameters.Add("@AdminName", SqlDbType.NVarChar).Value = (object)admin.AdminName ?? DBNull.Value;
-                command.Parameters.Add("@AdminEmail", SqlDbType.NVarChar).Value = (object)admin.AdminEmail ?? DBNull.Value;
-                command.Parameters.Add("@AdminPassword", SqlDbType.NVarChar).Value = (object)admin.AdminPassword ?? DBNull.Value;
-                connection.Open();
-                int rows = command.ExecuteNonQuery();
-                connection.Close();
-                return rows;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error updating admin.", ex);
-            }
+            return Db.Execute(
+                "UPDATE dbo.AdminUser SET AdminName = @AdminName, AdminEmail = @AdminEmail, AdminPassword = @AdminPassword WHERE Id = @Id;",
+                new { admin.Id, admin.AdminName, admin.AdminEmail, admin.AdminPassword });
         }
 
         public int DeleteAdmin(int id)
         {
-            try
-            {
-                SqlConnection connection = new SqlConnection(DbConfig.ConnectionString);
-                SqlCommand command = new SqlCommand("DELETE FROM dbo.AdminUser WHERE Id = @Id;", connection);
-                command.CommandType = CommandType.Text;
-                command.Parameters.Add("@Id", SqlDbType.Int).Value = id;
-                connection.Open();
-                int rows = command.ExecuteNonQuery();
-                connection.Close();
-                return rows;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error deleting admin.", ex);
-            }
+            return Db.Execute("DELETE FROM dbo.AdminUser WHERE Id = @Id;", new { Id = id });
         }
-
+    }
 }
-}
-

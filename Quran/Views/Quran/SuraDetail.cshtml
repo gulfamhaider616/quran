@@ -15,6 +15,29 @@
         var audioElement = document.getElementById(id);
         if (audioElement.paused) { audioElement.play(); } else { audioElement.pause(); }
     };
+
+    // Highlight a bookmarked verse (on bookmark click, or when routed here via #verse).
+    function highlightBookmark(id, scroll) {
+        if (!id) { return; }
+        document.querySelectorAll('.sd-ayah.sd-bookmarked').forEach(function (el) {
+            el.classList.remove('sd-bookmarked', 'sd-bm-flash');
+            var pi = el.querySelector('.sd-bookmark i'); if (pi) { pi.className = 'fa fa-bookmark-o'; }
+            var pl = el.querySelector('.sd-bm-label'); if (pl) { pl.textContent = 'Bookmark'; }
+        });
+        var target = document.getElementById(id);
+        if (!target) { return; }
+        target.classList.add('sd-bookmarked', 'sd-bm-flash');
+        var i = target.querySelector('.sd-bookmark i'); if (i) { i.className = 'fa fa-bookmark'; }
+        var l = target.querySelector('.sd-bm-label'); if (l) { l.textContent = 'Bookmarked'; }
+        setTimeout(function () { target.classList.remove('sd-bm-flash'); }, 950);
+        if (scroll) { target.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        if (window.location.hash && window.location.hash.length > 1) {
+            highlightBookmark(decodeURIComponent(window.location.hash.substring(1)), true);
+        }
+    });
 </script>
 
 <div class="sd-wrap">
@@ -77,7 +100,7 @@
                             </a>
                         </div>
                         <a class="sd-bookmark" onclick="Addookmark('@id')" title="Bookmark this verse">
-                            <i class="fa fa-bookmark-o"></i> Bookmark
+                            <i class="fa fa-bookmark-o"></i> <span class="sd-bm-label">Bookmark</span>
                         </a>
                     </div>
 

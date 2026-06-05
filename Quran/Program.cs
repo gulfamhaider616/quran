@@ -48,7 +48,7 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 
-DbConfig.ConnectionString = builder.Configuration.GetConnectionString("myConnectionString");
+Db.ConnectionString = builder.Configuration.GetConnectionString("myConnectionString");
 
 if (!app.Environment.IsDevelopment())
 {

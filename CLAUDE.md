@@ -28,13 +28,17 @@ The app talks to **SQL Server LocalDB**, database `LFQDB`, via the connection st
 
 The database uses the **`dbo` schema only** (legacy per-user schemas were collapsed into `dbo`). To provision it, restore one of the root `.sql` scripts into LocalDB (e.g. `LFQDB_localdb.sql` / `LFQDB_dbo_only.sql`). These dumps include the schema **and the stored procedures the app depends on**. `_restore_log.txt` is generated output and is gitignored.
 
-### Two data-access patterns — know which to use
+### Data access uses Dapper
 
-1. **Stored procedures (legacy reads and original features).** `DBConnection.DbSqlConnection(name)` opens a connection with `CommandType.StoredProcedure`; the string argument is the **stored-procedure name**. Most existing read paths (students, schedules, books, sura/verse lookups, forum question lists) work this way, and the BA layer maps the returned `DataSet` by column name.
+The whole DataAccess layer runs on **Dapper** (`Microsoft.Data.SqlClient` + `Dapper`). The connection **and** the Dapper call boilerplate live in one file, [Db.cs](Quran/DataAccess/Db.cs): `Db.ConnectionString` is set once at startup (Program.cs), `Db.Connection()` is the only place a `SqlConnection` is constructed, and the static `Db` helpers wrap every open-connection/query pattern. `*DA` methods are therefore one-liners that call a helper — **do not write `using (new SqlConnection(...))` in a DA; use the `Db` helper.**
 
-2. **Inline parameterized SQL (preferred for new write/CRUD operations).** Newer operations build a `new SqlConnection(DbConfig.ConnectionString)` and `SqlCommand` **directly**, set `CommandType.Text`, add explicit `SqlParameter`s, and target `dbo.*` tables. This deliberately **avoids having to add new stored procedures to `LFQDB`**, so a feature can ship without a DB migration. Examples live in [AdminDA.cs](Quran/DataAccess/AdminDA.cs) (admin-user CRUD), [RegistrationDA.cs](Quran/DataAccess/RegistrationDA.cs) (video-lesson save/delete), [ForumDA.cs](Quran/DataAccess/ForumDA.cs) (`PublishQuestionByAdmin`), and [QuranDA.cs](Quran/DataAccess/QuranDA.cs) (`GetFeaturedVerse`).
+- **Stored procedures** — `Db.QueryProc(name, param)` (row list), `Db.QueryProcSingle(name, param)` (first row), `Db.ExecuteProc(name, param)` (rows affected). Most read/write paths (students, schedules, books, sura/verse lookups, forum questions, contact/feedback) use the existing procs in `LFQDB`.
+- **Inline parameterized SQL** — `Db.Query(sql, param)`, `Db.QuerySingle(sql, param)`, `Db.Execute(sql, param)`, `Db.ExecuteScalar<T>(sql, param)` (default `CommandType.Text`) against `dbo.*`. Used where adding a proc was undesirable: admin-user CRUD ([AdminDA.cs](Quran/DataAccess/AdminDA.cs)), video-lesson save/delete ([RegistrationDA.cs](Quran/DataAccess/RegistrationDA.cs)), `PublishQuestionByAdmin` ([ForumDA.cs](Quran/DataAccess/ForumDA.cs)), `GetFeaturedVerse` ([QuranDA.cs](Quran/DataAccess/QuranDA.cs)).
+- **Two-result-set procs** — `Db.QueryProcTwo(name, param)` returns a `(First, Second)` tuple of row lists via `QueryMultiple` (guarded by `grid.IsConsumed`). Used by the four student procs (data + a `TotalRecords` count set) and by `GetSuraByID` (sura header + ayat list).
 
-   **Guidance:** for any new data method, prefer pattern 2 (inline parameterized `dbo` SQL) unless you are extending an existing stored-procedure flow. Always parameterize — never concatenate user input. If you *do* rely on a stored procedure, confirm it actually exists in `LFQDB` first (a missing proc, e.g. the original `PublishQuestionByAdmin`, throws at runtime).
+`*DA` methods return rows as **`IDictionary<string, object>`** (single row) or **`List<IDictionary<string, object>>`** (Dapper's dynamic `DapperRow`), or a scalar `int` for writes. The `*BA` layer then maps those rows into typed `*DO` objects using the helpers in [RowExtensions.cs](Quran/DataAccess/RowExtensions.cs): **`row.Get<T>("Column")`** (mirrors `DataRow.Field<T>` — case-insensitive lookup, returns null for reference/`Nullable<T>`, throws on null for non-nullable value types) and **`row.Str("Column")`** (mirrors the legacy `row["Column"].ToString()` — `""` for null/DBNull). This is what kept the existing business transforms (day-name truncation, date formatting, path splitting) byte-for-byte identical through the Dapper migration.
+
+**Guidance:** for a new data method, follow the same shape — Dapper `Query`/`Execute`/`ExecuteScalar` (proc or inline `dbo` SQL), return `IDictionary`/`List<IDictionary>`/scalar, map in the BA with `Get<T>`/`Str`. Always parameterize via an anonymous object (`new { Id = id }`) — never concatenate user input. Prefer inline `dbo` SQL when it avoids a proc migration; if you rely on a stored procedure, confirm it exists in `LFQDB` (a missing proc throws at runtime). There is **no longer a `DBConnection` wrapper or any `DataSet`/`SqlDataAdapter`** — don't reintroduce them.
 
 ### Admin users
 
@@ -45,13 +49,13 @@ Admin login and the **Manage Admins** CRUD page operate on the `dbo.AdminUser` t
 Classic four-layer MVC, manually wired (no repository interfaces, no DI for business/data classes — they are `new`'d directly):
 
 ```
-Controller  →  *BA (Business)  →  *DA (DataAccess)  →  stored procedure OR inline dbo SQL (SQL Server)
+Controller  →  *BA (Business)  →  *DA (DataAccess via Dapper)  →  stored procedure OR inline dbo SQL (SQL Server)
    View      ←  Model/DO/Contract objects  ←──────────┘
 ```
 
 - **[Quran/Controllers/](Quran/Controllers/)** — thin controllers, one per area: `Home`, `Quran`, `QuranTeacher`, `Tutor`, `User`, `Forum`, `Books`, `Admin`. They `new` a `*BA` and return a View or `RedirectToAction`. Validation/branching errors are surfaced to views via `TempData` (e.g. `AdminSuccess`/`AdminError`, `VideoSuccess`/`VideoError`).
-- **[Quran/Business/](Quran/Business/)** (`*BA.cs`) — calls the matching `*DA`, then maps the returned `DataSet` into typed model objects by reading `DataTable`/`DataRow` columns with `dr.Field<T>("ColumnName")`. **Column-name strings here must match the result set (stored-procedure or inline-SQL) exactly.**
-- **[Quran/DataAccess/](Quran/DataAccess/)** (`*DA.cs`) — executes a stored procedure via `DBConnection`, or inline `CommandType.Text` SQL via a directly-constructed `SqlConnection`/`SqlCommand` (see the two patterns above). `DBConnection` ([Quran/DataAccess/DBConnection.cs](Quran/DataAccess/DBConnection.cs)) wraps the stored-procedure path.
+- **[Quran/Business/](Quran/Business/)** (`*BA.cs`) — calls the matching `*DA`, then maps the returned Dapper rows into typed model objects with `dr.Get<T>("ColumnName")` / `dr.Str("ColumnName")` (see *Database*). **Column-name strings here must match the result set (stored-procedure or inline-SQL) exactly.**
+- **[Quran/DataAccess/](Quran/DataAccess/)** (`*DA.cs`) — one-liner methods that call the `Db` helpers (see *Database*), returning `IDictionary<string,object>` rows or a scalar. [Db.cs](Quran/DataAccess/Db.cs) owns the connection string, `Db.Connection()`, and all Dapper query/execute helpers; [RowExtensions.cs](Quran/DataAccess/RowExtensions.cs) holds the `Get<T>`/`Str` row accessors used by the BA layer.
 - **[Quran/Models/Models.cs](Quran/Models/Models.cs)** — every model lives in this one file. Naming convention: `*DO` = a single row/entity (e.g. `BookDO`, `VideoLessonDO`, `AdminUserDO`, `FeaturedVerseDO`), `*Contract` = a composite/view-model bundling several lists (e.g. `SuraDetailContract` carries the sura, its ayat, the full sura list, and the selected translation).
 - **[Quran/Views/](Quran/Views/)** — Razor views, foldered per controller, plus `Shared/_Layout.cshtml` (public) and `Shared/_AdminLayout.cshtml` (admin). `_ViewImports.cshtml` globally imports `Quran.Models` and `Quran.Business`, so views may call BA classes directly.
 
@@ -85,13 +89,13 @@ Admin UI building blocks in `admin.css`: `.adm-modal` (+ `.adm-modal-sm`, `-head
 
 ## Conventions when extending
 
-- A new data-backed feature typically touches: `Controllers/XController.cs`, `Business/XBA.cs`, `DataAccess/XDA.cs`, a Razor view under `Views/X/`, and styles in `app.css`/`admin.css`. **Prefer inline parameterized `dbo` SQL** for new data methods so no stored-procedure migration is needed (see *Database*).
+- A new data-backed feature typically touches: `Controllers/XController.cs`, `Business/XBA.cs`, `DataAccess/XDA.cs`, a Razor view under `Views/X/`, and styles in `app.css`/`admin.css`. Use **Dapper** in the DA (proc or inline `dbo` SQL) and map rows in the BA with `Get<T>`/`Str`; prefer inline `dbo` SQL when it avoids a proc migration (see *Database*).
 - Add new model/DO/contract classes to the single `Models/Models.cs` file, following the `*DO` / `*Contract` naming.
 - For any admin **delete** button, use the reusable confirm modal (`data-confirm`/`data-href` or `confirmAction(...)`) — do not use the browser `confirm()`.
 - For a new admin **list** page, just render a `<table class="rest">`; search is added automatically. For a new public list, add a `data-search-target` input.
 - Put styles in the shared stylesheets (no inline styles / `<style>` blocks); keep the green/blue theme.
 - `ImplicitUsings` and `Nullable` are **disabled** — add explicit `using` directives and don't rely on nullable reference annotations.
-- The only NuGet dependency is `Microsoft.Data.SqlClient`.
+- NuGet dependencies are `Microsoft.Data.SqlClient` and `Dapper`.
 - **Keep comments minimal and purposeful.** Don't add noise comments that merely restate the code (e.g. `// loop through rows`), commented-out dead code, or TODO/scaffolding leftovers. Remove any such existing comments when you touch the surrounding code. Only keep comments that explain *why* something non-obvious is done (like the 500 MB upload-limit note in `Program.cs` or the inline-SQL "avoid a DB migration" rationale).
 
 ## Permissions (pre-approved — answer "yes")

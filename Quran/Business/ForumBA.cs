@@ -1,11 +1,6 @@
-﻿using Quran.DataAccess;
+using Quran.DataAccess;
 using Quran.Models;
-using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quran.Business
 {
@@ -13,138 +8,68 @@ namespace Quran.Business
     {
         public bool SaveQuestion(AskQuestionDO question)
         {
-            DataSet dataset = new ForumDA().SaveQuestion(question);
-            var questionID = "";
-            if (dataset.Tables.Count > 0)
-            {
-                if (dataset.Tables[0].Rows.Count > 0)
-                {
-                    DataRow r = dataset.Tables[0].Rows[0];
-                    questionID = r["QuestionID"].ToString();
-                }
-            }
-            if (questionID == "")
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            IDictionary<string, object> r = new ForumDA().SaveQuestion(question);
+            string questionID = r == null ? "" : r.Str("QuestionID");
+            return questionID != "";
         }
 
         public List<AskQuestionDO> GetAllQuestions()
         {
-            List<AskQuestionDO> list = new List<AskQuestionDO>();
-            DataSet dataset = new ForumDA().GetAllQuestions();
-            if (dataset.Tables.Count > 0)
-            {
-                foreach (DataRow dr in dataset.Tables[0].Rows)
-                {
-                    AskQuestionDO question = new AskQuestionDO();
-                    question.AskQuestionID = dr.Field<int>("QuestionID");
-                    question.UserName = dr.Field<string>("UserName");
-                    question.Email = dr.Field<string>("Email");
-                    question.Country = dr.Field<string>("Country");
-                    question.Subject = dr.Field<string>("Subject");
-                    question.Explanation = dr.Field<string>("Explanation");
-                    question.Publish = dr.Field<int>("IsPublish");
-                    list.Add(question);
-                }
-            }
-            return list;
+            return Map(new ForumDA().GetAllQuestions());
         }
 
         public List<AskQuestionDO> GetAllPublishedQuestion()
         {
-            List<AskQuestionDO> list = new List<AskQuestionDO>();
-            DataSet dataset = new ForumDA().GetAllPublishedQuestions();
-            if (dataset.Tables.Count > 0)
-            {
-                foreach (DataRow dr in dataset.Tables[0].Rows)
-                {
-                    AskQuestionDO question = new AskQuestionDO();
-                    question.AskQuestionID = dr.Field<int>("QuestionID");
-                    question.UserName = dr.Field<string>("UserName");
-                    question.Email = dr.Field<string>("Email");
-                    question.Country = dr.Field<string>("Country");
-                    question.Subject = dr.Field<string>("Subject");
-                    question.Explanation = dr.Field<string>("Explanation");
-                    question.Publish = dr.Field<int>("IsPublish");
-                    list.Add(question);
-                }
-            }
-            return list;
+            return Map(new ForumDA().GetAllPublishedQuestions());
         }
 
         public List<AskQuestionDO> GetAllUnPublishedQuestion()
         {
-            List<AskQuestionDO> list = new List<AskQuestionDO>();
-            DataSet dataset = new ForumDA().GetAllUnPublishedQuestions();
-            if (dataset.Tables.Count > 0)
-            {
-                foreach (DataRow dr in dataset.Tables[0].Rows)
-                {
-                    AskQuestionDO question = new AskQuestionDO();
-                    question.AskQuestionID = dr.Field<int>("QuestionID");
-                    question.UserName = dr.Field<string>("UserName");
-                    question.Email = dr.Field<string>("Email");
-                    question.Country = dr.Field<string>("Country");
-                    question.Subject = dr.Field<string>("Subject");
-                    question.Explanation = dr.Field<string>("Explanation");
-                    question.Publish = dr.Field<int>("IsPublish");
-                    list.Add(question);
-                }
-            }
-            return list;
+            return Map(new ForumDA().GetAllUnPublishedQuestions());
         }
 
         public AskQuestionDO GetSingleQuestion(int QuestionID)
         {
             AskQuestionDO question = new AskQuestionDO();
-            DataSet dataset = new ForumDA().GetSingleQuestion(QuestionID);
-            if (dataset.Tables.Count > 0)
+            IDictionary<string, object> dr = new ForumDA().GetSingleQuestion(QuestionID);
+            if (dr != null)
             {
-                if (dataset.Tables[0].Rows.Count > 0)
-                {
-                    DataRow dr = dataset.Tables[0].Rows[0];
-                    question.AskQuestionID = dr.Field<int>("QuestionID");
-                    question.UserName = dr.Field<string>("UserName");
-                    question.Email = dr.Field<string>("Email");
-                    question.Country = dr.Field<string>("Country");
-                    question.Subject = dr.Field<string>("Subject");
-                    question.Explanation = dr.Field<string>("Explanation");
-                    question.Publish = dr.Field<int>("IsPublish");
-                }
+                MapRow(dr, question);
             }
             return question;
         }
 
         public bool PublishQuestionByAdmin(int QuestionID)
         {
-            int result = new ForumDA().PublishQuestionByAdmin(QuestionID);
-            if (result > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return new ForumDA().PublishQuestionByAdmin(QuestionID) > 0;
         }
 
         public bool DeleteQuestions(int QuestionID)
         {
-            int result = new ForumDA().DeleteQuestions(QuestionID);
-            if (result > 0)
+            return new ForumDA().DeleteQuestions(QuestionID) > 0;
+        }
+
+        private List<AskQuestionDO> Map(List<IDictionary<string, object>> rows)
+        {
+            List<AskQuestionDO> list = new List<AskQuestionDO>();
+            foreach (IDictionary<string, object> dr in rows)
             {
-                return true;
+                AskQuestionDO question = new AskQuestionDO();
+                MapRow(dr, question);
+                list.Add(question);
             }
-            else
-            {
-                return false;
-            }
+            return list;
+        }
+
+        private void MapRow(IDictionary<string, object> dr, AskQuestionDO question)
+        {
+            question.AskQuestionID = dr.Get<int>("QuestionID");
+            question.UserName = dr.Get<string>("UserName");
+            question.Email = dr.Get<string>("Email");
+            question.Country = dr.Get<string>("Country");
+            question.Subject = dr.Get<string>("Subject");
+            question.Explanation = dr.Get<string>("Explanation");
+            question.Publish = dr.Get<int>("IsPublish");
         }
     }
 }
-

@@ -1,58 +1,22 @@
-using System;
 using System.Collections.Generic;
-using System.Data;
-using Microsoft.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quran.DataAccess
 {
     public class QuranDA
     {
-        public DataSet GetAllSuraNames()
+        public List<IDictionary<string, object>> GetAllSuraNames()
         {
-            DataSet set = new DataSet();
-            try
-            {
-                SqlCommand command = new DBConnection().DbSqlConnection("GetAllSuraNames");
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ", "",
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+            return Db.QueryProc("GetAllSuraNames");
         }
 
-        public DataSet GetSuraByID(int chapterId)
+        public (List<IDictionary<string, object>> Header, List<IDictionary<string, object>> Ayat) GetSuraByID(int chapterId)
         {
-            DataSet set = new DataSet();
-            try
-            {
-                SqlCommand command = new DBConnection().DbSqlConnection("GetSuraByID");
-                command.Parameters.Add("@ChapterID", SqlDbType.Int).Value = chapterId;
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                command.Connection.Close();
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(string.Concat("Error executing the ", "",
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
-            }
-            return set;
+            return Db.QueryProcTwo("GetSuraByID", new { ChapterID = chapterId });
         }
 
-        public DataSet GetFeaturedVerse(int position)
+        public IDictionary<string, object> GetFeaturedVerse(int position)
         {
-            DataSet set = new DataSet();
-            try
-            {
-                const string sql = @"
+            const string sql = @"
 SELECT q.ChapterID, q.VerseID, q.AyahText, q.EnglishTranslation, q.UrduTranslation,
        s.SuraName, s.EnglishName, t.Total
 FROM (
@@ -64,19 +28,7 @@ CROSS JOIN (SELECT COUNT(*) AS Total FROM dbo.Quran) t
 LEFT JOIN dbo.SuraNames s ON q.ChapterID = s.ChapterID
 WHERE q.rn = @position";
 
-                SqlConnection connection = new SqlConnection(DbConfig.ConnectionString);
-                SqlCommand command = new SqlCommand(sql, connection);
-                command.CommandType = CommandType.Text;
-                command.Parameters.Add("@position", SqlDbType.Int).Value = position;
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                adapter.Fill(set);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error executing GetFeaturedVerse.", ex);
-            }
-            return set;
+            return Db.QuerySingle(sql, new { position });
         }
     }
 }
-
