@@ -93,3 +93,18 @@ Admin UI building blocks in `admin.css`: `.adm-modal` (+ `.adm-modal-sm`, `-head
 - `ImplicitUsings` and `Nullable` are **disabled** — add explicit `using` directives and don't rely on nullable reference annotations.
 - The only NuGet dependency is `Microsoft.Data.SqlClient`.
 - **Keep comments minimal and purposeful.** Don't add noise comments that merely restate the code (e.g. `// loop through rows`), commented-out dead code, or TODO/scaffolding leftovers. Remove any such existing comments when you touch the surrounding code. Only keep comments that explain *why* something non-obvious is done (like the 500 MB upload-limit note in `Program.cs` or the inline-SQL "avoid a DB migration" rationale).
+
+## Permissions (pre-approved — answer "yes")
+
+The maintainer has granted standing approval for the operations below. Treat each as **allowed by default** — proceed without pausing to ask:
+
+- **Read/inspect** any file in the repo — `Read`, `Glob`, `Grep`.
+- **Edit/create/delete** files in the repo — `Edit`, `MultiEdit`, `Write`, `NotebookEdit`.
+- **Build & run** the app — `dotnet build`, `dotnet run`, `dotnet watch`, `dotnet restore` (and stopping/restarting the dev server / freeing its ports).
+- **Database** access against LocalDB `LFQDB` — `sqlcmd` queries and stored-procedure/schema inspection (read and write to `dbo.*` for the app's own data).
+- **Local HTTP testing** — `curl` / `Invoke-WebRequest` against the locally running app (e.g. `https://localhost:7001`, `https://localhost:53620`).
+- **Git** read & local history/status — `git status`, `git log`, `git diff`, `git add`, `git commit` (do **not** force-push or rewrite shared history without asking; never push to a remote unless explicitly told).
+- **Process/port management** for the dev server — listing and stopping the app's own `dotnet`/`Quran` processes and freeing its dev ports.
+- **Research** — `WebFetch`, `WebSearch`, and `Task`/`Agent` sub-agents for read-only investigation.
+
+Still **ask first** for: destructive or irreversible actions outside the dev workflow (deleting databases or files you didn't create, dropping tables), anything that publishes externally (pushing to a remote, deploying, sending mail/API calls to third parties), force-pushing or rewriting shared git history, and editing files outside this repository.
