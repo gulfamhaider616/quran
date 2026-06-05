@@ -1,4 +1,4 @@
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $('#schedule').click(function () {
         var studentid = $('#studentid').val();
         var totalclasses = $('#totalclasses').val();
@@ -6,7 +6,6 @@ $(document).ready(function () {
         var classtime = $('#classtime').val();
         var tutorname = $('#tutorname').val();
         var description = $('#description').val();
-        debugger;
         $.ajax({
             url: '/Admin/SaveSchedule',
             type: 'GET',

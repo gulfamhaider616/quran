@@ -1,4 +1,4 @@
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $('#days').hide();
     $('#incorrect').hide();
     $('#correct').hide();
@@ -21,7 +21,6 @@ $(document).ready(function () {
             dataType: 'json',
             data: { 'email': email },
             success: function (data) {
-                debugger;
                 if(data == true)
                 {
                     $('#correct').show();
@@ -81,7 +80,6 @@ $(document).ready(function () {
     $('#missingdays').hide();
     $('#termserror').hide();
     $('#registrationSubmit').click(function () {
-        debugger;
         var studentname = $('#studentname').val();
         var fathername = $('#fathername').val();
         var phonenumber = $('#phonenumber').val();
@@ -169,7 +167,6 @@ $('#scheduletable').hide();
     $('#recordnotfound').hide();
     $('#recordnotfoundduetoserver').hide();
     $('#studentshedulelogin').click(function () {
-        debugger;
         var studentid = $('#studentscheduleid').val();
         $('#schedulebody').html('');
         $.ajax({
@@ -229,7 +226,6 @@ $('#scheduletable').hide();
     });
 
     $('#contactbutton').click(function () {
-        debugger;
         var name = $('#User_Name').val();
         var phone = $('#User_Phone').val();
         var email = $('#User_email').val();
@@ -304,7 +300,6 @@ $('#scheduletable').hide();
     });
 
     $('#editstudentbutton').click(function () {
-        debugger;
         var studentid = $('#editstudentid').val();
         $.ajax({
             url: '/Home/GetEditInformation',
