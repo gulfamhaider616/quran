@@ -3,48 +3,196 @@
 @{
     ViewBag.Title = "Get All Books| Learn Quran with E-Tutor";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var list = Model?.ToList() ?? new List<Quran.Models.BookDO>();
 }
 
 <div id="banner-wrapper">
     <div id="banner" class="box container">
+
+        <h3 class="adm-section-title"><i class="fa fa-book"></i>Islamic Books</h3>
+
+        @if (TempData["BookSuccess"] != null)
+        {
+            <div class="adm-alert adm-alert-success"><i class="fa fa-check-circle"></i>@TempData["BookSuccess"]</div>
+        }
+        @if (TempData["BookError"] != null)
+        {
+            <div class="adm-alert adm-alert-error"><i class="fa fa-exclamation-circle"></i>@TempData["BookError"]</div>
+        }
+
+        <div class="adm-toolbar">
+            <button type="button" class="adm-btn adm-btn-primary" onclick="openBookModal('add')">
+                <i class="fa fa-plus-circle"></i> Add New Book
+            </button>
+        </div>
+
         <div class="row">
             <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
                 <table class="rest" border="0" style="width: 100%;text-align: center;color: black;font-size: 88%;">
-                    <thead style="font-weight: 600;">
-                        <tr style="color:white;">
+                    <thead>
+                        <tr>
                             <td>Serial</td>
                             <td>Image</td>
                             <td>Title</td>
-                            <td>Author Name </td>
-                            <td>Description </td>
+                            <td>Author</td>
+                            <td>Type</td>
                             <td>Action</td>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var book in Model)
+                        @{ int count = 1; }
+                        @foreach (var book in list)
                         {
                             <tr>
-                                <td>@book.BookID</td>
+                                <td>@count</td>
                                 <td>
                                     <img class="book-cover" itemprop="image" alt="@book.BookTilte"
                                          src="~/assets/Books/Image/@book.ImageName"
                                          onerror="this.onerror=null;this.src='/assets/Books/Image/no-cover.svg';" />
                                 </td>
-                                <td>@book.AutherName</td>
                                 <td>@book.BookTilte</td>
-                                <td>@book.Detail</td>
+                                <td>@book.AutherName</td>
+                                <td>@book.BookType</td>
                                 <td style="white-space:nowrap;">
                                     <a href="~/assets/Books/BookFile/@book.FileName" target="_blank" title="Download" class="btn btn-success btn-sm"><i class="fa fa-download"></i></a>
-                                    <a href="/Admin/GetBookByID?BookID=@book.BookID" title="Edit" class="btn btn-info btn-sm"><i class="fa fa-edit"></i></a>
+                                    <button type="button" title="Edit" class="btn btn-info btn-sm"
+                                            onclick="openBookModal('edit', this)"
+                                            data-id="@book.BookID"
+                                            data-title="@book.BookTilte"
+                                            data-author="@book.AutherName"
+                                            data-type="@book.BookType"
+                                            data-detail="@book.Detail"
+                                            data-image="@book.ImageName"
+                                            data-file="@book.FileName">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
                                     <a href="#" title="Delete" class="btn btn-danger btn-sm"
                                        data-confirm="Are you sure you want to delete <strong>@book.BookTilte</strong>? This action cannot be undone."
                                        data-href="/Admin/DeleteBook?BookID=@book.BookID"><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
+                            count++;
+                        }
+                        @if (!list.Any())
+                        {
+                            <tr><td colspan="6" style="padding:18px;color:#888;">No books added yet.</td></tr>
                         }
                     </tbody>
                 </table>
             </div>
         </div>
+
     </div>
 </div>
+
+<!-- Single Add / Edit book modal -->
+<div id="bookModal" class="adm-modal">
+    <div class="adm-modal-card adm-modal-wide">
+        <div class="adm-modal-head">
+            <h4><i class="fa fa-book"></i> <span id="bookModalTitleText">Add New Book</span></h4>
+            <span class="adm-modal-close" onclick="closeBookModal()">&times;</span>
+        </div>
+        <form id="bookForm" method="post" action="/Admin/SaveBook" enctype="multipart/form-data">
+            <input type="hidden" name="BookID" id="bookId" value="" />
+            <div class="adm-modal-body">
+                <div class="adm-form-row">
+                    <label>Book Title <span class="req">*</span></label>
+                    <input type="text" name="BookTilte" id="bookTitle" placeholder="Enter book title" required />
+                </div>
+                <div class="adm-form-row">
+                    <label>Author Name <span class="req">*</span></label>
+                    <input type="text" name="AuthorName" id="bookAuthor" placeholder="Enter author name" required />
+                </div>
+                <div class="adm-form-row">
+                    <label>Book Type <span class="req">*</span></label>
+                    <input type="text" name="BookType" id="bookType" placeholder="e.g. Seerah, Hadith, Fiqh" required />
+                </div>
+                <div class="adm-form-row">
+                    <label>Book Cover Image</label>
+                    <div id="bookCurrentImage" class="book-current" style="display:none;">
+                        <img src="" alt="current cover" />
+                    </div>
+                    <input type="file" name="ImagePath" id="bookImage" accept="image/*" />
+                    <div class="adm-hint" id="bookImageHint" style="display:none;">Leave empty to keep the current image.</div>
+                </div>
+                <div class="adm-form-row">
+                    <label>Book File (PDF)</label>
+                    <div id="bookCurrentFile" class="book-current-file" style="display:none;">
+                        <i class="fa fa-file-pdf-o"></i> <a href="#" target="_blank">file</a>
+                    </div>
+                    <input type="file" name="FilePath" id="bookFile" accept=".pdf,.epub,.doc,.docx" />
+                    <div class="adm-hint" id="bookFileHint" style="display:none;">Leave empty to keep the current file.</div>
+                </div>
+                <div class="adm-form-row">
+                    <label>Detail <span class="req">*</span></label>
+                    <textarea name="Detail" id="bookDetail" rows="4" placeholder="Short description of the book" required></textarea>
+                </div>
+            </div>
+            <div class="adm-modal-foot">
+                <button type="button" class="adm-btn adm-btn-ghost" onclick="closeBookModal()"><i class="fa fa-times"></i> Cancel</button>
+                <button type="submit" class="adm-btn adm-btn-primary"><i class="fa fa-save"></i> <span id="bookSubmitText">Add Book</span></button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openBookModal(mode, btn) {
+        var form = document.getElementById('bookForm');
+        document.getElementById('bookId').value = '';
+        document.getElementById('bookTitle').value = '';
+        document.getElementById('bookAuthor').value = '';
+        document.getElementById('bookType').value = '';
+        document.getElementById('bookDetail').value = '';
+        document.getElementById('bookImage').value = '';
+        document.getElementById('bookFile').value = '';
+        document.getElementById('bookCurrentImage').style.display = 'none';
+        document.getElementById('bookCurrentFile').style.display = 'none';
+        document.getElementById('bookImageHint').style.display = 'none';
+        document.getElementById('bookFileHint').style.display = 'none';
+
+        if (mode === 'edit' && btn) {
+            form.action = '/Admin/ChangeBook';
+            document.getElementById('bookId').value = btn.getAttribute('data-id');
+            document.getElementById('bookTitle').value = btn.getAttribute('data-title');
+            document.getElementById('bookAuthor').value = btn.getAttribute('data-author');
+            document.getElementById('bookType').value = btn.getAttribute('data-type');
+            document.getElementById('bookDetail').value = btn.getAttribute('data-detail');
+
+            var img = btn.getAttribute('data-image');
+            if (img) {
+                var ci = document.getElementById('bookCurrentImage');
+                ci.querySelector('img').src = '/assets/Books/Image/' + img;
+                ci.style.display = 'block';
+            }
+            var file = btn.getAttribute('data-file');
+            if (file) {
+                var cf = document.getElementById('bookCurrentFile');
+                var a = cf.querySelector('a');
+                a.href = '/assets/Books/BookFile/' + file;
+                a.textContent = file;
+                cf.style.display = 'block';
+            }
+            document.getElementById('bookImageHint').style.display = 'block';
+            document.getElementById('bookFileHint').style.display = 'block';
+            document.getElementById('bookModalTitleText').textContent = 'Edit Book';
+            document.getElementById('bookSubmitText').textContent = 'Save Changes';
+        } else {
+            form.action = '/Admin/SaveBook';
+            document.getElementById('bookModalTitleText').textContent = 'Add New Book';
+            document.getElementById('bookSubmitText').textContent = 'Add Book';
+        }
+        document.getElementById('bookModal').style.display = 'block';
+    }
+
+    function closeBookModal() {
+        document.getElementById('bookModal').style.display = 'none';
+    }
+
+    window.addEventListener('click', function (e) {
+        if (e.target === document.getElementById('bookModal')) { closeBookModal(); }
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { closeBookModal(); }
+    });
+</script>

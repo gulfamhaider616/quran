@@ -178,12 +178,6 @@ namespace Quran.Controllers
         #endregion
 
         [Authorize]
-        public IActionResult AddBook()
-        {
-            return View();
-        }
-
-        [Authorize]
         public IActionResult SaveBook(string BookID, string BookTilte, string AuthorName, IFormFile ImagePath, IFormFile FilePath, string BookType, string Detail)
         {
             BookDO book = new BookDO();
@@ -216,25 +210,9 @@ namespace Quran.Controllers
             book.BookType = BookType;
             book.Detail = Detail;
             string result = new AdminBA().AddBook(book);
-            if (!string.IsNullOrEmpty(result))
-            {
-                return RedirectToAction("GetAllBooks");
-            }
-            else
-            {
-                return RedirectToAction("AddBook");
-            }
-        }
-
-        [Authorize]
-        public IActionResult GetBookByID(int BookID)
-        {
-            var book = new AdminBA().GetAllBooks().FirstOrDefault(b => b.BookID == BookID);
-            if (book == null)
-            {
-                return RedirectToAction("GetAllBooks");
-            }
-            return View("ChangeBook", book);
+            TempData[!string.IsNullOrEmpty(result) ? "BookSuccess" : "BookError"] =
+                !string.IsNullOrEmpty(result) ? "Book added successfully." : "Could not add the book. Please try again.";
+            return RedirectToAction("GetAllBooks");
         }
 
         [Authorize]
@@ -277,6 +255,7 @@ namespace Quran.Controllers
             }
 
             int result = new AdminBA().ChangeBook(book);
+            TempData["BookSuccess"] = "Book updated successfully.";
             return RedirectToAction("GetAllBooks");
         }
 

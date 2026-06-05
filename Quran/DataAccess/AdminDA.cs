@@ -84,21 +84,6 @@ namespace Quran.DataAccess
             });
         }
 
-        public int GetBookByID(int BookID)
-        {
-            BookDO book = new BookDO();
-            return Db.ExecuteProc("GetBookByID", new
-            {
-                BookID = book.BookID,
-                BookTilte = book.BookTilte,
-                AuthorName = book.AutherName,
-                ImagePath = book.ImagePath,
-                FilePath = book.FilePath,
-                BookType = book.BookType,
-                Detail = book.Detail
-            });
-        }
-
         public int ChangeBook(BookDO book)
         {
             return Db.ExecuteProc("ChangeBook", new

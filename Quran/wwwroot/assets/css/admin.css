@@ -610,6 +610,15 @@ input[type="submit"]:active { transform: translateY(1px); }
 }
 
 .adm-modal-sm { max-width: 420px; }
+.adm-modal-wide { max-width: 600px; }
+.adm-modal-wide .adm-modal-body { max-height: 70vh; overflow-y: auto; }
+
+.book-current { margin-bottom: 8px; }
+.book-current img { height: 66px; border-radius: 7px; border: 1px solid var(--border); display: block; }
+.book-current-file { margin-bottom: 8px; font-size: 13.5px; }
+.book-current-file i { color: #c0392b; margin-right: 5px; }
+.book-current-file a { color: var(--secondary); font-weight: 600; text-decoration: none; word-break: break-all; }
+.book-current-file a:hover { text-decoration: underline; }
 .adm-modal-head-danger { background: linear-gradient(120deg, #d9534f 0%, #b73c39 100%); }
 .adm-modal-head-danger h4 i { color: #ffe2e0; }
 
