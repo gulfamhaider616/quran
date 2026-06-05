@@ -16,17 +16,19 @@
         </div>
 
         <div class="fr-bar">
-            <a class="hm-btn" href="/Forum/AskQuestion"><i class="fa fa-pencil"></i> Ask a Question</a>
+            @if (questions.Any())
+            {
+                <div class="pg-search">
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Search questions..." autocomplete="off"
+                           data-search-target="#frList" data-search-items=".fr-item" data-search-empty="#frEmpty" />
+                </div>
+            }
+            <a class="hm-btn fr-bar-ask" href="#" id="askOpen"><i class="fa fa-pencil"></i> Ask a Question</a>
         </div>
 
         @if (questions.Any())
         {
-            <div class="pg-search">
-                <i class="fa fa-search"></i>
-                <input type="text" placeholder="Search questions..." autocomplete="off"
-                       data-search-target="#frList" data-search-items=".fr-item" data-search-empty="#frEmpty" />
-            </div>
-
             <div class="fr-list" id="frList">
                 @foreach (var item in questions)
                 {
@@ -48,4 +50,44 @@
         }
     </div>
 </div>
+
+<div id="askModal" class="modal fr-modal">
+    <div class="modal-content">
+        <div class="fr-modal-head">
+            <h3><i class="fa fa-pencil"></i> Ask a Question</h3>
+            <span class="ask-x" id="askClose">&times;</span>
+        </div>
+        <div class="fr-modal-body">
+            @await Html.PartialAsync("_AskQuestionForm")
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal fr-modal">
+    <div class="modal-content">
+        <div class="fr-modal-msg">
+            <span class="close">&times;</span>
+            <h5 id="modelheading"></h5>
+            <p id="modelparagraph"></p>
+        </div>
+    </div>
+</div>
+
 <script src="~/Scripts/Forum.js"></script>
+<script>
+    (function () {
+        var askModal = document.getElementById('askModal');
+        document.getElementById('askOpen').onclick = function (e) {
+            e.preventDefault();
+            askModal.style.display = 'block';
+        };
+        document.getElementById('askClose').onclick = function () {
+            askModal.style.display = 'none';
+        };
+        window.addEventListener('click', function (event) {
+            if (event.target == askModal) {
+                askModal.style.display = 'none';
+            }
+        });
+    })();
+</script>
