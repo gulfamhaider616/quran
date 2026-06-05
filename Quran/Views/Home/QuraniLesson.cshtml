@@ -11,6 +11,8 @@
         var m = System.Text.RegularExpressions.Regex.Match(url, @"(?:v=|youtu\.be/|embed/)([A-Za-z0-9_-]{11})");
         return m.Success ? m.Groups[1].Value : "";
     };
+    System.Func<string, bool> isUpload = link =>
+        !string.IsNullOrWhiteSpace(link) && link.StartsWith("/assets/Videos/", System.StringComparison.OrdinalIgnoreCase);
 }
 
 <div class="vl-section">
@@ -23,22 +25,42 @@
 
         @if (videos.Any())
         {
-            <div class="vl-grid">
+            <div class="pg-search">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Search lessons..." autocomplete="off"
+                       data-search-target="#vlGrid" data-search-items=".vl-card" data-search-empty="#vlEmpty" />
+            </div>
+
+            <div class="vl-grid" id="vlGrid">
                 @foreach (var v in videos)
                 {
                     var id = ytId(v.LessonLink);
-                    <div class="vl-card">
-                        <div class="vl-thumb" data-embed="https://www.youtube.com/embed/@id?autoplay=1&rel=0" onclick="vlPlay(this)">
-                            @if (!string.IsNullOrEmpty(id))
-                            {
-                                <img src="https://img.youtube.com/vi/@id/hqdefault.jpg" alt="@v.LessonName" loading="lazy" />
-                            }
-                            <span class="vl-play"><i class="fa fa-play"></i></span>
-                        </div>
+                    var upload = isUpload(v.LessonLink);
+                    <div class="vl-card" data-search="@v.LessonName">
+                        @if (upload)
+                        {
+                            <div class="vl-thumb vl-local">
+                                <video controls preload="metadata" playsinline>
+                                    <source src="@v.LessonLink" />
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="vl-thumb" data-embed="https://www.youtube.com/embed/@id?autoplay=1&rel=0" onclick="vlPlay(this)">
+                                @if (!string.IsNullOrEmpty(id))
+                                {
+                                    <img src="https://img.youtube.com/vi/@id/hqdefault.jpg" alt="@v.LessonName" loading="lazy" />
+                                }
+                                <span class="vl-play"><i class="fa fa-play"></i></span>
+                            </div>
+                        }
                         <div class="vl-body"><h4>@v.LessonName</h4></div>
                     </div>
                 }
             </div>
+            <div id="vlEmpty" class="pg-search-empty">No lessons match your search.</div>
         }
         else
         {

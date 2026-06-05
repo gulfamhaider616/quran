@@ -1,12 +1,24 @@
 using System;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Quran.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Allow large video uploads (up to 500 MB) for video lessons.
+const long MaxUploadBytes = 524288000; // 500 MB
+builder.Services.Configure<Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions>(options =>
+{
+    options.Limits.MaxRequestBodySize = MaxUploadBytes;
+});
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = MaxUploadBytes;
+});
 
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options =>

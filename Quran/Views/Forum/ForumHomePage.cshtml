@@ -21,7 +21,13 @@
 
         @if (questions.Any())
         {
-            <div class="fr-list">
+            <div class="pg-search">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Search questions..." autocomplete="off"
+                       data-search-target="#frList" data-search-items=".fr-item" data-search-empty="#frEmpty" />
+            </div>
+
+            <div class="fr-list" id="frList">
                 @foreach (var item in questions)
                 {
                     <a class="fr-item" href="/Forum/SingleQuestion?QuestionID=@item.AskQuestionID">
@@ -34,6 +40,7 @@
                     </a>
                 }
             </div>
+            <div id="frEmpty" class="pg-search-empty">No questions match your search.</div>
         }
         else
         {

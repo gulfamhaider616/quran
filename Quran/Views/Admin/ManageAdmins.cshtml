@@ -1,0 +1,184 @@
+@model IEnumerable<Quran.Models.AdminUserDO>
+@{
+    ViewBag.Title = "Manage Admins | Learn Quran with E-Tutor";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var list = Model?.ToList() ?? new List<Quran.Models.AdminUserDO>();
+    var currentName = User?.Identity?.Name;
+    var existingJson = System.Text.Json.JsonSerializer.Serialize(
+        list.Select(a => new { id = a.Id, email = (a.AdminEmail ?? "").Trim().ToLowerInvariant() }));
+}
+
+<div id="banner-wrapper">
+    <div id="banner" class="box container">
+
+        <h3 class="adm-section-title"><i class="fa fa-user-secret"></i>Manage Admins</h3>
+
+        @if (TempData["AdminSuccess"] != null)
+        {
+            <div class="adm-alert adm-alert-success"><i class="fa fa-check-circle"></i>@TempData["AdminSuccess"]</div>
+        }
+        @if (TempData["AdminError"] != null)
+        {
+            <div class="adm-alert adm-alert-error"><i class="fa fa-exclamation-circle"></i>@TempData["AdminError"]</div>
+        }
+
+        <div class="adm-toolbar">
+            <button type="button" class="adm-btn adm-btn-primary" onclick="openAdminModal('add')">
+                <i class="fa fa-plus-circle"></i> Add New Admin
+            </button>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
+                <table class="rest" border="0" style="width: 100%;text-align: center;color: black;font-size: 88%;">
+                    <thead>
+                        <tr>
+                            <td>Serial</td>
+                            <td>Name</td>
+                            <td>Email</td>
+                            <td>Password</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int count = 1; }
+                        @foreach (var admin in list)
+                        {
+                            <tr>
+                                <td>@count</td>
+                                <td>
+                                    @admin.AdminName
+                                    @if (string.Equals(admin.AdminName, currentName, StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <span class="adm-badge-you">You</span>
+                                    }
+                                </td>
+                                <td style="word-break:break-all;">@admin.AdminEmail</td>
+                                <td>@(new string('•', Math.Min((admin.AdminPassword ?? "").Length, 8)))</td>
+                                <td style="white-space:nowrap;">
+                                    <button type="button" title="Edit" class="btn btn-info btn-sm"
+                                            onclick="openAdminModal('edit', this)"
+                                            data-id="@admin.Id"
+                                            data-name="@admin.AdminName"
+                                            data-email="@admin.AdminEmail"
+                                            data-password="@admin.AdminPassword">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <a href="#" title="Delete" class="btn btn-danger btn-sm"
+                                       data-confirm="Are you sure you want to delete <strong>@admin.AdminName</strong>? This action cannot be undone."
+                                       data-href="/Admin/DeleteAdminUser?Id=@admin.Id">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            count++;
+                        }
+                        @if (!list.Any())
+                        {
+                            <tr><td colspan="5" style="padding:18px;color:#888;">No admins found.</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Single Add / Edit modal -->
+<div id="adminModal" class="adm-modal">
+    <div class="adm-modal-card">
+        <div class="adm-modal-head">
+            <h4 id="adminModalTitle"><i class="fa fa-user-plus"></i> <span>Add New Admin</span></h4>
+            <span class="adm-modal-close" onclick="closeAdminModal()">&times;</span>
+        </div>
+        <form id="adminModalForm" method="post" action="/Admin/SaveAdminUser" onsubmit="return validateAdminForm(event)">
+            <input type="hidden" name="Id" id="adminModalId" value="" />
+            <div class="adm-modal-body">
+                <div class="adm-form-row">
+                    <label>Admin Name <span class="req">*</span></label>
+                    <input type="text" name="AdminName" id="adminModalName" placeholder="e.g. Ahmed Shair" maxlength="50" required />
+                </div>
+                <div class="adm-form-row">
+                    <label>Email <span class="req">*</span></label>
+                    <input type="email" name="AdminEmail" id="adminModalEmail" placeholder="name@example.com" maxlength="50" required oninput="clearEmailError()" />
+                    <div class="adm-field-error" id="adminModalEmailError"><i class="fa fa-exclamation-circle"></i> An admin with that email already exists.</div>
+                </div>
+                <div class="adm-form-row">
+                    <label>Password <span class="req">*</span></label>
+                    <input type="text" name="AdminPassword" id="adminModalPassword" placeholder="Set a login password" maxlength="50" required />
+                </div>
+            </div>
+            <div class="adm-modal-foot">
+                <button type="button" class="adm-btn adm-btn-ghost" onclick="closeAdminModal()"><i class="fa fa-times"></i> Cancel</button>
+                <button type="submit" class="adm-btn adm-btn-primary" id="adminModalSubmit"><i class="fa fa-save"></i> <span>Add Admin</span></button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    var existingAdmins = @Html.Raw(existingJson);
+
+    function openAdminModal(mode, btn) {
+        var form = document.getElementById('adminModalForm');
+        var titleSpan = document.querySelector('#adminModalTitle span');
+        var submitSpan = document.querySelector('#adminModalSubmit span');
+        clearEmailError();
+
+        if (mode === 'edit' && btn) {
+            form.action = '/Admin/UpdateAdminUser';
+            document.getElementById('adminModalId').value = btn.getAttribute('data-id');
+            document.getElementById('adminModalName').value = btn.getAttribute('data-name');
+            document.getElementById('adminModalEmail').value = btn.getAttribute('data-email');
+            document.getElementById('adminModalPassword').value = btn.getAttribute('data-password');
+            titleSpan.textContent = 'Edit Admin';
+            submitSpan.textContent = 'Save Changes';
+        } else {
+            form.action = '/Admin/SaveAdminUser';
+            document.getElementById('adminModalId').value = '';
+            document.getElementById('adminModalName').value = '';
+            document.getElementById('adminModalEmail').value = '';
+            document.getElementById('adminModalPassword').value = '';
+            titleSpan.textContent = 'Add New Admin';
+            submitSpan.textContent = 'Add Admin';
+        }
+        document.getElementById('adminModal').style.display = 'block';
+    }
+
+    function closeAdminModal() {
+        document.getElementById('adminModal').style.display = 'none';
+    }
+
+    function clearEmailError() {
+        document.getElementById('adminModalEmailError').style.display = 'none';
+        document.getElementById('adminModalEmail').classList.remove('adm-input-invalid');
+    }
+
+    function showEmailError() {
+        document.getElementById('adminModalEmailError').style.display = 'block';
+        document.getElementById('adminModalEmail').classList.add('adm-input-invalid');
+        document.getElementById('adminModalEmail').focus();
+    }
+
+    function validateAdminForm(e) {
+        var email = document.getElementById('adminModalEmail').value.trim().toLowerCase();
+        var curId = document.getElementById('adminModalId').value;
+        var dup = existingAdmins.some(function (a) {
+            return a.email === email && String(a.id) !== String(curId);
+        });
+        if (dup) {
+            e.preventDefault();
+            showEmailError();
+            return false;
+        }
+        return true;
+    }
+
+    window.addEventListener('click', function (e) {
+        if (e.target === document.getElementById('adminModal')) { closeAdminModal(); }
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { closeAdminModal(); }
+    });
+</script>

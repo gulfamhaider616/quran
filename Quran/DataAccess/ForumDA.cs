@@ -102,14 +102,18 @@ namespace Quran.DataAccess
         {
             try
             {
-                SqlCommand command = new DBConnection().DbSqlConnection("PublishQuestionByAdmin");
+                SqlConnection connection = new SqlConnection(DbConfig.ConnectionString);
+                SqlCommand command = new SqlCommand("UPDATE dbo.Forum SET IsPublish = 1 WHERE QuestionID = @QuestionID;", connection);
+                command.CommandType = CommandType.Text;
                 command.Parameters.Add("@QuestionID", SqlDbType.Int).Value = QuestionID;
-                return new DBConnection().ExecuteNonQuery(command);
+                connection.Open();
+                int rows = command.ExecuteNonQuery();
+                connection.Close();
+                return rows;
             }
             catch (Exception ex)
             {
-                throw new Exception(string.Concat("Error executing the ", "",
-                    " in Execute.ExecuteDataSet(SQLCommand) method."), ex);
+                throw new Exception("Error publishing question.", ex);
             }
         }
         public DataSet GetSingleQuestion(int QuestionID)

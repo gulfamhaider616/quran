@@ -150,6 +150,14 @@ namespace Quran.Models
         public string LessonLink { get; set; }
     }
 
+    public class AdminUserDO
+    {
+        public int Id { get; set; }
+        public string AdminName { get; set; }
+        public string AdminEmail { get; set; }
+        public string AdminPassword { get; set; }
+    }
+
     public class FeaturedVerseDO
     {
         public int ChapterID { get; set; }

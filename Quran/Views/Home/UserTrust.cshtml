@@ -10,15 +10,26 @@
         <div class="row">
             <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
                 <h3 style="text-align:center">User Feedback</h3>
-              @foreach (var item in Model)
+              @if (Model != null && Model.Any())
               {
-                  <div>
-                      <label>@item.Name</label>
-                      <span>    |   @item.Country</span>
-                      <p style="font-size: 1.1em;">@item.Message</p>
+                  <div class="pg-search">
+                      <i class="fa fa-search"></i>
+                      <input type="text" placeholder="Search feedback by name, country or message..." autocomplete="off"
+                             data-search-target="#utFeedback" data-search-items=".ut-item" data-search-empty="#utEmpty" />
                   </div>
-                <hr style="border-top:dotted 1px #e6eaf0;" />
               }
+              <div id="utFeedback">
+                  @foreach (var item in Model)
+                  {
+                      <div class="ut-item">
+                          <label>@item.Name</label>
+                          <span>    |   @item.Country</span>
+                          <p style="font-size: 1.1em;">@item.Message</p>
+                          <hr style="border-top:dotted 1px #e6eaf0;" />
+                      </div>
+                  }
+              </div>
+              <div id="utEmpty" class="pg-search-empty">No feedback matches your search.</div>
 
                 <hr style="border-top:solid 1px #e6eaf0;" />
                 <h3 style="text-align:center">Send Your Feedback</h3>

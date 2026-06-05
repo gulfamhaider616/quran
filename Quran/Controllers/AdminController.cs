@@ -301,20 +301,145 @@ namespace Quran.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult SaveVideoLesson(string LessonName, string LessonLink)
+        [RequestSizeLimit(524288000)]
+        public IActionResult SaveVideoLesson(string LessonName, string LessonLink, IFormFile LessonFile)
         {
-            if (!string.IsNullOrWhiteSpace(LessonName) && !string.IsNullOrWhiteSpace(LessonLink))
+            if (string.IsNullOrWhiteSpace(LessonName))
             {
-                new RegistrationBA().SaveVideoLesson(LessonName.Trim(), LessonLink.Trim());
+                TempData["VideoError"] = "Lesson title is required.";
+                return RedirectToAction("VideoLessons");
             }
+
+            string link = (LessonLink ?? "").Trim();
+
+            if (LessonFile != null && LessonFile.Length > 0)
+            {
+                string[] allowed = { ".mp4", ".webm", ".ogg", ".mov", ".m4v" };
+                var ext = Path.GetExtension(LessonFile.FileName).ToLowerInvariant();
+                if (Array.IndexOf(allowed, ext) < 0)
+                {
+                    TempData["VideoError"] = "Unsupported video format. Please upload MP4, WebM, OGG, MOV or M4V.";
+                    return RedirectToAction("VideoLessons");
+                }
+                var folder = Path.Combine(_env.WebRootPath, "assets", "Videos");
+                Directory.CreateDirectory(folder);
+                var fileName = Guid.NewGuid().ToString("N") + ext;
+                using (var stream = new FileStream(Path.Combine(folder, fileName), FileMode.Create))
+                {
+                    LessonFile.CopyTo(stream);
+                }
+                link = "/assets/Videos/" + fileName;
+            }
+
+            if (string.IsNullOrWhiteSpace(link))
+            {
+                TempData["VideoError"] = "Please provide a YouTube link or upload a video file.";
+                return RedirectToAction("VideoLessons");
+            }
+
+            new RegistrationBA().SaveVideoLesson(LessonName.Trim(), link);
+            TempData["VideoSuccess"] = "Video lesson added successfully.";
             return RedirectToAction("VideoLessons");
         }
 
         [Authorize]
         public IActionResult DeleteVideoLesson(int LessonID)
         {
+            var lesson = new RegistrationBA().GetVideoLessonByID(LessonID);
             new RegistrationBA().DeleteVideoLesson(LessonID);
+
+            if (lesson != null && !string.IsNullOrWhiteSpace(lesson.LessonLink) &&
+                lesson.LessonLink.StartsWith("/assets/Videos/", StringComparison.OrdinalIgnoreCase))
+            {
+                try
+                {
+                    var path = Path.Combine(_env.WebRootPath, lesson.LessonLink.TrimStart('/').Replace('/', Path.DirectorySeparatorChar));
+                    if (System.IO.File.Exists(path)) { System.IO.File.Delete(path); }
+                }
+                catch { }
+            }
             return RedirectToAction("VideoLessons");
+        }
+
+        #endregion
+
+        #region Admins
+
+        [Authorize]
+        public IActionResult ManageAdmins()
+        {
+            return View(new AdminBA().GetAllAdmins());
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult SaveAdminUser(string AdminName, string AdminEmail, string AdminPassword)
+        {
+            if (string.IsNullOrWhiteSpace(AdminName) || string.IsNullOrWhiteSpace(AdminEmail) || string.IsNullOrWhiteSpace(AdminPassword))
+            {
+                TempData["AdminError"] = "Name, email and password are all required.";
+                return RedirectToAction("ManageAdmins");
+            }
+            if (new AdminBA().AdminEmailExists(AdminEmail.Trim(), 0))
+            {
+                TempData["AdminError"] = "An admin with that email already exists.";
+                return RedirectToAction("ManageAdmins");
+            }
+            AdminUserDO admin = new AdminUserDO
+            {
+                AdminName = AdminName.Trim(),
+                AdminEmail = AdminEmail.Trim(),
+                AdminPassword = AdminPassword.Trim()
+            };
+            new AdminBA().SaveAdmin(admin);
+            TempData["AdminSuccess"] = "Admin added successfully.";
+            return RedirectToAction("ManageAdmins");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult UpdateAdminUser(int Id, string AdminName, string AdminEmail, string AdminPassword)
+        {
+            if (string.IsNullOrWhiteSpace(AdminName) || string.IsNullOrWhiteSpace(AdminEmail) || string.IsNullOrWhiteSpace(AdminPassword))
+            {
+                TempData["AdminError"] = "Name, email and password are all required.";
+                return RedirectToAction("ManageAdmins");
+            }
+            if (new AdminBA().AdminEmailExists(AdminEmail.Trim(), Id))
+            {
+                TempData["AdminError"] = "Another admin with that email already exists.";
+                return RedirectToAction("ManageAdmins");
+            }
+            AdminUserDO admin = new AdminUserDO
+            {
+                Id = Id,
+                AdminName = AdminName.Trim(),
+                AdminEmail = AdminEmail.Trim(),
+                AdminPassword = AdminPassword.Trim()
+            };
+            new AdminBA().UpdateAdmin(admin);
+            TempData["AdminSuccess"] = "Admin updated successfully.";
+            return RedirectToAction("ManageAdmins");
+        }
+
+        [Authorize]
+        public IActionResult DeleteAdminUser(int Id)
+        {
+            var admins = new AdminBA().GetAllAdmins();
+            if (admins.Count <= 1)
+            {
+                TempData["AdminError"] = "You cannot delete the last remaining admin.";
+                return RedirectToAction("ManageAdmins");
+            }
+            var target = admins.FirstOrDefault(a => a.Id == Id);
+            if (target != null && string.Equals(target.AdminName, User?.Identity?.Name, StringComparison.OrdinalIgnoreCase))
+            {
+                TempData["AdminError"] = "You cannot delete the account you are currently logged in with.";
+                return RedirectToAction("ManageAdmins");
+            }
+            new AdminBA().DeleteAdmin(Id);
+            TempData["AdminSuccess"] = "Admin deleted successfully.";
+            return RedirectToAction("ManageAdmins");
         }
 
         #endregion

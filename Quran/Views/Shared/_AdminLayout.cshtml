@@ -29,6 +29,8 @@
     <script src="~/Scripts/MainFileAdmin.js"></script>
     <script src="~/Scripts/sweetalert.min.js"></script>
     <script src="~/Scripts/Forum.js"></script>
+    <script src="~/Scripts/searchFilter.js" defer></script>
+    <script src="~/Scripts/confirmModal.js" defer></script>
 
     <style>
         /* Info modal used by Forum.js */
@@ -111,6 +113,7 @@
                     </li>
                     <li class="@Active("getcontactus")"><a href="/Admin/GetContactUs">Contact</a></li>
                     <li class="@Active("getfeedback")"><a href="/Admin/GetFeedback">Feedback</a></li>
+                    <li class="@(path.Contains("admin") && (path.Contains("manageadmins") || path.Contains("adminuser")) ? "active" : "")"><a href="/Admin/ManageAdmins">Admins</a></li>
                 </ul>
 
                 <div class="admin-user">
@@ -127,6 +130,26 @@
     <main class="admin-content">
         @RenderBody()
     </main>
+
+    @if (isAuth)
+    {
+        <!-- Reusable confirmation modal (driven by confirmModal.js) -->
+        <div id="confirmModal" class="adm-modal">
+            <div class="adm-modal-card adm-modal-sm">
+                <div class="adm-modal-head adm-modal-head-danger">
+                    <h4><i class="fa fa-exclamation-triangle"></i> <span>Please Confirm</span></h4>
+                    <span class="adm-modal-close" onclick="closeConfirmModal()">&times;</span>
+                </div>
+                <div class="adm-modal-body">
+                    <p class="adm-confirm-text" id="confirmModalText"></p>
+                </div>
+                <div class="adm-modal-foot">
+                    <button type="button" class="adm-btn adm-btn-ghost" onclick="closeConfirmModal()"><i class="fa fa-times"></i> Cancel</button>
+                    <button type="button" class="adm-btn adm-btn-danger" id="confirmModalBtn"><i class="fa fa-trash-o"></i> Delete</button>
+                </div>
+            </div>
+        </div>
+    }
 
     <footer class="admin-footer">
         &copy; @DateTime.Now.Year <a href="/" target="_blank">Learn Free Quran</a> &mdash; Admin Panel. All rights reserved.

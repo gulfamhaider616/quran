@@ -3,38 +3,39 @@
     ViewBag.Title = "Video Lessons | Learn Quran with E-Tutor";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     var list = Model?.ToList() ?? new List<Quran.Models.VideoLessonDO>();
+    System.Func<string, bool> isUpload = link =>
+        !string.IsNullOrWhiteSpace(link) && link.StartsWith("/assets/Videos/", System.StringComparison.OrdinalIgnoreCase);
 }
 
 <div id="banner-wrapper">
     <div id="banner" class="box container">
+
+        <h3 class="adm-section-title"><i class="fa fa-film"></i>Video Lessons</h3>
+
+        @if (TempData["VideoSuccess"] != null)
+        {
+            <div class="adm-alert adm-alert-success"><i class="fa fa-check-circle"></i>@TempData["VideoSuccess"]</div>
+        }
+        @if (TempData["VideoError"] != null)
+        {
+            <div class="adm-alert adm-alert-error"><i class="fa fa-exclamation-circle"></i>@TempData["VideoError"]</div>
+        }
+
+        <div class="adm-toolbar">
+            <button type="button" class="adm-btn adm-btn-primary" onclick="openVideoModal()">
+                <i class="fa fa-plus-circle"></i> Add Video Lesson
+            </button>
+        </div>
+
         <div class="row">
             <div class="col-md-12" style="width:100%;margin:0 auto;overflow-x:auto;">
-
-                <h4 style="text-align:center">Add YouTube Video Lesson</h4>
-                <form method="post" action="/Admin/SaveVideoLesson">
-                    <table border="0" style="width: 90%;">
-                        <tr>
-                            <td style="width: 26%;"><label>Lesson Title<label style="color:red">*</label> :</label></td>
-                            <td><input type="text" name="LessonName" placeholder="e.g. Lesson 1 - Introduction" required /></td>
-                        </tr>
-                        <tr>
-                            <td style="width: 26%;"><label>YouTube Link<label style="color:red">*</label> :</label></td>
-                            <td><input type="url" name="LessonLink" placeholder="https://www.youtube.com/watch?v=..." required /></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><input type="submit" value="Add Video" /></td>
-                        </tr>
-                    </table>
-                </form>
-
-                <h4 style="text-align:center;margin-top:30px;">All Video Lessons</h4>
                 <table class="rest" border="0" style="width: 100%;text-align: center;color: black;font-size: 88%;">
                     <thead>
                         <tr>
                             <td>Serial</td>
                             <td>Lesson Title</td>
-                            <td>YouTube Link</td>
+                            <td>Type</td>
+                            <td>Source</td>
                             <td>Action</td>
                         </tr>
                     </thead>
@@ -42,27 +43,111 @@
                         @{ int count = 1; }
                         @foreach (var video in list)
                         {
+                            var upload = isUpload(video.LessonLink);
                             <tr>
                                 <td>@count</td>
                                 <td>@video.LessonName</td>
-                                <td style="word-break:break-all;max-width:340px;">
-                                    <a href="@video.LessonLink" target="_blank" rel="noopener">@video.LessonLink</a>
+                                <td>
+                                    @if (upload)
+                                    {
+                                        <span style="color:#246d13;font-weight:600;"><i class="fa fa-film"></i> Uploaded</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:#c0392b;font-weight:600;"><i class="fa fa-youtube-play"></i> YouTube</span>
+                                    }
+                                </td>
+                                <td style="word-break:break-all;max-width:320px;">
+                                    <a href="@video.LessonLink" target="_blank" rel="noopener">@(upload ? System.IO.Path.GetFileName(video.LessonLink) : video.LessonLink)</a>
                                 </td>
                                 <td style="white-space:nowrap;">
-                                    <a href="@video.LessonLink" target="_blank" rel="noopener" title="Watch" class="btn btn-success btn-sm"><i class="fa fa-youtube-play"></i></a>
-                                    <a href="/Admin/DeleteVideoLesson?LessonID=@video.LessonID" title="Delete" onclick="return confirm('Delete this video lesson?');" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>
+                                    <a href="@video.LessonLink" target="_blank" rel="noopener" title="@(upload ? "Play" : "Watch")" class="btn btn-success btn-sm"><i class="fa @(upload ? "fa-play" : "fa-youtube-play")"></i></a>
+                                    <a href="#" title="Delete" class="btn btn-danger btn-sm"
+                                       data-confirm="Are you sure you want to delete <strong>@video.LessonName</strong>? This action cannot be undone."
+                                       data-href="/Admin/DeleteVideoLesson?LessonID=@video.LessonID"><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                             count++;
                         }
                         @if (!list.Any())
                         {
-                            <tr><td colspan="4" style="padding:18px;color:#888;">No video lessons added yet.</td></tr>
+                            <tr><td colspan="5" style="padding:18px;color:#888;">No video lessons added yet.</td></tr>
                         }
                     </tbody>
                 </table>
-
             </div>
         </div>
+
     </div>
 </div>
+
+<!-- Add Video Lesson modal -->
+<div id="videoModal" class="adm-modal">
+    <div class="adm-modal-card">
+        <div class="adm-modal-head">
+            <h4><i class="fa fa-plus-circle"></i> <span>Add Video Lesson</span></h4>
+            <span class="adm-modal-close" onclick="closeVideoModal()">&times;</span>
+        </div>
+        <form method="post" action="/Admin/SaveVideoLesson" enctype="multipart/form-data" onsubmit="return validateVideoForm(event)">
+            <div class="adm-modal-body">
+                <div class="adm-form-row">
+                    <label>Lesson Title <span class="req">*</span></label>
+                    <input type="text" name="LessonName" id="videoName" placeholder="e.g. Lesson 1 - Introduction" required />
+                </div>
+                <div class="adm-form-row">
+                    <label>YouTube Link</label>
+                    <input type="url" name="LessonLink" id="videoLink" placeholder="https://www.youtube.com/watch?v=..." oninput="clearVideoError()" />
+                </div>
+                <div class="adm-or">&mdash; OR &mdash;</div>
+                <div class="adm-form-row">
+                    <label>Upload Video</label>
+                    <input type="file" name="LessonFile" id="videoFile"
+                           accept="video/mp4,video/webm,video/ogg,video/quicktime,.mp4,.webm,.ogg,.mov,.m4v"
+                           onchange="clearVideoError()" />
+                    <div class="adm-hint">MP4, WebM, OGG, MOV or M4V &mdash; up to 500&nbsp;MB.</div>
+                    <div class="adm-field-error" id="videoError"><i class="fa fa-exclamation-circle"></i> Provide a YouTube link or upload a video file.</div>
+                </div>
+            </div>
+            <div class="adm-modal-foot">
+                <button type="button" class="adm-btn adm-btn-ghost" onclick="closeVideoModal()"><i class="fa fa-times"></i> Cancel</button>
+                <button type="submit" class="adm-btn adm-btn-primary"><i class="fa fa-save"></i> Add Video</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openVideoModal() {
+        document.getElementById('videoName').value = '';
+        document.getElementById('videoLink').value = '';
+        document.getElementById('videoFile').value = '';
+        clearVideoError();
+        document.getElementById('videoModal').style.display = 'block';
+    }
+
+    function closeVideoModal() {
+        document.getElementById('videoModal').style.display = 'none';
+    }
+
+    function clearVideoError() {
+        document.getElementById('videoError').style.display = 'none';
+    }
+
+    function validateVideoForm(e) {
+        var link = document.getElementById('videoLink').value.trim();
+        var file = document.getElementById('videoFile').value;
+        if (!link && !file) {
+            e.preventDefault();
+            document.getElementById('videoError').style.display = 'block';
+            return false;
+        }
+        return true;
+    }
+
+    window.addEventListener('click', function (e) {
+        if (e.target === document.getElementById('videoModal')) { closeVideoModal(); }
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { closeVideoModal(); }
+    });
+</script>

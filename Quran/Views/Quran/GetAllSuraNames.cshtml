@@ -14,10 +14,17 @@
             <p>Read the Holy Quran in Arabic with English and Urdu translation. Choose any Surah from the list below to start reading, and bookmark your progress.</p>
         </div>
 
-        <div class="qr-list">
+        <div class="pg-search">
+            <i class="fa fa-search"></i>
+            <input type="text" placeholder="Search Surah by name or number..." autocomplete="off"
+                   data-search-target="#qrList" data-search-items=".qr-item" data-search-empty="#qrEmpty" />
+        </div>
+
+        <div class="qr-list" id="qrList">
             @foreach (var item in Model)
             {
-                <a class="qr-item" href="~/quran_reading?ChapterID=@item.ChapterID" title="@item.EnglishName">
+                <a class="qr-item" href="~/quran_reading?ChapterID=@item.ChapterID" title="@item.EnglishName"
+                   data-search="@item.ChapterID @item.EnglishName @item.SuraName">
                     <span class="qr-num">@item.ChapterID</span>
                     <span class="qr-en">
                         <span class="qr-en-name">@item.EnglishName</span>
@@ -27,5 +34,6 @@
                 </a>
             }
         </div>
+        <div id="qrEmpty" class="pg-search-empty">No Surah matches your search.</div>
     </div>
 </div>

@@ -55,3 +55,8 @@ ehthumbs.db
 _restore_log.txt
 *.mdf
 *.ldf
+
+# Uploaded video lessons (user content)
+Quran/wwwroot/assets/Videos/
+!Quran/wwwroot/assets/Videos/.gitkeep
+

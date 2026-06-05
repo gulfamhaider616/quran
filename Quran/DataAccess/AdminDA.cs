@@ -292,6 +292,129 @@ public DataSet GetAllBooks()
             return new DBConnection().ExecuteNonQuery(objSqlCommand);
         }
 
+        public DataSet GetAllAdmins()
+        {
+            DataSet set = new DataSet();
+            try
+            {
+                SqlConnection connection = new SqlConnection(DbConfig.ConnectionString);
+                SqlCommand command = new SqlCommand("SELECT Id, AdminName, AdminEmail, AdminPassword FROM dbo.AdminUser ORDER BY Id;", connection);
+                command.CommandType = CommandType.Text;
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(set);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error executing GetAllAdmins.", ex);
+            }
+            return set;
+        }
+
+        public DataSet GetAdminById(int id)
+        {
+            DataSet set = new DataSet();
+            try
+            {
+                SqlConnection connection = new SqlConnection(DbConfig.ConnectionString);
+                SqlCommand command = new SqlCommand("SELECT Id, AdminName, AdminEmail, AdminPassword FROM dbo.AdminUser WHERE Id = @Id;", connection);
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(set);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error executing GetAdminById.", ex);
+            }
+            return set;
+        }
+
+        public int AdminEmailExists(string email, int excludeId)
+        {
+            try
+            {
+                SqlConnection connection = new SqlConnection(DbConfig.ConnectionString);
+                SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM dbo.AdminUser WHERE AdminEmail = @AdminEmail AND Id <> @Id;", connection);
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add("@AdminEmail", SqlDbType.NVarChar).Value = (object)email ?? DBNull.Value;
+                command.Parameters.Add("@Id", SqlDbType.Int).Value = excludeId;
+                connection.Open();
+                int count = Convert.ToInt32(command.ExecuteScalar());
+                connection.Close();
+                return count;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error executing AdminEmailExists.", ex);
+            }
+        }
+
+        public int SaveAdmin(AdminUserDO admin)
+        {
+            try
+            {
+                SqlConnection connection = new SqlConnection(DbConfig.ConnectionString);
+                SqlCommand command = new SqlCommand(
+                    "INSERT INTO dbo.AdminUser (AdminName, AdminEmail, AdminPassword) VALUES (@AdminName, @AdminEmail, @AdminPassword); SELECT CAST(SCOPE_IDENTITY() AS int);",
+                    connection);
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add("@AdminName", SqlDbType.NVarChar).Value = (object)admin.AdminName ?? DBNull.Value;
+                command.Parameters.Add("@AdminEmail", SqlDbType.NVarChar).Value = (object)admin.AdminEmail ?? DBNull.Value;
+                command.Parameters.Add("@AdminPassword", SqlDbType.NVarChar).Value = (object)admin.AdminPassword ?? DBNull.Value;
+                connection.Open();
+                object result = command.ExecuteScalar();
+                connection.Close();
+                return result == null || result == DBNull.Value ? 0 : Convert.ToInt32(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error saving admin.", ex);
+            }
+        }
+
+        public int UpdateAdmin(AdminUserDO admin)
+        {
+            try
+            {
+                SqlConnection connection = new SqlConnection(DbConfig.ConnectionString);
+                SqlCommand command = new SqlCommand(
+                    "UPDATE dbo.AdminUser SET AdminName = @AdminName, AdminEmail = @AdminEmail, AdminPassword = @AdminPassword WHERE Id = @Id;",
+                    connection);
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add("@Id", SqlDbType.Int).Value = admin.Id;
+                command.Parameters.Add("@AdminName", SqlDbType.NVarChar).Value = (object)admin.AdminName ?? DBNull.Value;
+                command.Parameters.Add("@AdminEmail", SqlDbType.NVarChar).Value = (object)admin.AdminEmail ?? DBNull.Value;
+                command.Parameters.Add("@AdminPassword", SqlDbType.NVarChar).Value = (object)admin.AdminPassword ?? DBNull.Value;
+                connection.Open();
+                int rows = command.ExecuteNonQuery();
+                connection.Close();
+                return rows;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating admin.", ex);
+            }
+        }
+
+        public int DeleteAdmin(int id)
+        {
+            try
+            {
+                SqlConnection connection = new SqlConnection(DbConfig.ConnectionString);
+                SqlCommand command = new SqlCommand("DELETE FROM dbo.AdminUser WHERE Id = @Id;", connection);
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+                connection.Open();
+                int rows = command.ExecuteNonQuery();
+                connection.Close();
+                return rows;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deleting admin.", ex);
+            }
+        }
+
 }
 }
 

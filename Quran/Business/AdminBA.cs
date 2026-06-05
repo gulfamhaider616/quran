@@ -384,6 +384,60 @@ if (!string.IsNullOrWhiteSpace(book.FilePath))
             return new AdminDA().DeleteBook(BookID);
         }
 
+        public List<AdminUserDO> GetAllAdmins()
+        {
+            List<AdminUserDO> list = new List<AdminUserDO>();
+            DataSet dataset = new AdminDA().GetAllAdmins();
+            if (dataset.Tables.Count > 0)
+            {
+                foreach (DataRow dr in dataset.Tables[0].Rows)
+                {
+                    AdminUserDO admin = new AdminUserDO();
+                    admin.Id = dr.Field<int>("Id");
+                    admin.AdminName = dr.Field<string>("AdminName");
+                    admin.AdminEmail = dr.Field<string>("AdminEmail");
+                    admin.AdminPassword = dr.Field<string>("AdminPassword");
+                    list.Add(admin);
+                }
+            }
+            return list;
+        }
+
+        public AdminUserDO GetAdminById(int id)
+        {
+            AdminUserDO admin = new AdminUserDO();
+            DataSet dataset = new AdminDA().GetAdminById(id);
+            if (dataset.Tables.Count > 0 && dataset.Tables[0].Rows.Count > 0)
+            {
+                DataRow dr = dataset.Tables[0].Rows[0];
+                admin.Id = dr.Field<int>("Id");
+                admin.AdminName = dr.Field<string>("AdminName");
+                admin.AdminEmail = dr.Field<string>("AdminEmail");
+                admin.AdminPassword = dr.Field<string>("AdminPassword");
+            }
+            return admin;
+        }
+
+        public bool AdminEmailExists(string email, int excludeId)
+        {
+            return new AdminDA().AdminEmailExists(email, excludeId) > 0;
+        }
+
+        public int SaveAdmin(AdminUserDO admin)
+        {
+            return new AdminDA().SaveAdmin(admin);
+        }
+
+        public int UpdateAdmin(AdminUserDO admin)
+        {
+            return new AdminDA().UpdateAdmin(admin);
+        }
+
+        public int DeleteAdmin(int id)
+        {
+            return new AdminDA().DeleteAdmin(id);
+        }
+
     }
 }
 
