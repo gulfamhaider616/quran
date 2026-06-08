@@ -30,12 +30,44 @@
         var i = target.querySelector('.sd-bookmark i'); if (i) { i.className = 'fa fa-bookmark'; }
         var l = target.querySelector('.sd-bm-label'); if (l) { l.textContent = 'Bookmarked'; }
         setTimeout(function () { target.classList.remove('sd-bm-flash'); }, 950);
+
+        // Keep the navbar "Goto Bookmark" link pointing at the latest bookmark, with no refresh.
+        var gb = document.getElementById('gotoBookmark');
+        if (gb) { gb.setAttribute('href', '/quran_reading?ChapterID=' + id.split('-')[0] + '#' + id); }
+
         if (scroll) { target.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
+    function highlightFromHash(scroll) {
         if (window.location.hash && window.location.hash.length > 1) {
-            highlightBookmark(decodeURIComponent(window.location.hash.substring(1)), true);
+            highlightBookmark(decodeURIComponent(window.location.hash.substring(1)), scroll);
+        }
+    }
+
+    // Fragment-only navigation (e.g. "Goto Bookmark" within the same surah) doesn't reload,
+    // so re-highlight on hashchange.
+    window.addEventListener('hashchange', function () { highlightFromHash(true); });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        highlightFromHash(true);
+
+        // "Goto Bookmark": if the bookmark is in this surah, highlight in place without reloading.
+        var gb = document.getElementById('gotoBookmark');
+        if (gb) {
+            gb.addEventListener('click', function (e) {
+                var href = gb.getAttribute('href') || '';
+                var hashIdx = href.indexOf('#');
+                if (hashIdx < 0) { return; }
+                var id = href.substring(hashIdx + 1);
+                if (!id || id.indexOf('-') < 0) { return; }
+                if (id.split('-')[0] === '@Model.SuraDetail.ChapterID') {
+                    e.preventDefault();
+                    if (window.location.hash !== '#' + id && history.replaceState) {
+                        history.replaceState(null, '', '#' + id);
+                    }
+                    highlightBookmark(id, true);
+                }
+            });
         }
     });
 </script>

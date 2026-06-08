@@ -105,11 +105,11 @@
                     {
                         if (!string.IsNullOrEmpty(chapterId) && !string.IsNullOrEmpty(bookmarkId))
                         {
-                            <a class="nv-cta" href="/quran_reading?ChapterID=@chapterId@bookmarkId">Goto Bookmark</a>
+                            <a class="nv-cta" id="gotoBookmark" href="/quran_reading?ChapterID=@chapterId@bookmarkId">Goto Bookmark</a>
                         }
                         else
                         {
-                            <a class="nv-cta" href="#">Goto Bookmark</a>
+                            <a class="nv-cta" id="gotoBookmark" href="#">Goto Bookmark</a>
                         }
                     }
                     else
