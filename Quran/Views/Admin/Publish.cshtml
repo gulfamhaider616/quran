@@ -25,7 +25,7 @@
                         {
                             <tr>
                                 <td>@count</td>
-                                <td><a href="/Admin/AdminQuestionPreview?QuestionID=@Item.AskQuestionID" style="text-decoration:none"> @Item.Subject </a></td>
+                                <td><a href="/Admin/AdminQuestionPreview/@SlugHelper.Make(Item.Subject)" style="text-decoration:none"> @Item.Subject </a></td>
                                 <td>@Item.UserName</td>
                                 <td>@Item.Country</td>
                                 <td style="white-space:nowrap;">

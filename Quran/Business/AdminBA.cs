@@ -317,6 +317,13 @@ namespace Quran.Business
             return new AdminDA().DeleteBook(BookID);
         }
 
+        public int GetBookIdBySlug(string slug)
+        {
+            List<BookDO> all = GetAllBooks();
+            int idx = Quran.Helpers.SlugHelper.IndexOfSlug(all, b => b.BookTilte, slug);
+            return idx < 0 ? 0 : all[idx].BookID;
+        }
+
         public List<AdminUserDO> GetAllAdmins()
         {
             List<AdminUserDO> list = new List<AdminUserDO>();
@@ -364,6 +371,13 @@ namespace Quran.Business
         public int DeleteAdmin(int id)
         {
             return new AdminDA().DeleteAdmin(id);
+        }
+
+        public int GetAdminIdBySlug(string slug)
+        {
+            List<AdminUserDO> all = GetAllAdmins();
+            int idx = Quran.Helpers.SlugHelper.IndexOfSlug(all, a => a.AdminEmail, slug);
+            return idx < 0 ? 0 : all[idx].Id;
         }
     }
 }

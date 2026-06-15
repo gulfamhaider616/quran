@@ -22,6 +22,22 @@ namespace Quran.Business
             return list;
         }
 
+        public int GetChapterIdBySlug(string slug)
+        {
+            List<SuraNamesDO> all = GetAllSuraNames();
+            int idx = Quran.Helpers.SlugHelper.IndexOfSlug(all, s => s.EnglishName, slug);
+            return idx < 0 ? 0 : all[idx].ChapterID;
+        }
+
+        public string GetSlugByChapterId(int chapterId)
+        {
+            foreach (SuraNamesDO sura in GetAllSuraNames())
+            {
+                if (sura.ChapterID == chapterId) { return Quran.Helpers.SlugHelper.Make(sura.EnglishName); }
+            }
+            return string.Empty;
+        }
+
         public SuraDetailContract GetSuraByID(int chapterId)
         {
             SuraDetailContract suraDetail = new SuraDetailContract();

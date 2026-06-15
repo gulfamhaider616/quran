@@ -14,7 +14,7 @@
                     <br />
                     @foreach (var Item in Model.list)
                     {
-                        <a href="/Home/VideoLessonPartial?LessonID=@Item.LessonID" id="@Item.LessonID">
+                        <a href="/lesson/@SlugHelper.Make(Item.LessonName)" id="@Item.LessonID">
                             <span>@Item.LessonName</span>
                             <iframe style="vertical-align:top;border: 5px solid #38ab1e;" width="150" height="150" src="@Item.LessonLink" frameborder="0" allowfullscreen></iframe>
                         </a>

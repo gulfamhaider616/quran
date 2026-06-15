@@ -3,6 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Quran.Models
 {
+    public class ErrorViewModel
+    {
+        public bool IsDatabaseError { get; set; }
+    }
+
     public class AskQuestionDO
     {
         public int AskQuestionID { get; set; }

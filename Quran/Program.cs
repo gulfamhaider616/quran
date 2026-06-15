@@ -72,8 +72,14 @@ app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute("quran_reading", "quran_reading/{ChapterID?}/{trans?}",
+app.MapControllerRoute("quran_sura", "quran/{slug}/{trans?}",
     new { controller = "Quran", action = "SuraDetail" });
+app.MapControllerRoute("quran_reading", "quran_reading/{ChapterID?}/{trans?}",
+    new { controller = "Quran", action = "SuraDetailLegacy" });
+app.MapControllerRoute("forum_question", "question/{slug}",
+    new { controller = "Forum", action = "SingleQuestion" });
+app.MapControllerRoute("video_lesson", "lesson/{slug}",
+    new { controller = "Home", action = "VideoLesson" });
 app.MapControllerRoute("online_quran_reading", "online_quran_reading",
     new { controller = "Quran", action = "GetAllSuraNames" });
 app.MapControllerRoute("Quran_Teacher", "Quran_Teacher",

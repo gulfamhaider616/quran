@@ -23,7 +23,7 @@
         <div class="qr-list" id="qrList">
             @foreach (var item in Model)
             {
-                <a class="qr-item" href="~/quran_reading?ChapterID=@item.ChapterID" title="@item.EnglishName"
+                <a class="qr-item" href="~/quran/@SlugHelper.Make(item.EnglishName)" title="@item.EnglishName"
                    data-search="@item.ChapterID @item.EnglishName @item.SuraName">
                     <span class="qr-num">@item.ChapterID</span>
                     <span class="qr-en">

@@ -68,7 +68,7 @@
                                     </button>
                                     <a href="#" title="Delete" class="btn btn-danger btn-sm"
                                        data-confirm="Are you sure you want to delete <strong>@book.BookTilte</strong>? This action cannot be undone."
-                                       data-href="/Admin/DeleteBook?BookID=@book.BookID"><i class="fa fa-trash-o"></i></a>
+                                       data-href="/Admin/DeleteBook/@SlugHelper.Make(book.BookTilte)"><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                             count++;

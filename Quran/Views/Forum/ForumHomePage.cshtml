@@ -32,7 +32,7 @@
             <div class="fr-list" id="frList">
                 @foreach (var item in questions)
                 {
-                    <a class="fr-item" href="/Forum/SingleQuestion?QuestionID=@item.AskQuestionID">
+                    <a class="fr-item" href="/question/@SlugHelper.Make(item.Subject)">
                         <span class="fr-icon"><i class="fa fa-comments-o"></i></span>
                         <span class="fr-q">
                             <span class="fr-subject">@item.Subject</span>

@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Net;
 using System.Net.Mail;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Quran.Business;
 using Quran.Models;
+using Quran.Helpers;
 
 namespace Quran.Controllers
 {
@@ -21,6 +24,11 @@ namespace Quran.Controllers
                 {
                     HttpContext.Session.SetString("Bookmarkid", "#" + result);
                     HttpContext.Session.SetString("Chapterid", result.Split('-')[0]);
+                    int chId;
+                    if (int.TryParse(result.Split('-')[0], out chId))
+                    {
+                        HttpContext.Session.SetString("Chapterslug", new QuranBA().GetSlugByChapterId(chId));
+                    }
                 }
             }
             return View();
@@ -258,17 +266,56 @@ namespace Quran.Controllers
             return View(new RegistrationBA().GetAllVideoLesson());
         }
 
+        public IActionResult VideoLesson(string slug)
+        {
+            RegistrationBA ba = new RegistrationBA();
+            int lessonId = ba.GetLessonIdBySlug(slug);
+            if (lessonId == 0)
+            {
+                return RedirectToAction("QuraniLesson");
+            }
+            LessonsContract contract = new LessonsContract();
+            contract.list = ba.GetAllVideoLesson();
+            contract.Lesson = ba.GetVideoLessonByID(lessonId);
+            return View("VideoLessonPartial", contract);
+        }
+
+        // Legacy /Home/VideoLessonPartial?LessonID=N — 301 to the slug URL.
         public IActionResult VideoLessonPartial(int LessonID)
         {
-            LessonsContract contract = new LessonsContract();
-            contract.list = new RegistrationBA().GetAllVideoLesson();
-            contract.Lesson = new RegistrationBA().GetVideoLessonByID(LessonID);
-            return View(contract);
+            VideoLessonDO lesson = new RegistrationBA().GetVideoLessonByID(LessonID);
+            if (lesson != null && !string.IsNullOrEmpty(lesson.LessonName))
+            {
+                return RedirectPermanent("/lesson/" + SlugHelper.Make(lesson.LessonName));
+            }
+            return RedirectToAction("QuraniLesson");
         }
 
         public JsonResult SectionLesson(int LessonID)
         {
             return Json(new RegistrationBA().GetVideoLessonByID(LessonID));
+        }
+
+        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
+        public IActionResult Error()
+        {
+            Exception ex = HttpContext.Features.Get<IExceptionHandlerPathFeature>()?.Error;
+            bool isDbError = IsDatabaseError(ex);
+            // Surface the right HTTP status: 503 (try again later) for a DB outage, 500 otherwise.
+            Response.StatusCode = isDbError ? 503 : 500;
+            return View("Error", new ErrorViewModel { IsDatabaseError = isDbError });
+        }
+
+        private static bool IsDatabaseError(Exception ex)
+        {
+            while (ex != null)
+            {
+                if (ex is DbException) { return true; }
+                string name = ex.GetType().FullName ?? "";
+                if (name.IndexOf("SqlException", StringComparison.OrdinalIgnoreCase) >= 0) { return true; }
+                ex = ex.InnerException;
+            }
+            return false;
         }
 
         public JsonResult FeaturedVerse(int position)
@@ -278,6 +325,7 @@ namespace Quran.Controllers
             return Json(new
             {
                 chapterId = v.ChapterID,
+                slug = SlugHelper.Make(v.EnglishName),
                 verseId = v.VerseID,
                 arabic = v.Arabic,
                 english = v.English,

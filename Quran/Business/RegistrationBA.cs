@@ -109,6 +109,13 @@ namespace Quran.Business
             return list;
         }
 
+        public int GetLessonIdBySlug(string slug)
+        {
+            List<VideoLessonDO> all = GetAllVideoLesson();
+            int idx = Quran.Helpers.SlugHelper.IndexOfSlug(all, l => l.LessonName, slug);
+            return idx < 0 ? 0 : all[idx].LessonID;
+        }
+
         public VideoLessonDO GetVideoLessonByID(int LessonID)
         {
             VideoLessonDO lesson = new VideoLessonDO();

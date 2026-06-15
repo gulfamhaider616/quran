@@ -810,3 +810,23 @@ input[type="submit"].btn-success:hover,
 .dash-prayers .dash-next em { background: #38ab1e; color: #fff; font-style: normal; font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-left: 6px; }
 .dash-skel, .dash-note { color: #8b95a3; font-size: 14px; padding: 14px 4px; }
 @media (max-width: 780px) { .dash-grid { grid-template-columns: 1fr; } }
+
+/* =========================================================================
+   Error / maintenance page
+   ========================================================================= */
+.err-section { padding: 70px 0 90px; background: linear-gradient(180deg, #f4f8f2 0%, #fff 60%); }
+.err-card { max-width: 620px; margin: 0 auto; background: #fff; border: 1px solid #e6eef0; border-radius: 18px; padding: 48px 40px 44px; text-align: center; box-shadow: 0 18px 50px rgba(42, 72, 108, .10); }
+.err-icon { width: 86px; height: 86px; margin: 0 auto 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 38px; }
+.err-maint .err-icon { background: rgba(42, 72, 108, .10); color: #2a486c; }
+.err-fault .err-icon { background: rgba(56, 171, 30, .12); color: #38ab1e; }
+.err-eyebrow { display: inline-block; text-transform: uppercase; letter-spacing: 1.5px; font-size: 12px; font-weight: 700; color: #38ab1e; margin-bottom: 10px; }
+.err-maint .err-eyebrow { color: #2a486c; }
+.err-title { font-size: 30px; font-weight: 800; color: #2a486c; margin: 0 0 12px; }
+.err-text { color: #5a6470; font-size: 15.5px; line-height: 1.75; margin: 0 auto 26px; max-width: 480px; }
+.err-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.err-btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 24px; border-radius: 9px; font-weight: 700; font-size: 14.5px; text-decoration: none; transition: background .15s, color .15s, transform .15s; }
+.err-btn-primary { background: #38ab1e; color: #fff !important; box-shadow: 0 6px 16px rgba(56, 171, 30, .25); }
+.err-btn-primary:hover { background: #2e8c18; transform: translateY(-2px); }
+.err-btn-ghost { background: #fff; color: #2a486c !important; border: 1px solid #2a486c; }
+.err-btn-ghost:hover { background: #2a486c; color: #fff !important; }
+@media (max-width: 560px) { .err-card { padding: 38px 22px 34px; } .err-title { font-size: 25px; } }

@@ -1,13 +1,39 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Error</title>
-</head>
-<body>
-    <hgroup>
-        <h1>Error.</h1>
-        <h2>An error occurred while processing your request.</h2>
-    </hgroup>
-</body>
-</html>
+@model Quran.Models.ErrorViewModel
+@{
+    bool isDb = Model != null && Model.IsDatabaseError;
+    ViewBag.Title = (isDb ? "We'll be right back | Learn Quran with E-Tutor" : "Something went wrong | Learn Quran with E-Tutor");
+    ViewBag.Description = "We are sorry for the inconvenience. Please try again shortly.";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="err-section">
+    <div class="container">
+        <div class="err-card @(isDb ? "err-maint" : "err-fault")">
+            <div class="err-icon">
+                <i class="fa @(isDb ? "fa-wrench" : "fa-exclamation-triangle")"></i>
+            </div>
+            @if (isDb)
+            {
+                <span class="err-eyebrow">Temporarily Unavailable</span>
+                <h1 class="err-title">We&rsquo;ll be right back</h1>
+                <p class="err-text">
+                    The site is undergoing brief maintenance and the service is unavailable for a moment.
+                    Please try again in a few minutes &mdash; thank you for your patience.
+                </p>
+            }
+            else
+            {
+                <span class="err-eyebrow">Oops</span>
+                <h1 class="err-title">Something went wrong</h1>
+                <p class="err-text">
+                    An unexpected error occurred while processing your request. Please try again,
+                    or head back to the home page to continue learning.
+                </p>
+            }
+            <div class="err-actions">
+                <a href="/" class="err-btn err-btn-primary"><i class="fa fa-home"></i> Back to Home</a>
+                <a href="javascript:location.reload()" class="err-btn err-btn-ghost"><i class="fa fa-refresh"></i> Try Again</a>
+            </div>
+        </div>
+    </div>
+</section>

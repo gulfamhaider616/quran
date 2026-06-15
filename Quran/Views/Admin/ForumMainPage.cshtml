@@ -23,7 +23,7 @@
                         {
                             <tr>
                                 <td>@count</td>
-                                <td><a href="/Admin/AdminQuestionPreview?QuestionID=@Item.AskQuestionID" style="text-decoration:none"> @Item.Subject </a></td>
+                                <td><a href="/Admin/AdminQuestionPreview/@SlugHelper.Make(Item.Subject)" style="text-decoration:none"> @Item.Subject </a></td>
                                 @if (Item.Publish == 0)
                                 {
                                     <td>NO</td>

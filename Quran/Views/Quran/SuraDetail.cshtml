@@ -8,6 +8,8 @@
 }
 
 <script>
+    var pageSlug = '@SlugHelper.Make(Model.SuraDetail.EnglishName)';
+
     function togglePlay(id) {
         $("audio").on("play", function () {
             $("audio").not(this).each(function (index, audio) { audio.pause(); });
@@ -33,7 +35,7 @@
 
         // Keep the navbar "Goto Bookmark" link pointing at the latest bookmark, with no refresh.
         var gb = document.getElementById('gotoBookmark');
-        if (gb) { gb.setAttribute('href', '/quran_reading?ChapterID=' + id.split('-')[0] + '#' + id); }
+        if (gb) { gb.setAttribute('href', '/quran/' + pageSlug + '#' + id); }
 
         if (scroll) { target.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
     }
@@ -50,6 +52,20 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         highlightFromHash(true);
+
+        // Surah/translation picker navigates to the clean slug URL (no ID in the address).
+        var toolbar = document.getElementById('sdToolbar');
+        if (toolbar) {
+            toolbar.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var slug = toolbar.querySelector('[name=slug]').value;
+                var trans = toolbar.querySelector('[name=trans]').value;
+                if (!slug) { return; }
+                var url = '/quran/' + slug;
+                if (trans && trans !== 'Urdu') { url += '/' + trans; }
+                window.location.href = url;
+            });
+        }
 
         // "Goto Bookmark": if the bookmark is in this surah, highlight in place without reloading.
         var gb = document.getElementById('gotoBookmark');
@@ -75,19 +91,19 @@
 <div class="sd-wrap">
     <div class="container">
 
-        <form class="sd-toolbar" action="~/quran_reading" method="post">
+        <form class="sd-toolbar" id="sdToolbar" action="#">
             <div class="sd-field">
                 <label>Surah</label>
-                <select class="sd-select al-quran" name="ChapterID">
+                <select class="sd-select al-quran" name="slug">
                     @foreach (var item in Model.SuraList)
                     {
                         if (Model.SuraDetail.ChapterID == item.ChapterID)
                         {
-                            <option value="@item.ChapterID" selected>@item.ChapterID. &nbsp; @item.SuraName</option>
+                            <option value="@SlugHelper.Make(item.EnglishName)" selected>@item.ChapterID. &nbsp; @item.SuraName</option>
                         }
                         else
                         {
-                            <option value="@item.ChapterID">@item.ChapterID. &nbsp; @item.SuraName</option>
+                            <option value="@SlugHelper.Make(item.EnglishName)">@item.ChapterID. &nbsp; @item.SuraName</option>
                         }
                     }
                 </select>

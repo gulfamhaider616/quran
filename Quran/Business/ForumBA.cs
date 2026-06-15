@@ -28,6 +28,13 @@ namespace Quran.Business
             return Map(new ForumDA().GetAllUnPublishedQuestions());
         }
 
+        public int GetQuestionIdBySlug(string slug, bool includeUnpublished)
+        {
+            List<AskQuestionDO> all = includeUnpublished ? GetAllQuestions() : GetAllPublishedQuestion();
+            int idx = Quran.Helpers.SlugHelper.IndexOfSlug(all, q => q.Subject, slug);
+            return idx < 0 ? 0 : all[idx].AskQuestionID;
+        }
+
         public AskQuestionDO GetSingleQuestion(int QuestionID)
         {
             AskQuestionDO question = new AskQuestionDO();

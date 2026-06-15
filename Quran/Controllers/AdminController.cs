@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Quran.Business;
 using Quran.Models;
+using Quran.Helpers;
 
 namespace Quran.Controllers
 {
@@ -165,15 +166,18 @@ namespace Quran.Controllers
         }
 
         [Authorize]
-        public IActionResult AdminQuestionPreview(int QuestionID)
+        public IActionResult AdminQuestionPreview(string slug)
         {
-            return View(new ForumBA().GetSingleQuestion(QuestionID));
+            ForumBA ba = new ForumBA();
+            int id = ba.GetQuestionIdBySlug(slug, true);
+            if (id == 0) { return RedirectToAction("ForumMainPage"); }
+            return View(ba.GetSingleQuestion(id));
         }
 
         [Authorize]
-        public IActionResult StudentPreview(string StudentID)
+        public IActionResult StudentPreview(string id)
         {
-            return View(new AdminBA().StudentPreview(StudentID));
+            return View(new AdminBA().StudentPreview(id));
         }
         #endregion
 
@@ -267,9 +271,15 @@ namespace Quran.Controllers
         }
 
         [Authorize]
-        public IActionResult DeleteBook(int BookID)
+        public IActionResult DeleteBook(string id)
         {
-            int result = new AdminBA().DeleteBook(BookID);
+            int bookId = new AdminBA().GetBookIdBySlug(id);
+            if (bookId == 0)
+            {
+                TempData["BookError"] = "Book not found.";
+                return RedirectToAction("GetAllBooks");
+            }
+            int result = new AdminBA().DeleteBook(bookId);
             if (result > 0)
             {
                 return RedirectToAction("GetAllBooks");
@@ -332,10 +342,16 @@ namespace Quran.Controllers
         }
 
         [Authorize]
-        public IActionResult DeleteVideoLesson(int LessonID)
+        public IActionResult DeleteVideoLesson(string id)
         {
-            var lesson = new RegistrationBA().GetVideoLessonByID(LessonID);
-            new RegistrationBA().DeleteVideoLesson(LessonID);
+            int lessonId = new RegistrationBA().GetLessonIdBySlug(id);
+            if (lessonId == 0)
+            {
+                TempData["VideoError"] = "Video lesson not found.";
+                return RedirectToAction("VideoLessons");
+            }
+            var lesson = new RegistrationBA().GetVideoLessonByID(lessonId);
+            new RegistrationBA().DeleteVideoLesson(lessonId);
 
             if (lesson != null && !string.IsNullOrWhiteSpace(lesson.LessonLink) &&
                 lesson.LessonLink.StartsWith("/assets/Videos/", StringComparison.OrdinalIgnoreCase))
@@ -412,9 +428,15 @@ namespace Quran.Controllers
         }
 
         [Authorize]
-        public IActionResult DeleteAdminUser(int Id)
+        public IActionResult DeleteAdminUser(string id)
         {
+            int Id = new AdminBA().GetAdminIdBySlug(id);
             var admins = new AdminBA().GetAllAdmins();
+            if (Id == 0)
+            {
+                TempData["AdminError"] = "Admin not found.";
+                return RedirectToAction("ManageAdmins");
+            }
             if (admins.Count <= 1)
             {
                 TempData["AdminError"] = "You cannot delete the last remaining admin.";

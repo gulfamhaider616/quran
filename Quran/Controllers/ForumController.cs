@@ -2,6 +2,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Quran.Business;
 using Quran.Models;
+using Quran.Helpers;
 
 namespace Quran.Controllers
 {
@@ -28,9 +29,27 @@ namespace Quran.Controllers
             return Json(new ForumBA().SaveQuestion(question));
         }
 
-        public IActionResult SingleQuestion(int QuestionID)
+        public IActionResult SingleQuestion(string slug, int QuestionID)
         {
-            return View(new ForumBA().GetSingleQuestion(QuestionID));
+            ForumBA ba = new ForumBA();
+
+            // Legacy /Forum/SingleQuestion?QuestionID=N — 301 to the slug URL.
+            if (QuestionID > 0)
+            {
+                AskQuestionDO legacy = ba.GetSingleQuestion(QuestionID);
+                if (legacy != null && !string.IsNullOrEmpty(legacy.Subject))
+                {
+                    return RedirectPermanent("/forum/" + SlugHelper.Make(legacy.Subject));
+                }
+                return RedirectToAction("ForumHomePage");
+            }
+
+            int id = ba.GetQuestionIdBySlug(slug, false);
+            if (id == 0)
+            {
+                return RedirectToAction("ForumHomePage");
+            }
+            return View(ba.GetSingleQuestion(id));
         }
     }
 }

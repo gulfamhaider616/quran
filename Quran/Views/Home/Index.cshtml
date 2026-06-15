@@ -31,7 +31,7 @@
                 el('qhAr').textContent = d.arabic;
                 el('qhEn').textContent = d.english || '';
                 el('qhUr').textContent = d.urdu || '';
-                el('qhBtn').href = '/quran_reading?ChapterID=' + d.chapterId;
+                el('qhBtn').href = d.slug ? '/quran/' + d.slug : '/online_quran_reading';
                 inner.classList.remove('is-fading');
             }, 280);
         }

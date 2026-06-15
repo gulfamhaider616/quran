@@ -64,7 +64,7 @@
                                     <a href="@video.LessonLink" target="_blank" rel="noopener" title="@(upload ? "Play" : "Watch")" class="btn btn-success btn-sm"><i class="fa @(upload ? "fa-play" : "fa-youtube-play")"></i></a>
                                     <a href="#" title="Delete" class="btn btn-danger btn-sm"
                                        data-confirm="Are you sure you want to delete <strong>@video.LessonName</strong>? This action cannot be undone."
-                                       data-href="/Admin/DeleteVideoLesson?LessonID=@video.LessonID"><i class="fa fa-trash-o"></i></a>
+                                       data-href="/Admin/DeleteVideoLesson/@SlugHelper.Make(video.LessonName)"><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                             count++;

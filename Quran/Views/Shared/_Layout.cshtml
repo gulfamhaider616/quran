@@ -4,6 +4,7 @@
     var session = HttpContextAccessor.HttpContext?.Session;
     var userName = session?.GetString("name");
     var chapterId = session?.GetString("Chapterid");
+    var chapterSlug = session?.GetString("Chapterslug");
     var bookmarkId = session?.GetString("Bookmarkid");
 
     var seoTitle = ViewBag.Title as string;
@@ -107,7 +108,11 @@
                     <a href="/Forum">Forum</a>
                     @if (!string.IsNullOrEmpty(userName))
                     {
-                        if (!string.IsNullOrEmpty(chapterId) && !string.IsNullOrEmpty(bookmarkId))
+                        if (!string.IsNullOrEmpty(chapterSlug) && !string.IsNullOrEmpty(bookmarkId))
+                        {
+                            <a class="nv-cta" id="gotoBookmark" href="/quran/@chapterSlug@bookmarkId">Goto Bookmark</a>
+                        }
+                        else if (!string.IsNullOrEmpty(chapterId) && !string.IsNullOrEmpty(bookmarkId))
                         {
                             <a class="nv-cta" id="gotoBookmark" href="/quran_reading?ChapterID=@chapterId@bookmarkId">Goto Bookmark</a>
                         }

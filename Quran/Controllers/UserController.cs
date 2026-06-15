@@ -43,6 +43,7 @@ namespace Quran.Controllers
                 HttpContext.Session.SetString("Email", user.Email ?? "");
                 HttpContext.Session.SetString("Bookmarkid", "#" + user.BookmarkId);
                 HttpContext.Session.SetString("Chapterid", user.ChapterID ?? "");
+                HttpContext.Session.SetString("Chapterslug", SlugFor(user.ChapterID));
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -71,6 +72,7 @@ namespace Quran.Controllers
                 {
                     HttpContext.Session.SetString("Bookmarkid", "#" + id);
                     HttpContext.Session.SetString("Chapterid", id.Split('-')[0]);
+                    HttpContext.Session.SetString("Chapterslug", SlugFor(id.Split('-')[0]));
                 }
                 url = baseUrl + "quran_reading?ChapterID=" + id.Split('-')[0] + "#" + id;
                 return Json(url);
@@ -86,6 +88,13 @@ namespace Quran.Controllers
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home", new { area = "" });
+        }
+
+        private static string SlugFor(string chapterId)
+        {
+            int id;
+            if (string.IsNullOrEmpty(chapterId) || !int.TryParse(chapterId, out id)) { return ""; }
+            return new QuranBA().GetSlugByChapterId(id);
         }
     }
 }
