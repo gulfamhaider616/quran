@@ -33,7 +33,10 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         options.LoginPath = "/Admin/Index";
         options.AccessDeniedPath = "/Admin/Index";
+        // Admin sessions time out after inactivity (sliding). Normal-user login is
+        // session-based (see AddSession below) and is NOT governed by this cookie.
         options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+        options.SlidingExpiration = true;
     });
 
 builder.Services.AddAuthorization();
@@ -41,9 +44,12 @@ builder.Services.AddAuthorization();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(60);
+    // Normal users stay logged in until they log out manually: long idle window +
+    // a persistent cookie that survives browser restarts.
+    options.IdleTimeout = TimeSpan.FromDays(365);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
+    options.Cookie.MaxAge = TimeSpan.FromDays(365);
 });
 
 var app = builder.Build();

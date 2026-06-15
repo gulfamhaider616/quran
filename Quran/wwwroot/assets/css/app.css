@@ -224,7 +224,7 @@
 .sd-arabic { text-align: right; direction: rtl; color: #1f5e16; margin: 6px 0 14px; line-height: 2; }
 .sd-arabic.al-quran-font-s-2 { font-size: 2.35rem !important; }
 .sd-trans-en { color: #5a6470; font-weight: 500; margin: 0 0 6px; line-height: 1.6; font-size: 14.5px; text-align: left; direction: ltr; }
-.sd-trans-ur { color: #2e8c18; font-weight: 500; margin: 0; line-height: 1.85; font-size: 16.5px; text-align: right; direction: rtl; }
+.sd-trans-ur { font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Alvi Nastaleeq', serif; color: #000; font-weight: 500; margin: 0; line-height: 2.5; font-size: 19px; text-align: right; direction: rtl; }
 
 @media (max-width: 600px) {
     .sd-title { font-size: 32px; }
@@ -278,6 +278,8 @@
 /* =========================================================================
    Navbar (custom, replaces the template header)
    ========================================================================= */
+/* display:block overrides the leftover template rule `header{display:none}` (responsive.css @media <=995px), which would otherwise hide this custom navbar on mobile. */
+header.nv { display: block; }
 .nv { background: #fff; box-shadow: 0 2px 14px rgba(42, 72, 108, .08); position: sticky; top: 0; z-index: 1000; float: none; width: 100%; }
 .nv-inner { max-width: 1220px; margin: 0 auto; display: flex; align-items: center; gap: 14px; padding: 0 22px; min-height: 54px; }
 .nv-brand img { height: 36px; display: block; }
@@ -293,6 +295,8 @@
 .nv-sub a:hover { background: #f4f6f9; color: #38ab1e; }
 .nv-cta { background: #38ab1e; color: #fff !important; padding: 7px 18px; border-radius: 8px; font-weight: 700; margin-left: 8px; box-shadow: 0 4px 12px rgba(56, 171, 30, .25); }
 .nv-cta:hover { background: #2e8c18; }
+.nv-logout { color: #2a486c !important; border: 1px solid #2a486c; padding: 6px 16px; border-radius: 8px; font-weight: 700; margin-left: 8px; text-decoration: none; transition: background .15s, color .15s; }
+.nv-logout:hover { background: #2a486c; color: #fff !important; }
 
 @media (max-width: 992px) {
     .nv-toggle { display: block; }
@@ -301,6 +305,7 @@
     .nv-item { width: 100%; }
     .nv-sub { position: static; display: block; box-shadow: none; padding: 2px 0 6px 14px; min-width: 0; }
     .nv-cta { margin: 10px 0 0; text-align: center; }
+    .nv-logout { margin: 10px 0 0; text-align: center; }
 }
 
 /* =========================================================================
